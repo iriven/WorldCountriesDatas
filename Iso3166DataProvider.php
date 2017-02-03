@@ -6,7 +6,7 @@
  * Time: 07:59
  */
 
-namespace Ressources\Extensions\Plugins\Iso\Datas;
+namespace Iriven;
 
 /**
  * Class Iso3166DataProvider
