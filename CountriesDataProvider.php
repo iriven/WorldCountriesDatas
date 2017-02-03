@@ -9,10 +9,10 @@
 namespace Iriven;
 
 /**
- * Class Iso3166DataProvider
+ * Class CountriesDataProvider
  * @package Ressources\Extensions\Plugins\Iso\Datas
  */
-final class Iso3166DataProvider implements \Countable, \IteratorAggregate
+final class CountriesDataProvider implements \Countable, \IteratorAggregate
 {
     /**
      * CAUTION:
