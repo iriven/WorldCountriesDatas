@@ -69,30 +69,30 @@ All useful information about every country packaged as convenient little country
 * Get country Currency Name from given alpha-2, alpha-3 or numeric code
 <code>
 
-     Example:  For France
-     $myObject->getCountryCurrencyName('fra');
-     $myObject->getCountryCurrencyName('fr');
-     $myObject->getCountryCurrencyName('250');
+          Example:  For France
+          $myObject->getCountryCurrencyName('fra');
+          $myObject->getCountryCurrencyName('fr');
+          $myObject->getCountryCurrencyName('250');
 
 </code>
 
 * Get country Phone Code (ISD) from given alpha-2, alpha-3 or numeric code
 <code>
 
-     Example:  For France
-     $myObject->getCountryPhoneCode('fra');
-     $myObject->getCountryPhoneCode('fr');
-     $myObject->getCountryPhoneCode('250');
+          Example:  For France
+          $myObject->getCountryPhoneCode('fra');
+          $myObject->getCountryPhoneCode('fr');
+          $myObject->getCountryPhoneCode('250');
 
 </code>
 
 * Get country Name from given alpha-2, alpha-3 or numeric code
 <code>
 
-     Example:  For France
-     $myObject->getCountryName('fra');
-     $myObject->getCountryName('fr');
-     $myObject->getCountryName('250');
+          Example:  For France
+          $myObject->getCountryName('fra');
+          $myObject->getCountryName('fr');
+          $myObject->getCountryName('250');
 
 </code>
 
@@ -129,19 +129,19 @@ All useful information about every country packaged as convenient little country
 * Get Country Continent ISO code from given alpha-2, alpha-3 or numeric code
 <code>
 
-     Example:  For France
-     $myObject->getCountryRegionNumCode('fra');
-     $myObject->getCountryRegionNumCode('fr');
-     $myObject->getCountryRegionNumCode('250');
+          Example:  For France
+          $myObject->getCountryRegionNumCode('fra');
+          $myObject->getCountryRegionNumCode('fr');
+          $myObject->getCountryRegionNumCode('250');
 
 </code>
 
 * Get Country Continent Name from given alpha-2, alpha-3 or numeric code
 <code>
 
-     Example:  For France
-     $myObject->getCountryRegionName('fra');
-     $myObject->getCountryRegionName('fr');
-     $myObject->getCountryRegionName('250');
+          Example:  For France
+          $myObject->getCountryRegionName('fra');
+          $myObject->getCountryRegionName('fr');
+          $myObject->getCountryRegionName('250');
 
 </code>
