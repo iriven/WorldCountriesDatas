@@ -1,9 +1,11 @@
 # PHP Countries Data Provider Class
 All useful information about every country packaged as convenient little country objects. It includes data from ISO 3166 (countries and states/subdivisions ), ISO 4217 (currency), and E.164 (phone numbers). 
 
-* Retrieve datas for given country ISO-3166-2 , ISO-3166-3 or numeric code
+* Retrieve datas for given country ISO-3166-2 , ISO-3166-3 or numeric code.
+
      <code>
-           Example:  For France
+     
+           Example:  For France.
            $myObject->getCountryInfos('fr');
            $myObject->getCountryInfos('fr', true);
            $myObject->getCountryInfos('FR');
@@ -12,4 +14,5 @@ All useful information about every country packaged as convenient little country
            $myObject->getCountryInfos('FRA', true);
            $myObject->getCountryInfos('250');
            $myObject->getCountryInfos('250', true);
+           
       </code>
