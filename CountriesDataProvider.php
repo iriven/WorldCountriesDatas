@@ -6,13 +6,13 @@
  * Time: 07:59
  */
 
-namespace Iriven;
+namespace Iso;
 
 /**
- * Class CountriesDataProvider
+ * Class CountriesDataSets
  * @package Ressources\Extensions\Plugins\Iso\Datas
  */
-final class CountriesDataProvider implements \Countable, \IteratorAggregate
+final class CountriesDataSets implements \Countable, \IteratorAggregate
 {
     /**
      * CAUTION:
