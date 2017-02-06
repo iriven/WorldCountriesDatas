@@ -99,30 +99,30 @@ All useful information about every country packaged as convenient little country
 * Get Country Capital name from given alpha-2, alpha-3 or numeric code
 <code>
 
-     Example:  For France
-     $myObject->getCountryCapitalName('fra');
-     $myObject->getCountryCapitalName('fr');
-     $myObject->getCountryCapitalName('250');
+          Example:  For France
+          $myObject->getCountryCapitalName('fra');
+          $myObject->getCountryCapitalName('fr');
+          $myObject->getCountryCapitalName('250');
 
 </code>
 
 * Get the Top Level Domain(TLD) of a Country  from given alpha-2, alpha-3 or numeric code
 <code>
 
-     Example:  For France
-     $myObject->getCountryDomain('fra');
-     $myObject->getCountryDomain('fr');
-     $myObject->getCountryDomain('250');
+          Example:  For France
+          $myObject->getCountryDomain('fra');
+          $myObject->getCountryDomain('fr');
+          $myObject->getCountryDomain('250');
 
 </code>
 
 * Get Country two letters Continent code from given alpha-2, alpha-3 or numeric code
 <code>
 
-     Example:  For France
-     $myObject->getCountryRegionAlphaCode('fra');
-     $myObject->getCountryRegionAlphaCode('fr');
-     $myObject->getCountryRegionAlphaCode('250');
+          Example:  For France
+          $myObject->getCountryRegionAlphaCode('fra');
+          $myObject->getCountryRegionAlphaCode('fr');
+          $myObject->getCountryRegionAlphaCode('250');
 
 </code>
 
