@@ -66,18 +66,22 @@ All useful information about every country packaged as convenient little country
 
 * Get country Currency Name from given alpha-2, alpha-3 or numeric code
 <code>
+
           Example:  For France
           $myObject->getCountryCurrencyName('fra');
           $myObject->getCountryCurrencyName('fr');
           $myObject->getCountryCurrencyName('250');
+          
 </code>
 
 * Get country Phone Code (ISD) from given alpha-2, alpha-3 or numeric code
 <code>
+
           Example:  For France
           $myObject->getCountryPhoneCode('fra');
           $myObject->getCountryPhoneCode('fr');
           $myObject->getCountryPhoneCode('250');
+          
 </code>
 
 * Get country Name from given alpha-2, alpha-3 or numeric code
