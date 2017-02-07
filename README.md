@@ -154,13 +154,13 @@ All useful information about every country packaged as convenient little country
            
 </code>
 
-* Get Country Continent ISO code from given alpha-2, alpha-3 or numeric code
+* Get Country Sub-region name from given alpha-2, alpha-3 or numeric code
 <code>
 
      	Example:  For France
-     	$myObject->getCountryRegionNumCode('fra');
-     	$myObject->getCountryRegionNumCode('fr');
-     	$myObject->getCountryRegionNumCode('250');
+     	$myObject->getCountrySubRegionName('fra');
+     	$myObject->getCountrySubRegionName('fr');
+     	$myObject->getCountrySubRegionName('250');
 
 </code>
 
