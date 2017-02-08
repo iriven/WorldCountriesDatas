@@ -148,7 +148,7 @@ All useful information about every country packaged as convenient little country
      	$myObject->getCountryPostalCodePattern('250');
            
 </code>
-* Get an associative [$code=>$name] array of ISO-2, ISO-3 or numeric list of countries (useful for forms) (useful for forms)
+* Get an associative [$code=>$name] array of ISO-2, ISO-3 or numeric list of countries
 <code>
 
 	$myObject->getAllCountriesCodeAndName($CodeFormat='alpha-2');
