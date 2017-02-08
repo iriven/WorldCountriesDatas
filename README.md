@@ -7,7 +7,6 @@ All useful information about every country packaged as convenient little country
            $myObject = new Iso\CountriesDataSets();
            
 </code>
-
 * Retrieve datas for given country ISO-3166-2 , ISO-3166-3 or numeric code.
  <code>
  
@@ -22,7 +21,6 @@ All useful information about every country packaged as convenient little country
           $myObject->getCountryInfos('250', true); 
           
  </code>
-
 * Get country ISO-3166-2 code for given ISO-3166-3 or numeric code
 <code>
 
@@ -32,7 +30,6 @@ All useful information about every country packaged as convenient little country
          $myObject->getCountryAlpha2Code('250');
          
 </code>
-
 * Get country ISO-3166-3 code for given ISO-3166-2 or numeric code
 <code>
 
@@ -42,7 +39,6 @@ All useful information about every country packaged as convenient little country
          $myObject->getCountryAlpha3Code('250');
          
 </code>
-
 * Get country numeric code for given ISO-3166-2 or ISO-3166-3 code
 <code>
 
@@ -53,7 +49,6 @@ All useful information about every country packaged as convenient little country
          $myObject->getCountryNumericCode('FR');
          
 </code>
-
 * Get country Currency Code from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -63,7 +58,6 @@ All useful information about every country packaged as convenient little country
       	$myObject->getCountryCurrencyCode('250');
            
 </code>
-
 * Get country Currency Name from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -73,7 +67,6 @@ All useful information about every country packaged as convenient little country
           $myObject->getCountryCurrencyName('250');
           
 </code>
-
 * Get country Phone Code (ISD) from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -83,7 +76,6 @@ All useful information about every country packaged as convenient little country
           $myObject->getCountryPhoneCode('250');
           
 </code>
-
 * Get country Name from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -93,7 +85,6 @@ All useful information about every country packaged as convenient little country
           $myObject->getCountryName('250');
           
 </code>
-
 * Get Country Capital name from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -103,7 +94,6 @@ All useful information about every country packaged as convenient little country
           $myObject->getCountryCapitalName('250');
           
 </code>
-
 * Get the Top Level Domain(TLD) of a Country  from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -113,7 +103,6 @@ All useful information about every country packaged as convenient little country
           $myObject->getCountryDomain('250');
           
 </code>
-
 * Get Country two letters Continent code from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -123,7 +112,6 @@ All useful information about every country packaged as convenient little country
           $myObject->getCountryRegionAlphaCode('250');
           
 </code>
-
 * Get Country Continent ISO code from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -133,7 +121,6 @@ All useful information about every country packaged as convenient little country
           $myObject->getCountryRegionNumCode('250');
           
 </code>
-
 * Get Country Continent Name from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -143,7 +130,6 @@ All useful information about every country packaged as convenient little country
           $myObject->getCountryRegionName('250');
 
 </code>
-
 * Get Country Sub-region ISO code from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -153,7 +139,6 @@ All useful information about every country packaged as convenient little country
      	$myObject->getCountrySubRegionCode('250');
            
 </code>
-
 * Get Country Sub-region name from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -163,7 +148,6 @@ All useful information about every country packaged as convenient little country
      	$myObject->getCountrySubRegionName('250');
 
 </code>
-
 * Get Languages (code) spoken in a Country  from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -173,7 +157,6 @@ All useful information about every country packaged as convenient little country
      	$myObject->getCountryLanguage('250');
            
 </code>
-
 * Get a Country postal code Regex  from given alpha-2, alpha-3 or numeric code
 <code>
 
@@ -183,7 +166,6 @@ All useful information about every country packaged as convenient little country
      	$myObject->getCountryPostalCodePattern('250');
            
 </code>
-
 * Get an associative [$code=>$name] array of ISO-2, ISO-3 or numeric list of countries (useful for forms) (useful for forms)
 <code>
 
@@ -199,15 +181,12 @@ All useful information about every country packaged as convenient little country
      	$myObject->getAllCurrenciesCodeAndName();
 
 </code>
-
 * Get associative [$isocode=>$name] array of all Regions (useful for forms)
 <code>
 
      	$myObject->getAllRegionsCodeAndName();
 
 </code>
-
-
 * Get associative array of all countries grouped by region
 <code>
 
