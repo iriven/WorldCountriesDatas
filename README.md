@@ -154,7 +154,6 @@ All useful information about every country packaged as convenient little country
 	$myObject->getAllCountriesCodeAndName($CodeFormat='alpha-2');
 	$myObject->getAllCountriesCodeAndName($CodeFormat='alpha-3');
 	$myObject->getAllCountriesCodeAndName($CodeFormat='numeric');
-	$myObject->getAllCountriesCodeAndName();  
 </code>
 * Get associative [$code=>$name] array of all Currencies (useful for forms)
 <code>
