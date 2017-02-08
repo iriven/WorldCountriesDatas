@@ -150,11 +150,11 @@ All useful information about every country packaged as convenient little country
 </code>
 * Get an associative [$code=>$name] array of ISO-2, ISO-3 or numeric list of countries (useful for forms) (useful for forms)
 <code>
-		
+
 	$myObject->getAllCountriesCodeAndName($CodeFormat='alpha-2');
-     	$myObject->getAllCountriesCodeAndName($CodeFormat='alpha-3');
-     	$myObject->getAllCountriesCodeAndName($CodeFormat='numeric');
-	$myObject->getAllCountriesCodeAndName();
+	$myObject->getAllCountriesCodeAndName($CodeFormat='alpha-3');
+	$myObject->getAllCountriesCodeAndName($CodeFormat='numeric');
+	$myObject->getAllCountriesCodeAndName();  
 </code>
 * Get associative [$code=>$name] array of all Currencies (useful for forms)
 <code>
