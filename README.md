@@ -152,7 +152,7 @@ All useful information about every country packaged as convenient little country
 <code>
 
 	$myObject->getAllCountriesCodeAndName();
-     	$myObject->getAllCountriesCodeAndName($CodeFormat='alpha-2');
+	$myObject->getAllCountriesCodeAndName($CodeFormat='alpha-2');
      	$myObject->getAllCountriesCodeAndName($CodeFormat='alpha-3');
      	$myObject->getAllCountriesCodeAndName($CodeFormat='numeric'); 
 </code>
