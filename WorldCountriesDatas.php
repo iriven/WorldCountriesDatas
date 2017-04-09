@@ -12,7 +12,7 @@ namespace Iso;
  * Class CountriesDataSets
  * @package Ressources\Extensions\Plugins\Iso\Datas
  */
-final class CountriesDataSets implements \Countable, \IteratorAggregate
+final class WorldCountriesDatas implements \Countable, \IteratorAggregate
 {
     /**
      * CAUTION:
