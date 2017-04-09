@@ -3,7 +3,7 @@ All useful information about every country packaged as convenient little country
 * Initialisation
 <code>
 
-           $myObject = new Iso\WorldCountriesDatas();    
+           $myObject = new \Iso\WorldCountriesDatas();    
 </code>
 * Retrieve datas for given country ISO-3166-2 , ISO-3166-3 or numeric code.
  <code>
