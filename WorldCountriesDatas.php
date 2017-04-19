@@ -14,26 +14,29 @@ namespace Iso;
  */
 final class WorldCountriesDatas implements \Countable, \IteratorAggregate
 {
-    /**
+   /**
      * CAUTION:
      * Don't change any thing nor you know what you're doing
      */
     const ALPHA2 = 0;
     const ALPHA3 = 1;
     const NUMERIC = 2;
-    const CURRENCY_CODE = 3;
-    const CURRENCY_NAME = 4;
-    const PHONE_CODE = 5;
-    const COUNTRY = 6;
-    const CAPITAL = 7;
-    const TLD = 8;
-    const REGION_ALPHA_CODE = 9;
-    const REGION_NUM_CODE = 10;
-    const REGION = 11;
-    const SUB_REGION_CODE = 12;
-    const SUB_REGION = 13;
-    const LANGUAGE = 14;
-    const POSTAL_CODE_REGEX = 15;
+    const COUNTRY = 3;
+    const CAPITAL = 4;
+    const TLD = 5;
+    const REGION_ALPHA_CODE = 6;
+    const REGION_NUM_CODE = 7;
+    const REGION = 8;
+    const SUB_REGION_CODE = 9;
+    const SUB_REGION = 10;
+    const LANGUAGE = 11;
+    const CURRENCY_CODE = 12;
+    const CURRENCY_NAME = 13;
+    const POSTAL_CODE_PATTERN = 14;
+    const PHONE_CODE = 15;  //The Dialing Country Code
+    const INTL_DIALING_PREFIX = 16;    // international access code or an International Direct Dialing code - IDD
+    const NATL_DIALING_PREFIX = 17; //National Code (like an Area Code)
+    const SUSCRIBER_PHONE_PATTERN = 18; //subscriber's phone number pattern
     /**
      * The Only keys you can retrieve datas with
      * @var array
@@ -45,257 +48,257 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      * @var array
      */
     private $KnowledgeBase = [
-        ['AD', 'AND', '020', 'EUR', 'Euro', '376', 'Andorra', 'Andorra la Vella', '.ad', 'EU', '150', 'Europe', '039', 'Southern Europe', 'ca', '^(?:AD)*(\d{3})$'],
-        ['AE', 'ARE', '784', 'AED', 'UAE Dirham', '971', 'United Arab Emirates', 'Abu Dhabi', '.ae', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-AE,fa,en,hi,ur', ''],
-        ['AF', 'AFG', '004', 'AFN', 'Afghani', '93', 'Afghanistan', 'Kabul', '.af', 'AS', '142', 'Asia', '034', 'Southern Asia', 'fa-AF,ps,uz-AF,tk', ''],
-        ['AG', 'ATG', '028', 'XCD', 'East Caribbean Dollar', '+1-268', 'Antigua and Barbuda', 'St. John\'s', '.ag', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-AG', ''],
-        ['AI', 'AIA', '660', 'XCD', 'East Caribbean Dollar', '+1-264', 'Anguilla', 'The Valley', '.ai', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-AI', ''],
-        ['AL', 'ALB', '008', 'ALL', 'Lek', '355', 'Albania', 'Tirana', '.al', 'EU', '150', 'Europe', '039', 'Southern Europe', 'sq,el', ''],
-        ['AM', 'ARM', '051', 'AMD', 'Armenian Dram', '374', 'Armenia', 'Yerevan', '.am', 'AS', '142', 'Asia', '145', 'Western Asia', 'hy', '^(\d{6})$'],
-        ['AN', 'ANT', '530', 'ANG', 'Netherlands Antillean Guilder', '599', 'Netherlands Antilles', 'Willemstad', '.an', 'AM', '019', 'Americas', '021', 'Northern America', 'nl-AN,en,es', ''],
-        ['AO', 'AGO', '024', 'AOA', 'Kwanza', '244', 'Angola', 'Luanda', '.ao', 'AF', '002', 'Africa', '017', 'Middle Africa', 'pt-AO', ''],
-        ['AQ', 'ATA', '010', '', '', '', 'Antarctica', '', '.aq', 'AN', '', '', '', '', '', ''],
-        ['AR', 'ARG', '032', 'ARS', 'Argentine Peso', '54', 'Argentina', 'Buenos Aires', '.ar', 'AM', '019', 'Americas', '005', 'South America', 'es-AR,en,it,de,fr,gn', '^[A-Z]?\d{4}[A-Z]{0,3}$'],
-        ['AS', 'ASM', '016', 'USD', 'US Dollar', '+1-684', 'American Samoa', 'Pago Pago', '.as', 'OC', '009', 'Oceania', '061', 'Polynesia', 'en-AS,sm,to', ''],
-        ['AT', 'AUT', '040', 'EUR', 'Euro', '43', 'Austria', 'Vienna', '.at', 'EU', '150', 'Europe', '155', 'Western Europe', 'de-AT,hr,hu,sl', '^(\d{4})$'],
-        ['AU', 'AUS', '036', 'AUD', 'Australian Dollar', '61', 'Australia', 'Canberra', '.au', 'OC', '009', 'Oceania', '053', 'Australia and New Zealand', 'en-AU', '^(\d{4})$'],
-        ['AW', 'ABW', '533', 'AWG', 'Aruban Florin', '297', 'Aruba', 'Oranjestad', '.aw', 'AM', '019', 'Americas', '029', 'Caribbean', 'nl-AW,es,en', ''],
-        ['AX', 'ALA', '248', 'EUR', 'Euro', '+358-18', 'Aland Islands', 'Mariehamn', '.ax', 'EU', '150', 'Europe', '154', 'Northern Europe', 'sv-AX', '^(?:FI)*(\d{5})$'],
-        ['AZ', 'AZE', '031', 'AZN', 'Azerbaijanian Manat', '994', 'Azerbaijan', 'Baku', '.az', 'AS', '142', 'Asia', '145', 'Western Asia', 'az,ru,hy', '^(?:AZ)*(\d{4})$'],
-        ['BA', 'BIH', '070', 'BAM', 'Convertible Mark', '387', 'Bosnia and Herzegovina', 'Sarajevo', '.ba', 'EU', '150', 'Europe', '039', 'Southern Europe', 'bs,hr-BA,sr-BA', '^(\d{5})$'],
-        ['BB', 'BRB', '052', 'BBD', 'Barbados Dollar', '+1-246', 'Barbados', 'Bridgetown', '.bb', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-BB', '^(?:BB)*(\d{5})$'],
-        ['BD', 'BGD', '050', 'BDT', 'Taka', '880', 'Bangladesh', 'Dhaka', '.bd', 'AS', '142', 'Asia', '034', 'Southern Asia', 'bn-BD,en', '^(\d{4})$'],
-        ['BE', 'BEL', '056', 'EUR', 'Euro', '32', 'Belgium', 'Brussels', '.be', 'EU', '150', 'Europe', '155', 'Western Europe', 'nl-BE,fr-BE,de-BE', '^(\d{4})$'],
-        ['BF', 'BFA', '854', 'XOF', 'CFA Franc BCEAO', '226', 'Burkina Faso', 'Ouagadougou', '.bf', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-BF', ''],
-        ['BG', 'BGR', '100', 'BGN', 'Bulgarian Lev', '359', 'Bulgaria', 'Sofia', '.bg', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'bg,tr-BG,rom', '^(\d{4})$'],
-        ['BH', 'BHR', '048', 'BHD', 'Bahraini Dinar', '973', 'Bahrain', 'Manama', '.bh', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-BH,en,fa,ur', '^(\d{3}\d?)$'],
-        ['BI', 'BDI', '108', 'BIF', 'Burundi Franc', '257', 'Burundi', 'Bujumbura', '.bi', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-BI,rn', ''],
-        ['BJ', 'BEN', '204', 'XOF', 'CFA Franc BCEAO', '229', 'Benin', 'Porto-Novo', '.bj', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-BJ', ''],
-        ['BL', 'BLM', '652', 'EUR', 'Euro', '590', 'Saint Barthelemy', 'Gustavia', '.gp', 'AM', '019', 'Americas', '029', 'Caribbean', 'fr', ''],
-        ['BM', 'BMU', '060', 'BMD', 'Bermudian Dollar', '+1-441', 'Bermuda', 'Hamilton', '.bm', 'AM', '019', 'Americas', '021', 'Northern America', 'en-BM,pt', '^([A-Z]{2}\d{2})$'],
-        ['BN', 'BRN', '096', 'BND', 'Brunei Dollar', '673', 'Brunei', 'Bandar Seri Begawan', '.bn', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'ms-BN,en-BN', '^([A-Z]{2}\d{4})$'],
-        ['BO', 'BOL', '068', 'BOB', 'Boliviano', '591', 'Bolivia (Plurinational State of)', 'Sucre', '.bo', 'AM', '019', 'Americas', '005', 'South America', 'es-BO,qu,ay', ''],
-        ['BQ', 'BES', '535', 'USD', 'US Dollar', '599', 'Bonaire, Saint Eustatius and Saba', '', '.bq', 'AM', '019', 'Americas', '021', 'Northern America', 'nl,pap,en', ''],
-        ['BR', 'BRA', '076', 'BRL', 'Brazilian Real', '55', 'Brazil', 'Brasilia', '.br', 'AM', '019', 'Americas', '005', 'South America', 'pt-BR,es,en,fr', '^\d{5}-\d{3}$'],
-        ['BS', 'BHS', '044', 'BSD', 'Bahamian Dollar', '+1-242', 'Bahamas', 'Nassau', '.bs', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-BS', ''],
-        ['BT', 'BTN', '064', 'BTN', 'Ngultrum', '975', 'Bhutan', 'Thimphu', '.bt', 'AS', '142', 'Asia', '034', 'Southern Asia', 'dz', ''],
-        ['BV', 'BVT', '074', 'NOK', 'Norwegian Krone', '', 'Bouvet Island', '', '.bv', 'AN', '', '', '', '', '', ''],
-        ['BW', 'BWA', '072', 'BWP', 'Pula', '267', 'Botswana', 'Gaborone', '.bw', 'AF', '002', 'Africa', '018', 'Southern Africa', 'en-BW,tn-BW', ''],
-        ['BY', 'BLR', '112', 'BYR', 'Belarussian Ruble', '375', 'Belarus', 'Minsk', '.by', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'be,ru', '^(\d{6})$'],
-        ['BZ', 'BLZ', '084', 'BZD', 'Belize Dollar', '501', 'Belize', 'Belmopan', '.bz', 'AM', '019', 'Americas', '013', 'Central America', 'en-BZ,es', ''],
-        ['CA', 'CAN', '124', 'CAD', 'Canadian Dollar', '1', 'Canada', 'Ottawa', '.ca', 'AM', '019', 'Americas', '021', 'Northern America', 'en-CA,fr-CA,iu', '^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]) ?(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$'],
-        ['CC', 'CCK', '166', 'AUD', 'Australian Dollar', '61', 'Cocos  (Keeling) Islands', 'West Island', '.cc', 'AS', '142', 'Asia', '', '', 'ms-CC,en', ''],
-        ['CD', 'COD', '180', 'CDF', 'Congolese Franc', '243', 'Congo (Democratic Republic of the)', 'Kinshasa', '.cd', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-CD,ln,kg', ''],
-        ['CF', 'CAF', '140', 'XAF', 'CFA Franc BEAC', '236', 'Central African Republic', 'Bangui', '.cf', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-CF,sg,ln,kg', ''],
-        ['CG', 'COG', '178', 'XAF', 'CFA Franc BEAC', '242', 'Congo (Republic of)', 'Brazzaville', '.cg', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-CG,kg,ln-CG', ''],
-        ['CH', 'CHE', '756', 'CHF', 'Swiss Franc', '41', 'Switzerland', 'Bern', '.ch', 'EU', '150', 'Europe', '155', 'Western Europe', 'de-CH,fr-CH,it-CH,rm', '^(\d{4})$'],
-        ['CI', 'CIV', '384', 'XOF', 'CFA Franc BCEAO', '225', 'Ivory Coast', 'Yamoussoukro', '.ci', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-CI', ''],
-        ['CK', 'COK', '184', 'NZD', 'New Zealand Dollar', '682', 'Cook Islands', 'Avarua', '.ck', 'OC', '009', 'Oceania', '061', 'Polynesia', 'en-CK,mi', ''],
-        ['CL', 'CHL', '152', 'CLP', 'Chilean Peso', '56', 'Chile', 'Santiago', '.cl', 'AM', '019', 'Americas', '005', 'South America', 'es-CL', '^(\d{7})$'],
-        ['CM', 'CMR', '120', 'XAF', 'CFA Franc BEAC', '237', 'Cameroon', 'Yaounde', '.cm', 'AF', '002', 'Africa', '017', 'Middle Africa', 'en-CM,fr-CM', ''],
-        ['CN', 'CHN', '156', 'CNY', 'Yuan Renminbi', '86', 'China', 'Beijing', '.cn', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'zh-CN,yue,wuu,dta,ug,za', '^(\d{6})$'],
-        ['CO', 'COL', '170', 'COP', 'Colombian Peso', '57', 'Colombia', 'Bogota', '.co', 'AM', '019', 'Americas', '005', 'South America', 'es-CO', ''],
-        ['CR', 'CRI', '188', 'CRC', 'Costa Rican Colon', '506', 'Costa Rica', 'San Jose', '.cr', 'AM', '019', 'Americas', '013', 'Central America', 'es-CR,en', '^(\d{4})$'],
-        ['CU', 'CUB', '192', 'CUP', 'Cuban Peso', '53', 'Cuba', 'Havana', '.cu', 'AM', '019', 'Americas', '029', 'Caribbean', 'es-CU', '^(?:CP)*(\d{5})$'],
-        ['CV', 'CPV', '132', 'CVE', 'Cabo Verde Escudo', '238', 'Cape Verde', 'Praia', '.cv', 'AF', '002', 'Africa', '011', 'Western Africa', 'pt-CV', '^(\d{4})$'],
-        ['CW', 'CUW', '531', 'ANG', 'Netherlands Antillean Guilder', '599', 'Curacao', 'Willemstad', '.cw', 'AM', '019', 'Americas', '029', 'Caribbean', 'nl,pap', ''],
-        ['CX', 'CXR', '162', 'AUD', 'Australian Dollar', '61', 'Christmas Island', 'Flying Fish Cove', '.cx', 'AS', '142', 'Asia', '', '', 'en,zh,ms-CC', '^(\d{4})$'],
-        ['CY', 'CYP', '196', 'EUR', 'Euro', '357', 'Cyprus', 'Nicosia', '.cy', 'EU', '142', 'Asia', '145', 'Western Asia', 'el-CY,tr-CY,en', '^(\d{4})$'],
-        ['CZ', 'CZE', '203', 'CZK', 'Czech Koruna', '420', 'Czech Republic', 'Prague', '.cz', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'cs,sk', '^\d{3}\s?\d{2}$'],
-        ['DE', 'DEU', '276', 'EUR', 'Euro', '49', 'Germany', 'Berlin', '.de', 'EU', '150', 'Europe', '155', 'Western Europe', 'de', '^(\d{5})$'],
-        ['DJ', 'DJI', '262', 'DJF', 'Djibouti Franc', '253', 'Djibouti', 'Djibouti', '.dj', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-DJ,ar,so-DJ,aa', ''],
-        ['DK', 'DNK', '208', 'DKK', 'Danish Krone', '45', 'Denmark', 'Copenhagen', '.dk', 'EU', '150', 'Europe', '154', 'Northern Europe', 'da-DK,en,fo,de-DK', '^(\d{4})$'],
-        ['DM', 'DMA', '212', 'XCD', 'East Caribbean Dollar', '+1-767', 'Dominica', 'Roseau', '.dm', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-DM', ''],
-        ['DO', 'DOM', '214', 'DOP', 'Dominican Peso', '+1-809 and 1-829', 'Dominican Republic', 'Santo Domingo', '.do', 'AM', '019', 'Americas', '029', 'Caribbean', 'es-DO', '^(\d{5})$'],
-        ['DZ', 'DZA', '012', 'DZD', 'Algerian Dinar', '213', 'Algeria', 'Algiers', '.dz', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-DZ', '^(\d{5})$'],
-        ['EC', 'ECU', '218', 'USD', 'US Dollar', '593', 'Ecuador', 'Quito', '.ec', 'AM', '019', 'Americas', '005', 'South America', 'es-EC', '^([a-zA-Z]\d{4}[a-zA-Z])$'],
-        ['EE', 'EST', '233', 'EUR', 'Euro', '372', 'Estonia', 'Tallinn', '.ee', 'EU', '150', 'Europe', '154', 'Northern Europe', 'et,ru', '^(\d{5})$'],
-        ['EG', 'EGY', '818', 'EGP', 'Egyptian Pound', '20', 'Egypt', 'Cairo', '.eg', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-EG,en,fr', '^(\d{5})$'],
-        ['EH', 'ESH', '732', 'MAD', 'Moroccan Dirham', '212', 'Western Sahara', 'El-Aaiun', '.eh', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar,mey', ''],
-        ['ER', 'ERI', '232', 'ERN', 'Nakfa', '291', 'Eritrea', 'Asmara', '.er', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'aa-ER,ar,tig,kun,ti-ER', ''],
-        ['ES', 'ESP', '724', 'EUR', 'Euro', '34', 'Spain', 'Madrid', '.es', 'EU', '150', 'Europe', '039', 'Southern Europe', 'es-ES,ca,gl,eu,oc', '^(\d{5})$'],
-        ['ET', 'ETH', '231', 'ETB', 'Ethiopian Birr', '251', 'Ethiopia', 'Addis Ababa', '.et', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'am,en-ET,om-ET,ti-ET,so-ET,sid', '^(\d{4})$'],
-        ['FI', 'FIN', '246', 'EUR', 'Euro', '358', 'Finland', 'Helsinki', '.fi', 'EU', '150', 'Europe', '154', 'Northern Europe', 'fi-FI,sv-FI,smn', '^(?:FI)*(\d{5})$'],
-        ['FJ', 'FJI', '242', 'FJD', 'Fiji Dollar', '679', 'Fiji', 'Suva', '.fj', 'OC', '009', 'Oceania', '054', 'Melanesia', 'en-FJ,fj', ''],
-        ['FK', 'FLK', '238', 'FKP', 'Falkland Islands Pound', '500', 'Falkland Islands (Malvinas)', 'Stanley', '.fk', 'AM', '019', 'Americas', '005', 'South America', 'en-FK', ''],
-        ['FM', 'FSM', '583', 'USD', 'US Dollar', '691', 'Micronesia', 'Palikir', '.fm', 'OC', '009', 'Oceania', '057', 'Micronesia', 'en-FM,chk,pon,yap,kos,uli,woe,nkr,kpg', '^(\d{5})$'],
-        ['FO', 'FRO', '234', 'DKK', 'Danish Krone', '298', 'Faroe Islands', 'Torshavn', '.fo', 'EU', '150', 'Europe', '154', 'Northern Europe', 'fo,da-FO', '^(?:FO)*(\d{3})$'],
-        ['FR', 'FRA', '250', 'EUR', 'Euro', '33', 'France', 'Paris', '.fr', 'EU', '150', 'Europe', '155', 'Western Europe', 'fr-FR,frp,br,co,ca,eu,oc', '^(\d{5})$'],
-        ['GA', 'GAB', '266', 'XAF', 'CFA Franc BEAC', '241', 'Gabon', 'Libreville', '.ga', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-GA', ''],
-        ['GB', 'GBR', '826', 'GBP', 'Pound Sterling', '44', 'United Kingdom', 'London', '.uk', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en-GB,cy-GB,gd', '^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$'],
-        ['GD', 'GRD', '308', 'XCD', 'East Caribbean Dollar', '+1-473', 'Grenada', 'St. George\'s', '.gd', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-GD', ''],
-        ['GE', 'GEO', '268', 'GEL', 'Lari', '995', 'Georgia', 'Tbilisi', '.ge', 'AS', '142', 'Asia', '145', 'Western Asia', 'ka,ru,hy,az', '^(\d{4})$'],
-        ['GF', 'GUF', '254', 'EUR', 'Euro', '594', 'French Guiana', 'Cayenne', '.gf', 'AM', '019', 'Americas', '005', 'South America', 'fr-GF', '^((97|98)3\d{2})$'],
-        ['GG', 'GGY', '831', 'GBP', 'Pound Sterling', '+44-1481', 'Guernsey', 'St Peter Port', '.gg', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en,fr', '^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$'],
-        ['GH', 'GHA', '288', 'GHS', 'Ghana Cedi', '233', 'Ghana', 'Accra', '.gh', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-GH,ak,ee,tw', ''],
-        ['GI', 'GIB', '292', 'GIP', 'Gibraltar Pound', '350', 'Gibraltar', 'Gibraltar', '.gi', 'EU', '150', 'Europe', '039', 'Southern Europe', 'en-GI,es,it,pt', ''],
-        ['GL', 'GRL', '304', 'DKK', 'Danish Krone', '299', 'Greenland', 'Nuuk', '.gl', 'AM', '019', 'Americas', '021', 'Northern America', 'kl,da-GL,en', '^(\d{4})$'],
-        ['GM', 'GMB', '270', 'GMD', 'Dalasi', '220', 'Gambia', 'Banjul', '.gm', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-GM,mnk,wof,wo,ff', ''],
-        ['GN', 'GIN', '324', 'GNF', 'Guinea Franc', '224', 'Guinea', 'Conakry', '.gn', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-GN', ''],
-        ['GP', 'GLP', '312', 'EUR', 'Euro', '590', 'Guadeloupe', 'Basse-Terre', '.gp', 'AM', '019', 'Americas', '029', 'Caribbean', 'fr-GP', '^((97|98)\d{3})$'],
-        ['GQ', 'GNQ', '226', 'XAF', 'CFA Franc BEAC', '240', 'Equatorial Guinea', 'Malabo', '.gq', 'AF', '002', 'Africa', '017', 'Middle Africa', 'es-GQ,fr', ''],
-        ['GR', 'GRC', '300', 'EUR', 'Euro', '30', 'Greece', 'Athens', '.gr', 'EU', '150', 'Europe', '039', 'Southern Europe', 'el-GR,en,fr', '^(\d{5})$'],
-        ['GS', 'SGS', '239', 'GBP', 'Pound Sterling', '', 'South Georgia and the South Sandwich Islands', 'Grytviken', '.gs', 'AN', '', '', '', '', 'en', ''],
-        ['GT', 'GTM', '320', 'GTQ', 'Quetzal', '502', 'Guatemala', 'Guatemala City', '.gt', 'AM', '019', 'Americas', '013', 'Central America', 'es-GT', '^(\d{5})$'],
-        ['GU', 'GUM', '316', 'USD', 'US Dollar', '+1-671', 'Guam', 'Hagatna', '.gu', 'OC', '009', 'Oceania', '057', 'Micronesia', 'en-GU,ch-GU', '^(969\d{2})$'],
-        ['GW', 'GNB', '624', 'XOF', 'CFA Franc BCEAO', '245', 'Guinea-Bissau', 'Bissau', '.gw', 'AF', '002', 'Africa', '011', 'Western Africa', 'pt-GW,pov', '^(\d{4})$'],
-        ['GY', 'GUY', '328', 'GYD', 'Guyana Dollar', '592', 'Guyana', 'Georgetown', '.gy', 'AM', '019', 'Americas', '005', 'South America', 'en-GY', ''],
-        ['HK', 'HKG', '344', 'HKD', 'Hong Kong Dollar', '852', 'Hong Kong', 'Hong Kong', '.hk', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'zh-HK,yue,zh,en', ''],
-        ['HM', 'HMD', '334', 'AUD', 'Australian Dollar', '', 'Heard Island and McDonald Islands', '', '.hm', 'AN', '', '', '', '', '', ''],
-        ['HN', 'HND', '340', 'HNL', 'Lempira', '504', 'Honduras', 'Tegucigalpa', '.hn', 'AM', '019', 'Americas', '013', 'Central America', 'es-HN', '^([A-Z]{2}\d{4})$'],
-        ['HR', 'HRV', '191', 'HRK', 'Kuna', '385', 'Croatia', 'Zagreb', '.hr', 'EU', '150', 'Europe', '039', 'Southern Europe', 'hr-HR,sr', '^(?:HR)*(\d{5})$'],
-        ['HT', 'HTI', '332', 'HTG', 'Gourde', '509', 'Haiti', 'Port-au-Prince', '.ht', 'AM', '019', 'Americas', '029', 'Caribbean', 'ht,fr-HT', '^(?:HT)*(\d{4})$'],
-        ['HU', 'HUN', '348', 'HUF', 'Forint', '36', 'Hungary', 'Budapest', '.hu', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'hu-HU', '^(\d{4})$'],
-        ['ID', 'IDN', '360', 'IDR', 'Rupiah', '62', 'Indonesia', 'Jakarta', '.id', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'id,en,nl,jv', '^(\d{5})$'],
-        ['IE', 'IRL', '372', 'EUR', 'Euro', '353', 'Ireland', 'Dublin', '.ie', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en-IE,ga-IE', '^[A-Z]\d{2}$|^[A-Z]{3}[A-Z]{4}$'],
-        ['IL', 'ISR', '376', 'ILS', 'New Israeli Sheqel', '972', 'Israel', 'Jerusalem', '.il', 'AS', '142', 'Asia', '145', 'Western Asia', 'he,ar-IL,en-IL,', '^(\d{5})$'],
-        ['IM', 'IMN', '833', 'GBP', 'Pound Sterling', '+44-1624', 'Isle of Man', 'Douglas', '.im', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en,gv', '^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$'],
-        ['IN', 'IND', '356', 'INR', 'Indian Rupee', '91', 'India', 'New Delhi', '.in', 'AS', '142', 'Asia', '034', 'Southern Asia', 'en-IN,hi,bn,te,mr,ta,ur,gu,kn,ml,or,pa,as,bh,sat,ks,ne,sd,kok,doi,mni,sit,sa,fr,lus,inc', '^(\d{6})$'],
-        ['IO', 'IOT', '086', 'USD', 'US Dollar', '246', 'British Indian Ocean Territory', 'Diego Garcia', '.io', 'AS', '142', 'Asia', '', '', 'en-IO', ''],
-        ['IQ', 'IRQ', '368', 'IQD', 'Iraqi Dinar', '964', 'Iraq', 'Baghdad', '.iq', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-IQ,ku,hy', '^(\d{5})$'],
-        ['IR', 'IRN', '364', 'IRR', 'Iranian Rial', '98', 'Iran (Islamic Republic of)', 'Tehran', '.ir', 'AS', '142', 'Asia', '034', 'Southern Asia', 'fa-IR,ku', '^(\d{10})$'],
-        ['IS', 'ISL', '352', 'ISK', 'Iceland Krona', '354', 'Iceland', 'Reykjavik', '.is', 'EU', '150', 'Europe', '154', 'Northern Europe', 'is,en,de,da,sv,no', '^(\d{3})$'],
-        ['IT', 'ITA', '380', 'EUR', 'Euro', '39', 'Italy', 'Rome', '.it', 'EU', '150', 'Europe', '039', 'Southern Europe', 'it-IT,de-IT,fr-IT,sc,ca,co,sl', '^(\d{5})$'],
-        ['JE', 'JEY', '832', 'GBP', 'Pound Sterling', '+44-1534', 'Jersey', 'Saint Helier', '.je', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en,pt', '^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$'],
-        ['JM', 'JAM', '388', 'JMD', 'Jamaican Dollar', '+1-876', 'Jamaica', 'Kingston', '.jm', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-JM', ''],
-        ['JO', 'JOR', '400', 'JOD', 'Jordanian Dinar', '962', 'Jordan', 'Amman', '.jo', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-JO,en', '^(\d{5})$'],
-        ['JP', 'JPN', '392', 'JPY', 'Yen', '81', 'Japan', 'Tokyo', '.jp', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'ja', '^\d{3}-\d{4}$'],
-        ['KE', 'KEN', '404', 'KES', 'Kenyan Shilling', '254', 'Kenya', 'Nairobi', '.ke', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-KE,sw-KE', '^(\d{5})$'],
-        ['KG', 'KGZ', '417', 'KGS', 'Som', '996', 'Kyrgyzstan', 'Bishkek', '.kg', 'AS', '142', 'Asia', '143', 'Central Asia', 'ky,uz,ru', '^(\d{6})$'],
-        ['KH', 'KHM', '116', 'KHR', 'Riel', '855', 'Cambodia', 'Phnom Penh', '.kh', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'km,fr,en', '^(\d{5})$'],
-        ['KI', 'KIR', '296', 'AUD', 'Australian Dollar', '686', 'Kiribati', 'Tarawa', '.ki', 'OC', '009', 'Oceania', '057', 'Micronesia', 'en-KI,gil', ''],
-        ['KM', 'COM', '174', 'KMF', 'Comoro Franc', '269', 'Comoros', 'Moroni', '.km', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'ar,fr-KM', ''],
-        ['KN', 'KNA', '659', 'XCD', 'East Caribbean Dollar', '+1-869', 'Saint Kitts and Nevis', 'Basseterre', '.kn', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-KN', ''],
-        ['KP', 'PRK', '408', 'KPW', 'North Korean Won', '850', 'North Korea (Democratic People\'s Republic of)', 'Pyongyang', '.kp', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'ko-KP', '^(\d{6})$'],
-        ['KR', 'KOR', '410', 'KRW', 'Won', '82', 'South Korea (Republic of)', 'Seoul', '.kr', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'ko-KR,en', '^(?:SEOUL)*(\d{6})$'],
-        ['KW', 'KWT', '414', 'KWD', 'Kuwaiti Dinar', '965', 'Kuwait', 'Kuwait City', '.kw', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-KW,en', '^(\d{5})$'],
-        ['KY', 'CYM', '136', 'KYD', 'Cayman Islands Dollar', '+1-345', 'Cayman Islands', 'George Town', '.ky', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-KY', ''],
-        ['KZ', 'KAZ', '398', 'KZT', 'Tenge', '7', 'Kazakhstan', 'Astana', '.kz', 'AS', '142', 'Asia', '143', 'Central Asia', 'kk,ru', '^(\d{6})$'],
-        ['LA', 'LAO', '418', 'LAK', 'Kip', '856', 'Laos', 'Vientiane', '.la', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'lo,fr,en', '^(\d{5})$'],
-        ['LB', 'LBN', '422', 'LBP', 'Lebanese Pound', '961', 'Lebanon', 'Beirut', '.lb', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-LB,fr-LB,en,hy', '^(\d{4}(\d{4})?)$'],
-        ['LC', 'LCA', '662', 'XCD', 'East Caribbean Dollar', '+1-758', 'Saint Lucia', 'Castries', '.lc', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-LC', ''],
-        ['LI', 'LIE', '438', 'CHF', 'Swiss Franc', '423', 'Liechtenstein', 'Vaduz', '.li', 'EU', '150', 'Europe', '155', 'Western Europe', 'de-LI', '^(\d{4})$'],
-        ['LK', 'LKA', '144', 'LKR', 'Sri Lanka Rupee', '94', 'Sri Lanka', 'Colombo', '.lk', 'AS', '142', 'Asia', '034', 'Southern Asia', 'si,ta,en', '^(\d{5})$'],
-        ['LR', 'LBR', '430', 'LRD', 'Liberian Dollar', '231', 'Liberia', 'Monrovia', '.lr', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-LR', '^(\d{4})$'],
-        ['LS', 'LSO', '426', 'LSL', 'Loti', '266', 'Lesotho', 'Maseru', '.ls', 'AF', '002', 'Africa', '018', 'Southern Africa', 'en-LS,st,zu,xh', '^(\d{3})$'],
-        ['LT', 'LTU', '440', 'EUR', 'Euro', '370', 'Lithuania', 'Vilnius', '.lt', 'EU', '150', 'Europe', '154', 'Northern Europe', 'lt,ru,pl', '^(?:LT)*(\d{5})$'],
-        ['LU', 'LUX', '442', 'EUR', 'Euro', '352', 'Luxembourg', 'Luxembourg', '.lu', 'EU', '150', 'Europe', '155', 'Western Europe', 'lb,de-LU,fr-LU', '^(?:L-)?\d{4}$'],
-        ['LV', 'LVA', '428', 'EUR', 'Euro', '371', 'Latvia', 'Riga', '.lv', 'EU', '150', 'Europe', '154', 'Northern Europe', 'lv,ru,lt', '^(?:LV)*(\d{4})$'],
-        ['LY', 'LBY', '434', 'LYD', 'Libyan Dinar', '218', 'Libya', 'Tripoli', '.ly', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-LY,it,en', ''],
-        ['MA', 'MAR', '504', 'MAD', 'Moroccan Dirham', '212', 'Morocco', 'Rabat', '.ma', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-MA,fr', '^(\d{5})$'],
-        ['MC', 'MCO', '492', 'EUR', 'Euro', '377', 'Monaco', 'Monaco', '.mc', 'EU', '150', 'Europe', '155', 'Western Europe', 'fr-MC,en,it', '^(\d{5})$'],
-        ['MD', 'MDA', '498', 'MDL', 'Moldovan Leu', '373', 'Moldova', 'Chisinau', '.md', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'ro,ru,gag,tr', '^MD-\d{4}$'],
-        ['ME', 'MNE', '499', 'EUR', 'Euro', '382', 'Montenegro', 'Podgorica', '.me', 'EU', '150', 'Europe', '039', 'Southern Europe', 'sr,hu,bs,sq,hr,rom', '^(\d{5})$'],
-        ['MF', 'MAF', '663', 'EUR', 'Euro', '590', 'Saint Martin', 'Marigot', '.gp', 'AM', '019', 'Americas', '029', 'Caribbean', 'fr', ''],
-        ['MG', 'MDG', '450', 'MGA', 'Malagasy Ariary', '261', 'Madagascar', 'Antananarivo', '.mg', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-MG,mg', '^(\d{3})$'],
-        ['MH', 'MHL', '584', 'USD', 'US Dollar', '692', 'Marshall Islands', 'Majuro', '.mh', 'OC', '009', 'Oceania', '057', 'Micronesia', 'mh,en-MH', ''],
-        ['MK', 'MKD', '807', 'MKD', 'Denar', '389', 'Macedonia', 'Skopje', '.mk', 'EU', '150', 'Europe', '039', 'Southern Europe', 'mk,sq,tr,rmm,sr', '^(\d{4})$'],
-        ['ML', 'MLI', '466', 'XOF', 'CFA Franc BCEAO', '223', 'Mali', 'Bamako', '.ml', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-ML,bm', ''],
-        ['MM', 'MMR', '104', 'MMK', 'Kyat', '95', 'Myanmar', 'Nay Pyi Taw', '.mm', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'my', '^(\d{5})$'],
-        ['MN', 'MNG', '496', 'MNT', 'Tugrik', '976', 'Mongolia', 'Ulan Bator', '.mn', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'mn,ru', '^(\d{6})$'],
-        ['MO', 'MAC', '446', 'MOP', 'Pataca', '853', 'Macao', 'Macao', '.mo', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'zh,zh-MO,pt', ''],
-        ['MP', 'MNP', '580', 'USD', 'US Dollar', '+1-670', 'Northern Mariana Islands', 'Saipan', '.mp', 'OC', '009', 'Oceania', '057', 'Micronesia', 'fil,tl,zh,ch-MP,en-MP', ''],
-        ['MQ', 'MTQ', '474', 'EUR', 'Euro', '596', 'Martinique', 'Fort-de-France', '.mq', 'AM', '019', 'Americas', '029', 'Caribbean', 'fr-MQ', '^(\d{5})$'],
-        ['MR', 'MRT', '478', 'MRO', 'Ouguiya', '222', 'Mauritania', 'Nouakchott', '.mr', 'AF', '002', 'Africa', '011', 'Western Africa', 'ar-MR,fuc,snk,fr,mey,wo', ''],
-        ['MS', 'MSR', '500', 'XCD', 'East Caribbean Dollar', '+1-664', 'Montserrat', 'Plymouth', '.ms', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-MS', ''],
-        ['MT', 'MLT', '470', 'EUR', 'Euro', '356', 'Malta', 'Valletta', '.mt', 'EU', '150', 'Europe', '039', 'Southern Europe', 'mt,en-MT', '^[A-Z]{3}\s?\d{4}$'],
-        ['MU', 'MUS', '480', 'MUR', 'Mauritius Rupee', '230', 'Mauritius', 'Port Louis', '.mu', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-MU,bho,fr', ''],
-        ['MV', 'MDV', '462', 'MVR', 'Rufiyaa', '960', 'Maldives', 'Male', '.mv', 'AS', '142', 'Asia', '034', 'Southern Asia', 'dv,en', '^(\d{5})$'],
-        ['MW', 'MWI', '454', 'MWK', 'Kwacha', '265', 'Malawi', 'Lilongwe', '.mw', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'ny,yao,tum,swk', ''],
-        ['MX', 'MEX', '484', 'MXN', 'Mexican Peso', '52', 'Mexico', 'Mexico City', '.mx', 'AM', '019', 'Americas', '013', 'Central America', 'es-MX', '^(\d{5})$'],
-        ['MY', 'MYS', '458', 'MYR', 'Malaysian Ringgit', '60', 'Malaysia', 'Kuala Lumpur', '.my', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'ms-MY,en,zh,ta,te,ml,pa,th', '^(\d{5})$'],
-        ['MZ', 'MOZ', '508', 'MZN', 'Mozambique Metical', '258', 'Mozambique', 'Maputo', '.mz', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'pt-MZ,vmw', '^(\d{4})$'],
-        ['AM', 'NAM', '516', 'NAD', 'Namibia Dollar', '264', 'Namibia', 'Windhoek', '.na', 'AF', '002', 'Africa', '018', 'Southern Africa', 'en-AM,af,de,hz,naq', ''],
-        ['NC', 'NCL', '540', 'XPF', 'CFP Franc', '687', 'New Caledonia', 'Noumea', '.nc', 'OC', '009', 'Oceania', '054', 'Melanesia', 'fr-NC', '^(\d{5})$'],
-        ['NE', 'NER', '562', 'XOF', 'CFA Franc BCEAO', '227', 'Niger', 'Niamey', '.ne', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-NE,ha,kr,dje', '^(\d{4})$'],
-        ['NF', 'NFK', '574', 'AUD', 'Australian Dollar', '672', 'Norfolk Island', 'Kingston', '.nf', 'OC', '009', 'Oceania', '053', 'Australia and New Zealand', 'en-NF', '^(\d{4})$'],
-        ['NG', 'NGA', '566', 'NGN', 'Naira', '234', 'Nigeria', 'Abuja', '.ng', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-NG,ha,yo,ig,ff', '^(\d{6})$'],
-        ['NI', 'NIC', '558', 'NIO', 'Cordoba Oro', '505', 'Nicaragua', 'Managua', '.ni', 'AM', '019', 'Americas', '013', 'Central America', 'es-NI,en', '^(\d{7})$'],
-        ['NL', 'NLD', '528', 'EUR', 'Euro', '31', 'Netherlands', 'Amsterdam', '.nl', 'EU', '150', 'Europe', '155', 'Western Europe', 'nl-NL,fy-NL', '^(\d{4}[A-Z]{2})$'],
-        ['NO', 'NOR', '578', 'NOK', 'Norwegian Krone', '47', 'Norway', 'Oslo', '.no', 'EU', '150', 'Europe', '154', 'Northern Europe', 'no,nb,nn,se,fi', '^(\d{4})$'],
-        ['NP', 'NPL', '524', 'NPR', 'Nepalese Rupee', '977', 'Nepal', 'Kathmandu', '.np', 'AS', '142', 'Asia', '034', 'Southern Asia', 'ne,en', '^(\d{5})$'],
-        ['NR', 'NRU', '520', 'AUD', 'Australian Dollar', '674', 'Nauru', 'Yaren', '.nr', 'OC', '009', 'Oceania', '057', 'Micronesia', 'na,en-NR', ''],
-        ['NU', 'NIU', '570', 'NZD', 'New Zealand Dollar', '683', 'Niue', 'Alofi', '.nu', 'OC', '009', 'Oceania', '061', 'Polynesia', 'niu,en-NU', ''],
-        ['NZ', 'NZL', '554', 'NZD', 'New Zealand Dollar', '64', 'New Zealand', 'Wellington', '.nz', 'OC', '009', 'Oceania', '053', 'Australia and New Zealand', 'en-NZ,mi', '^(\d{4})$'],
-        ['OM', 'OMN', '512', 'OMR', 'Rial Omani', '968', 'Oman', 'Muscat', '.om', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-OM,en,bal,ur', '^(\d{3})$'],
-        ['PA', 'PAN', '591', 'PAB', 'Balboa', '507', 'Panama', 'Panama City', '.pa', 'AM', '019', 'Americas', '013', 'Central America', 'es-PA,en', ''],
-        ['PE', 'PER', '604', 'PEN', 'Nuevo Sol', '51', 'Peru', 'Lima', '.pe', 'AM', '019', 'Americas', '005', 'South America', 'es-PE,qu,ay', ''],
-        ['PF', 'PYF', '258', 'XPF', 'CFP Franc', '689', 'French Polynesia', 'Papeete', '.pf', 'OC', '009', 'Oceania', '061', 'Polynesia', 'fr-PF,ty', '^((97|98)7\d{2})$'],
-        ['PG', 'PNG', '598', 'PGK', 'Kina', '675', 'Papua New Guinea', 'Port Moresby', '.pg', 'OC', '009', 'Oceania', '054', 'Melanesia', 'en-PG,ho,meu,tpi', '^(\d{3})$'],
-        ['PH', 'PHL', '608', 'PHP', 'Philippine Peso', '63', 'Philippines', 'Manila', '.ph', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'tl,en-PH,fil', '^(\d{4})$'],
-        ['PK', 'PAK', '586', 'PKR', 'Pakistan Rupee', '92', 'Pakistan', 'Islamabad', '.pk', 'AS', '142', 'Asia', '034', 'Southern Asia', 'ur-PK,en-PK,pa,sd,ps,brh', '^(\d{5})$'],
-        ['PL', 'POL', '616', 'PLN', 'Zloty', '48', 'Poland', 'Warsaw', '.pl', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'pl', '^\d{2}-\d{3}$'],
-        ['PM', 'SPM', '666', 'EUR', 'Euro', '508', 'Saint Pierre and Miquelon', 'Saint-Pierre', '.pm', 'AM', '019', 'Americas', '021', 'Northern America', 'fr-PM', '^(97500)$'],
-        ['PN', 'PCN', '612', 'NZD', 'New Zealand Dollar', '870', 'Pitcairn', 'Adamstown', '.pn', 'OC', '009', 'Oceania', '061', 'Polynesia', 'en-PN', ''],
-        ['PR', 'PRI', '630', 'USD', 'US Dollar', '+1-787 and 1-939', 'Puerto Rico', 'San Juan', '.pr', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-PR,es-PR', '^00[679]\d{2}(?:-\d{4})?$'],
-        ['PS', 'PSE', '275', 'ILS', 'New Israeli Sheqel', '970', 'Palestinian Territory', 'East Jerusalem', '.ps', 'AS', '142', 'Asia', '', '', 'ar-PS', ''],
-        ['PT', 'PRT', '620', 'EUR', 'Euro', '351', 'Portugal', 'Lisbon', '.pt', 'EU', '150', 'Europe', '039', 'Southern Europe', 'pt-PT,mwl', '^\d{4}-\d{3}\s?[a-zA-Z]{0,25}$'],
-        ['PW', 'PLW', '585', 'USD', 'US Dollar', '680', 'Palau', 'Melekeok', '.pw', 'OC', '009', 'Oceania', '057', 'Micronesia', 'pau,sov,en-PW,tox,ja,fil,zh', '^(96940)$'],
-        ['PY', 'PRY', '600', 'PYG', 'Guarani', '595', 'Paraguay', 'Asuncion', '.py', 'AM', '019', 'Americas', '005', 'South America', 'es-PY,gn', '^(\d{4})$'],
-        ['QA', 'QAT', '634', 'QAR', 'Qatari Rial', '974', 'Qatar', 'Doha', '.qa', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-QA,es', ''],
-        ['RE', 'REU', '638', 'EUR', 'Euro', '262', 'Reunion', 'Saint-Denis', '.re', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-RE', '^((97|98)(4|7|8)\d{2})$'],
-        ['RO', 'ROU', '642', 'RON', 'Romanian Leu', '40', 'Romania', 'Bucharest', '.ro', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'ro,hu,rom', '^(\d{6})$'],
-        ['RS', 'SRB', '688', 'RSD', 'Serbian Dinar', '381', 'Serbia', 'Belgrade', '.rs', 'EU', '150', 'Europe', '039', 'Southern Europe', 'sr,hu,bs,rom', '^(\d{6})$'],
-        ['RU', 'RUS', '643', 'RUB', 'Russian Ruble', '7', 'Russia', 'Moscow', '.ru', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'ru,tt,xal,cau,ady,kv,ce,tyv,cv,udm,tut,mns,bua,myv,mdf,chm,ba,inh,tut,kbd,krc,ava,sah,nog', '^(\d{6})$'],
-        ['RW', 'RWA', '646', 'RWF', 'Rwanda Franc', '250', 'Rwanda', 'Kigali', '.rw', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'rw,en-RW,fr-RW,sw', ''],
-        ['AM', 'SAU', '682', 'SAR', 'Saudi Riyal', '966', 'Saudi Arabia', 'Riyadh', '.sa', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-AM', '^(\d{5})$'],
-        ['SB', 'SLB', '090', 'SBD', 'Solomon Islands Dollar', '677', 'Solomon Islands', 'Honiara', '.sb', 'OC', '009', 'Oceania', '054', 'Melanesia', 'en-SB,tpi', ''],
-        ['SC', 'SYC', '690', 'SCR', 'Seychelles Rupee', '248', 'Seychelles', 'Victoria', '.sc', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-SC,fr-SC', ''],
-        ['SD', 'SDN', '729', 'SDG', 'Sudanese Pound', '249', 'Sudan', 'Khartoum', '.sd', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-SD,en,fia', '^(\d{5})$'],
-        ['SE', 'SWE', '752', 'SEK', 'Swedish Krona', '46', 'Sweden', 'Stockholm', '.se', 'EU', '150', 'Europe', '154', 'Northern Europe', 'sv-SE,se,sma,fi-SE', '^(?:SE)?\d{3}\s\d{2}$'],
-        ['SG', 'SGP', '702', 'SGD', 'Singapore Dollar', '65', 'Singapore', 'Singapore', '.sg', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'cmn,en-SG,ms-SG,ta-SG,zh-SG', '^(\d{6})$'],
-        ['SH', 'SHN', '654', 'SHP', 'Saint Helena Pound', '290', 'Saint Helena', 'Jamestown', '.sh', 'AF', '002', 'Africa', '', '', 'en-SH', '^(STHL1ZZ)$'],
-        ['SI', 'SVN', '705', 'EUR', 'Euro', '386', 'Slovenia', 'Ljubljana', '.si', 'EU', '150', 'Europe', '039', 'Southern Europe', 'sl,sh', '^(?:SI)*(\d{4})$'],
-        ['SJ', 'SJM', '744', 'NOK', 'Norwegian Krone', '47', 'Svalbard and Jan Mayen', 'Longyearbyen', '.sj', 'EU', '150', 'Europe', '154', 'Northern Europe', 'no,ru', ''],
-        ['SK', 'SVK', '703', 'EUR', 'Euro', '421', 'Slovakia', 'Bratislava', '.sk', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'sk,hu', '^\d{3}\s?\d{2}$'],
-        ['SL', 'SLE', '694', 'SLL', 'Leone', '232', 'Sierra Leone', 'Freetown', '.sl', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-SL,men,tem', ''],
-        ['SM', 'SMR', '674', 'EUR', 'Euro', '378', 'San Marino', 'San Marino', '.sm', 'EU', '150', 'Europe', '039', 'Southern Europe', 'it-SM', '^(4789\d)$'],
-        ['SN', 'SEN', '686', 'XOF', 'CFA Franc BCEAO', '221', 'Senegal', 'Dakar', '.sn', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-SN,wo,fuc,mnk', '^(\d{5})$'],
-        ['SO', 'SOM', '706', 'SOS', 'Somali Shilling', '252', 'Somalia', 'Mogadishu', '.so', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'so-SO,ar-SO,it,en-SO', '^([A-Z]{2}\d{5})$'],
-        ['SR', 'SUR', '740', 'SRD', 'Surinam Dollar', '597', 'Suriname', 'Paramaribo', '.sr', 'AM', '019', 'Americas', '005', 'South America', 'nl-SR,en,srn,hns,jv', ''],
-        ['SS', 'SSD', '728', 'SSP', 'South Sudanese Pound', '211', 'South Sudan', 'Juba', '', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en', ''],
-        ['ST', 'STP', '678', 'STD', 'Dobra', '239', 'Sao Tome and Principe', 'Sao Tome', '.st', 'AF', '002', 'Africa', '017', 'Middle Africa', 'pt-ST', ''],
-        ['SV', 'SLV', '222', 'USD', 'US Dollar', '503', 'El Salvador', 'San Salvador', '.sv', 'AM', '019', 'Americas', '013', 'Central America', 'es-SV', '^(?:CP)*(\d{4})$'],
-        ['SX', 'SXM', '534', 'ANG', 'Netherlands Antillean Guilder', '599', 'Sint Maarten', 'Philipsburg', '.sx', 'AM', '019', 'Americas', '029', 'Caribbean', 'nl,en', ''],
-        ['SY', 'SYR', '760', 'SYP', 'Syrian Pound', '963', 'Syria', 'Damascus', '.sy', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-SY,ku,hy,arc,fr,en', ''],
-        ['SZ', 'SWZ', '748', 'SZL', 'Lilangeni', '268', 'Swaziland', 'Mbabane', '.sz', 'AF', '002', 'Africa', '018', 'Southern Africa', 'en-SZ,ss-SZ', '^([A-Z]\d{3})$'],
-        ['TC', 'TCA', '796', 'USD', 'US Dollar', '+1-649', 'Turks and Caicos Islands', 'Cockburn Town', '.tc', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-TC', '^(TKCA 1ZZ)$'],
-        ['TD', 'TCD', '148', 'XAF', 'CFA Franc BEAC', '235', 'Chad', 'N\'Djamena', '.td', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-TD,ar-TD,sre', ''],
-        ['TF', 'ATF', '260', 'EUR', 'Euro', '', 'French Southern Territories', 'Port-aux-Francais', '.tf', 'AN', '', '', '', '', 'fr', ''],
-        ['TG', 'TGO', '768', 'XOF', 'CFA Franc BCEAO', '228', 'Togo', 'Lome', '.tg', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-TG,ee,hna,kbp,dag,ha', ''],
-        ['TH', 'THA', '764', 'THB', 'Baht', '66', 'Thailand', 'Bangkok', '.th', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'th,en', '^(\d{5})$'],
-        ['TJ', 'TJK', '762', 'TJS', 'Somoni', '992', 'Tajikistan', 'Dushanbe', '.tj', 'AS', '142', 'Asia', '143', 'Central Asia', 'tg,ru', '^(\d{6})$'],
-        ['TK', 'TKL', '772', 'NZD', 'New Zealand Dollar', '690', 'Tokelau', '', '.tk', 'OC', '009', 'Oceania', '061', 'Polynesia', 'tkl,en-TK', ''],
-        ['TL', 'TLS', '626', 'USD', 'US Dollar', '670', 'East Timor', 'Dili', '.tl', 'OC', '142', 'Asia', '035', 'South-Eastern Asia', 'tet,pt-TL,id,en', ''],
-        ['TM', 'TKM', '795', 'TMT', 'Turkmenistan New Manat', '993', 'Turkmenistan', 'Ashgabat', '.tm', 'AS', '142', 'Asia', '143', 'Central Asia', 'tk,ru,uz', '^(\d{6})$'],
-        ['TN', 'TUN', '788', 'TND', 'Tunisian Dinar', '216', 'Tunisia', 'Tunis', '.tn', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-TN,fr', '^(\d{4})$'],
-        ['TO', 'TON', '776', 'TOP', 'Paʻanga', '676', 'Tonga', 'Nuku\'alofa', '.to', 'OC', '009', 'Oceania', '061', 'Polynesia', 'to,en-TO', ''],
-        ['TR', 'TUR', '792', 'TRY', 'Turkish Lira', '90', 'Turkey', 'Ankara', '.tr', 'AS', '142', 'Asia', '145', 'Western Asia', 'tr-TR,ku,diq,az,av', '^(\d{5})$'],
-        ['TT', 'TTO', '780', 'TTD', 'Trinidad and Tobago Dollar', '+1-868', 'Trinidad and Tobago', 'Port of Spain', '.tt', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-TT,hns,fr,es,zh', ''],
-        ['TV', 'TUV', '798', 'AUD', 'Australian Dollar', '688', 'Tuvalu', 'Funafuti', '.tv', 'OC', '009', 'Oceania', '061', 'Polynesia', 'tvl,en,sm,gil', ''],
-        ['TW', 'TWN', '158', 'TWD', 'New Taiwan Dollar', '886', 'Taiwan', 'Taipei', '.tw', 'AS', '142', 'Asia', '', '', 'zh-TW,zh,nan,hak', '^(\d{5})$'],
-        ['TZ', 'TZA', '834', 'TZS', 'Tanzanian Shilling', '255', 'Tanzania', 'Dodoma', '.tz', 'AF', '002', 'Africa', '', '', 'sw-TZ,en,ar', ''],
-        ['UA', 'UKR', '804', 'UAH', 'Hryvnia', '380', 'Ukraine', 'Kiev', '.ua', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'uk,ru-UA,rom,pl,hu', '^(\d{5})$'],
-        ['UG', 'UGA', '800', 'UGX', 'Uganda Shilling', '256', 'Uganda', 'Kampala', '.ug', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-UG,lg,sw,ar', ''],
-        ['UM', 'UMI', '581', 'USD', 'US Dollar', '1', 'United States Minor Outlying Islands', '', '.um', 'OC', '009', 'Oceania', '', '', 'en-UM', ''],
-        ['US', 'USA', '840', 'USD', 'US Dollar', '1', 'United States', 'Washington', '.us', 'AM', '019', 'Americas', '021', 'Northern America', 'en-US,es-US,haw,fr', '^\d{5}(-\d{4})?$'],
-        ['UY', 'URY', '858', 'UYU', 'Peso Uruguayo', '598', 'Uruguay', 'Montevideo', '.uy', 'AM', '019', 'Americas', '005', 'South America', 'es-UY', '^(\d{5})$'],
-        ['UZ', 'UZB', '860', 'UZS', 'Uzbekistan Sum', '998', 'Uzbekistan', 'Tashkent', '.uz', 'AS', '142', 'Asia', '143', 'Central Asia', 'uz,ru,tg', '^(\d{6})$'],
-        ['VA', 'VAT', '336', 'EUR', 'Euro', '379', 'Vatican', 'Vatican City', '.va', 'EU', '150', 'Europe', '039', 'Southern Europe', 'la,it,fr', '^(\d{5})$'],
-        ['VC', 'VCT', '670', 'XCD', 'East Caribbean Dollar', '+1-784', 'Saint Vincent and the Grenadines', 'Kingstown', '.vc', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-VC,fr', ''],
-        ['VE', 'VEN', '862', 'VEF', 'Bolivar', '58', 'Venezuela (Bolivarian Republic of)', 'Caracas', '.ve', 'AM', '019', 'Americas', '005', 'South America', 'es-VE', '^(\d{4})$'],
-        ['VG', 'VGB', '092', 'USD', 'US Dollar', '+1-284', 'Virgin Islands (British)', 'Road Town', '.vg', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-VG', ''],
-        ['VI', 'VIR', '850', 'USD', 'US Dollar', '+1-340', 'Virgin Islands (U.S.)', 'Charlotte Amalie', '.vi', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-VI', '^008\d{2}(?:-\d{4})?$'],
-        ['VN', 'VNM', '704', 'VND', 'Dong', '84', 'Vietnam', 'Hanoi', '.vn', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'vi,en,fr,zh,km', '^(\d{6})$'],
-        ['VU', 'VUT', '548', 'VUV', 'Vatu', '678', 'Vanuatu', 'Port Vila', '.vu', 'OC', '009', 'Oceania', '054', 'Melanesia', 'bi,en-VU,fr-VU', ''],
-        ['WF', 'WLF', '876', 'XPF', 'CFP Franc', '681', 'Wallis and Futuna', 'Mata Utu', '.wf', 'OC', '009', 'Oceania', '061', 'Polynesia', 'wls,fud,fr-WF', '^(986\d{2})$'],
-        ['WS', 'WSM', '882', 'WST', 'Tala', '685', 'Samoa', 'Apia', '.ws', 'OC', '009', 'Oceania', '061', 'Polynesia', 'sm,en-WS', ''],
-        ['XK', 'XKX', '0', 'EUR', 'Euro', '', 'Kosovo', 'Pristina', '', 'EU', '150', 'Europe', '', '', 'sq,sr', ''],
-        ['YE', 'YEM', '887', 'YER', 'Yemeni Rial', '967', 'Yemen', 'Sanaa', '.ye', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-YE', ''],
-        ['YT', 'MYT', '175', 'EUR', 'Euro', '262', 'Mayotte', 'Mamoudzou', '.yt', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-YT', '^(\d{5})$'],
-        ['ZA', 'ZAF', '710', 'ZAR', 'Rand', '27', 'South Africa', 'Pretoria', '.za', 'AF', '002', 'Africa', '018', 'Southern Africa', 'zu,xh,af,nso,en-ZA,tn,st,ts,ss,ve,nr', '^(\d{4})$'],
-        ['ZM', 'ZMB', '894', 'ZMW', 'Zambian Kwacha', '260', 'Zambia', 'Lusaka', '.zm', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-ZM,bem,loz,lun,lue,ny,toi', '^(\d{5})$'],
-        ['ZW', 'ZWE', '716', 'ZWL', 'Zimbabwe Dollar', '263', 'Zimbabwe', 'Harare', '.zw', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-ZW,sn,nr,nd', '']
+        ['AD', 'AND', '020', 'Andorra', 'Andorra la Vella', '.ad', 'EU', '150', 'Europe', '039', 'Southern Europe', 'ca', 'EUR', 'Euro', '^(?:AD)*(\d{3})$', '376', '00', '', '[78]\d{5}|(?:3\d|6(?:[0-8]|90\d{2}))\d{4}|180[02]\d{4}|[19]\d{5}'],
+        ['AE', 'ARE', '784', 'United Arab Emirates', 'Abu Dhabi', '.ae', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-AE,fa,en,hi,ur', 'AED', 'UAE Dirham', '', '971', '00', '0', '[2-4679][2-8]\d{6}|5[024-68]\d{7}|400\d{6}|800\d{2,9}|900[02]\d{5}|700[05]\d{5}|600[25]\d{5}'],
+        ['AF', 'AFG', '004', 'Afghanistan', 'Kabul', '.af', 'AS', '142', 'Asia', '034', 'Southern Asia', 'fa-AF,ps,uz-AF,tk', 'AFN', 'Afghani', '', '93', '00', '0', '(?:[25][0-8]|[34][0-4]|6[0-5])[2-9]\d{6}|7(?:[014-9]\d|2[89]|30)\d{6}'],
+        ['AG', 'ATG', '028', 'Antigua and Barbuda', 'St. John\'s', '.ag', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-AG', 'XCD', 'East Caribbean Dollar', '', '1', '011', '1', '268(?:4(?:6[0-38]|84)|56[0-2])\d{4}|268(?:464|7(?:2\d|3[246]|64|7[0-689]|8[02-68]))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}|26848[01]\d{4}|26840[69]\d{4}'],
+        ['AI', 'AIA', '660', 'Anguilla', 'The Valley', '.ai', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-AI', 'XCD', 'East Caribbean Dollar', '', '1', '011', '1', '2644(?:6[12]|9[78])\d{4}|264(?:235|476|5(?:3[6-9]|8[1-4])|7(?:29|72))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['AL', 'ALB', '008', 'Albania', 'Tirana', '.al', 'EU', '150', 'Europe', '039', 'Southern Europe', 'sq,el', 'ALL', 'Lek', '', '355', '00', '0', '(?:2(?:1(?:0[2-9]|[1-9]\d)|[247]\d{2}|[35][2-9]\d|[68](?:0[2-9]|[1-9]\d)|9(?:[089][2-9]|[1-7]\d))|3(?:1(?:[04-9][2-9]|[1-3]\d)|[2-6]\d{2}|[79](?:[09][2-9]|[1-8]\d)|8(?:0[2-9]|[1-9]\d))|4\d{3}|5(?:1(?:[05-9][2-9]|[1-4]\d)|[2-578]\d{2}|6(?:[06-9][2-9]|[1-5]\d)|9(?:[089][2-9]|[1-7]\d))|8(?:[19](?:[06-9][2-9]|[1-5]\d)|[2-6]\d{2}|[78](?:[089][2-9]|[1-7]\d)))\d{4}|6(?:[2-5][2-9]|[6-9]\d)\d{6}|800\d{4}|900\d{3}|808\d{3}|700\d{5}'],
+        ['AM', 'ARM', '051', 'Armenia', 'Yerevan', '.am', 'AS', '142', 'Asia', '145', 'Western Asia', 'hy', 'AMD', 'Armenian Dram', '^(\d{6})$', '374', '00', '0', '(?:1[0-2]\d|2(?:2[2-46]|3[1-8]|4[2-69]|5[2-7]|6[1-9]|8[1-7])|3[12]2|47\d)\d{5}|(?:4[1349]|55|77|9[1-9])\d{6}|800\d{5}|90[016]\d{5}|80[1-4]\d{5}|60(?:2[078]|[3-7]\d|8[0-5])\d{4}'],
+        ['AN', 'ANT', '530', 'Netherlands Antilles', 'Willemstad', '.an', 'AM', '019', 'Americas', '021', 'Northern America', 'nl-AN,en,es', 'ANG', 'Netherlands Antillean Guilder', '', '599', '', '', ''],
+        ['AO', 'AGO', '024', 'Angola', 'Luanda', '.ao', 'AF', '002', 'Africa', '017', 'Middle Africa', 'pt-AO', 'AOA', 'Kwanza', '', '244', '00', '', '2\d(?:[26-9]\d|\d[26-9])\d{5}|9[1-49]\d{7}'],
+        ['AQ', 'ATA', '010', 'Antarctica', '', '.aq', 'AN', '', '', '', '', '', '', '', '', '', '', '', ''],
+        ['AR', 'ARG', '032', 'Argentina', 'Buenos Aires', '.ar', 'AM', '019', 'Americas', '005', 'South America', 'es-AR,en,it,de,fr,gn', 'ARS', 'Argentine Peso', '^[A-Z]?\d{4}[A-Z]{0,3}$', '54', '00', '0', '11\d{8}|(?:2(?:2(?:[013]\d|2[13-79]|4[1-6]|5[2457]|6[124-8]|7[1-4]|8[13-6]|9[1267])|3(?:1[467]|2[03-6]|3[13-8]|[49][2-6]|5[2-8]|[067]\d)|4(?:7[3-8]|9\d)|6(?:[01346]\d|2[24-6]|5[15-8])|80\d|9(?:[0124789]\d|3[1-6]|5[234]|6[2-46]))|3(?:3(?:2[79]|6\d|8[2578])|4(?:[78]\d|0[0124-9]|[1-35]\d|4[24-7]|6[02-9]|9[123678])|5(?:[138]\d|2[1245]|4[1-9]|6[2-4]|7[1-6])|6[24]\d|7(?:[0469]\d|1[1568]|2[013-9]|3[145]|5[14-8]|7[2-57]|8[0-24-9])|8(?:[013578]\d|2[15-7]|4[13-6]|6[1-357-9]|9[124]))|670\d)\d{6}|675\d{7}|9(?:11[2-9]\d{7}|(?:2(?:2[013]|3[067]|49|6[01346]|80|9[147-9])|3(?:36|4[12358]|5[138]|6[24]|7[069]|8[013578]))[2-9]\d{6}|\d{4}[2-9]\d{5})|800\d{7}|60[04579]\d{7}|810\d{7}'],
+        ['AS', 'ASM', '016', 'American Samoa', 'Pago Pago', '.as', 'OC', '009', 'Oceania', '061', 'Polynesia', 'en-AS,sm,to', 'USD', 'US Dollar', '', '1', '011', '1', '6846(?:22|33|44|55|77|88|9[19])\d{4}|684(?:2(?:5[2468]|72)|7(?:3[13]|70))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['AT', 'AUT', '040', 'Austria', 'Vienna', '.at', 'EU', '150', 'Europe', '155', 'Western Europe', 'de-AT,hr,hu,sl', 'EUR', 'Euro', '^(\d{4})$', '43', '00', '0', '1\d{3,12}|(?:2(?:1[467]|2[13-8]|5[2357]|6[1-46-8]|7[1-8]|8[124-7]|9[1458])|3(?:1[1-8]|3[23568]|4[5-7]|5[1378]|6[1-38]|8[3-68])|4(?:2[1-8]|35|63|7[1368]|8[2457])|5(?:12|2[1-8]|3[357]|4[147]|5[12578]|6[37])|6(?:13|2[1-47]|4[1-35-8]|5[468]|62)|7(?:2[1-8]|3[25]|4[13478]|5[68]|6[16-8]|7[1-6]|9[45]))\d{3,10}|6(?:5[0-3579]|6[013-9]|[7-9]\d)\d{4,10}|800\d{6,10}|9(?:0[01]|3[019])\d{6,10}|8(?:10\d|2(?:[01]\d|8\d?))\d{5,9}|780\d{6,10}|5(?:(?:0[1-9]|17)\d{2,10}|[79]\d{3,11})|720\d{6,10}'],
+        ['AU', 'AUS', '036', 'Australia', 'Canberra', '.au', 'OC', '009', 'Oceania', '053', 'Australia and New Zealand', 'en-AU', 'AUD', 'Australian Dollar', '^(\d{4})$', '61', '(?:14(?:1[14]|34|4[17]|[56]6|7[47]|88))?001[14-689]', '0', '[237]\d{8}|8(?:[6-8]\d{3}|9(?:[02-9]\d{2}|1(?:[0-57-9]\d|6[0135-9])))\d{4}|14(?:5\d|71)\d{5}|4(?:[0-3]\d|4[47-9]|5[0-25-9]|6[6-9]|7[02-9]|8[147-9]|9[017-9])\d{6}|180(?:0\d{3}|2)\d{3}|19(?:0[0126]\d|[679])\d{5}|13(?:00\d{3}|45[0-4]|\d)\d{3}|500\d{6}|550\d{6}|16\d{3,7}'],
+        ['AW', 'ABW', '533', 'Aruba', 'Oranjestad', '.aw', 'AM', '019', 'Americas', '029', 'Caribbean', 'nl-AW,es,en', 'AWG', 'Aruban Florin', '', '297', '00', '', '5(?:2\d|8[1-9])\d{4}|(?:5(?:6\d|9[2-478])|6(?:[039]0|22|4[01]|6[0-2])|7[34]\d|9(?:6[45]|9[4-8]))\d{4}|800\d{4}|900\d{4}|28\d{5}|501\d{4}'],
+        ['AX', 'ALA', '248', 'Aland Islands', 'Mariehamn', '.ax', 'EU', '150', 'Europe', '154', 'Northern Europe', 'sv-AX', 'EUR', 'Euro', '^(?:FI)*(\d{5})$', '358', '00|99(?:[02469]|5(?:11|33|5[59]|88|9[09]))', '0', '18[1-8]\d{3,9}|4\d{5,10}|50\d{4,8}|800\d{4,7}|[67]00\d{5,6}|[13]0\d{4,8}|2(?:0(?:[016-8]\d{3,7}|[2-59]\d{2,7})|9\d{4,8})|60(?:[12]\d{5,6}|6\d{7})|7(?:1\d{7}|3\d{8}|5[03-9]\d{2,7})'],
+        ['AZ', 'AZE', '031', 'Azerbaijan', 'Baku', '.az', 'AS', '142', 'Asia', '145', 'Western Asia', 'az,ru,hy', 'AZN', 'Azerbaijanian Manat', '^(?:AZ)*(\d{4})$', '994', '00', '0', '(?:1[28]\d{3}|2(?:02|1[24]|2[2-4]|33|[45]2|6[23])\d{2}|365(?:[0-46-9]\d|5[0-35-9]))\d{4}|(?:36554|(?:4[04]|5[015]|60|7[07])\d{3})\d{4}|88\d{7}|900200\d{3}'],
+        ['BA', 'BIH', '070', 'Bosnia and Herzegovina', 'Sarajevo', '.ba', 'EU', '150', 'Europe', '039', 'Southern Europe', 'bs,hr-BA,sr-BA', 'BAM', 'Convertible Mark', '^(\d{5})$', '387', '00', '0', '(?:[35]\d|49)\d{6}|6(?:03|44|71|[1-356])\d{6}|8[08]\d{6}|9[0246]\d{6}|8[12]\d{6}|70[23]\d{5}'],
+        ['BB', 'BRB', '052', 'Barbados', 'Bridgetown', '.bb', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-BB', 'BBD', 'Barbados Dollar', '^(?:BB)*(\d{5})$', '1', '011', '1', '246(?:2(?:2[78]|7[0-4])|4(?:1[024-6]|2\d|3[2-9])|5(?:20|[34]\d|54|7[1-3])|6(?:2\d|38)|7(?:37|57)|9(?:1[89]|63))\d{4}|246(?:2(?:[356]\d|4[0-57-9]|8[0-79])|45\d|8(?:[2-5]\d|83))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900\d{7}|246976\d{4}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}|24631\d{5}|246(?:292|367|4(?:1[7-9]|3[01]|44|67)|736)\d{4}'],
+        ['BD', 'BGD', '050', 'Bangladesh', 'Dhaka', '.bd', 'AS', '142', 'Asia', '034', 'Southern Asia', 'bn-BD,en', 'BDT', 'Taka', '^(\d{4})$', '880', '00', '0', '2(?:[45]\d{3}|7(?:1[0-267]|2[0-289]|3[0-29]|4[01]|5[1-3]|6[013]|7[0178]|91)|8(?:0[125]|[139][1-6]|2[0157-9]|41|6[1-35]|7[1-5]|8[1-8]|90)|9(?:0[0-2]|1[0-4]|2[568]|3[3-6]|5[5-7]|6[0167]|7[15]|8[0146-9]))\d{4}|3(?:12?[5-7]\d{2}|0(?:2(?:[025-79]\d|[348]\d{1,2})|3(?:[2-4]\d|[56]\d?))|2(?:1\d{2}|2(?:[12]\d|[35]\d{1,2}|4\d?))|3(?:1\d{2}|2(?:[2356]\d|4\d{1,2}))|4(?:1\d{2}|2(?:2\d{1,2}|[47]|5\d{2}))|5(?:1\d{2}|29)|[67]1\d{2}|8(?:1\d{2}|2(?:2\d{2}|3|4\d)))\d{3}|4(?:0(?:2(?:[09]\d|7)|33\d{2})|1\d{3}|2(?:1\d{2}|2(?:[25]\d?|[348]\d|[67]\d{1,2}))|3(?:1\d{2}(?:\d{2})?|2(?:[045]\d|[236-9]\d{1,2})|32\d{2})|4(?:[18]\d{2}|2(?:[2-46]\d{2}|3)|5[25]\d{2})|5(?:1\d{2}|2(?:3\d|5))|6(?:[18]\d{2}|2(?:3(?:\d{2})?|[46]\d{1,2}|5\d{2}|7\d)|5(?:3\d?|4\d|[57]\d{1,2}|6\d{2}|8))|71\d{2}|8(?:[18]\d{2}|23\d{2}|54\d{2})|9(?:[18]\d{2}|2[2-5]\d{2}|53\d{1,2}))\d{3}|5(?:02[03489]\d{2}|1\d{2}|2(?:1\d{2}|2(?:2(?:\d{2})?|[457]\d{2}))|3(?:1\d{2}|2(?:[37](?:\d{2})?|[569]\d{2}))|4(?:1\d{2}|2[46]\d{2})|5(?:1\d{2}|26\d{1,2})|6(?:[18]\d{2}|2|53\d{2})|7(?:1|24)\d{2}|8(?:1|26)\d{2}|91\d{2})\d{3}|6(?:0(?:1\d{2}|2(?:3\d{2}|4\d{1,2}))|2(?:2[2-5]\d{2}|5(?:[3-5]\d{2}|7)|8\d{2})|3(?:1|2[3478])\d{2}|4(?:1|2[34])\d{2}|5(?:1|2[47])\d{2}|6(?:[18]\d{2}|6(?:2(?:2\d|[34]\d{2})|5(?:[24]\d{2}|3\d|5\d{1,2})))|72[2-5]\d{2}|8(?:1\d{2}|2[2-5]\d{2})|9(?:1\d{2}|2[2-6]\d{2}))\d{3}|7(?:(?:02|[3-589]1|6[12]|72[24])\d{2}|21\d{3}|32)\d{3}|8(?:(?:4[12]|[5-7]2|1\d?)|(?:0|3[12]|[5-7]1|217)\d)\d{4}|9(?:[35]1|(?:[024]2|81)\d|(?:1|[24]1)\d{2})\d{3}|(?:1[13-9]\d|(?:3[78]|44)[02-9]|6(?:44|6[02-9]))\d{7}|80[03]\d{7}|96(?:0[49]|1[0-4]|6[69])\d{6}'],
+        ['BE', 'BEL', '056', 'Belgium', 'Brussels', '.be', 'EU', '150', 'Europe', '155', 'Western Europe', 'nl-BE,fr-BE,de-BE', 'EUR', 'Euro', '^(\d{4})$', '32', '00', '0', '(?:1[0-69]|[23][2-8]|4[23]|5\d|6[013-57-9]|71|8[1-79]|9[2-4])\d{6}|80[2-8]\d{5}|4(?:6[0135-8]|[79]\d|8[3-9])\d{6}|800\d{5}|(?:70[2-467]|90[0-79])\d{5}|78\d{6}'],
+        ['BF', 'BFA', '854', 'Burkina Faso', 'Ouagadougou', '.bf', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-BF', 'XOF', 'CFA Franc BCEAO', '', '226', '00', '', '2(?:0(?:49|5[23]|6[56]|9[016-9])|4(?:4[569]|5[4-6]|6[56]|7[0179])|5(?:[34]\d|50|6[56]))\d{4}|(?:5[15]|[67]\d)\d{6}'],
+        ['BG', 'BGR', '100', 'Bulgaria', 'Sofia', '.bg', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'bg,tr-BG,rom', 'BGN', 'Bulgarian Lev', '^(\d{4})$', '359', '00', '0', '2\d{5,7}|(?:[36]\d|5[1-9]|8[1-6]|9[1-7])\d{5,6}|(?:4(?:[124-7]\d|3[1-6])|7(?:0[1-9]|[1-9]\d))\d{4,5}|(?:8[7-9]\d|9(?:8\d|99))\d{6}|4(?:3[0789]|8\d)\d{5}|800\d{5}|90\d{6}|700\d{5}'],
+        ['BH', 'BHR', '048', 'Bahrain', 'Manama', '.bh', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-BH,en,fa,ur', 'BHD', 'Bahraini Dinar', '^(\d{3}\d?)$', '973', '00', '', '(?:1(?:3[1356]|6[0156]|7\d)\d|6(?:1[16]\d|500|6(?:0\d|3[12]|44|7[7-9])|9[69][69])|7(?:1(?:11|78)|7\d{2}))\d{4}|(?:3(?:[1-4679]\d|5[013-69]|8[0-47-9])\d|6(?:3(?:00|33|6[16])|6(?:[69]\d|3[03-9]|7[0-6])))\d{4}|80\d{6}|(?:87|9[014578])\d{6}|84\d{6}'],
+        ['BI', 'BDI', '108', 'Burundi', 'Bujumbura', '.bi', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-BI,rn', 'BIF', 'Burundi Franc', '', '257', '00', '', '22\d{6}|(?:29|6[189]|7[124-9])\d{6}'],
+        ['BJ', 'BEN', '204', 'Benin', 'Porto-Novo', '.bj', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-BJ', 'XOF', 'CFA Franc BCEAO', '', '229', '00', '', '2(?:02|1[037]|2[45]|3[68])\d{5}|(?:6[1-8]|9[03-9])\d{6}|7[3-5]\d{2}|857[58]\d{4}|81\d{6}'],
+        ['BL', 'BLM', '652', 'Saint Barthelemy', 'Gustavia', '.gp', 'AM', '019', 'Americas', '029', 'Caribbean', 'fr', 'EUR', 'Euro', '', '590', '00', '0', '590(?:2[7-9]|5[12]|87)\d{4}|690(?:0[0-7]|[1-9]\d)\d{4}'],
+        ['BM', 'BMU', '060', 'Bermuda', 'Hamilton', '.bm', 'AM', '019', 'Americas', '021', 'Northern America', 'en-BM,pt', 'BMD', 'Bermudian Dollar', '^([A-Z]{2}\d{2})$', '1', '011', '1', '441(?:2(?:02|23|61|[3479]\d)|[46]\d{2}|5(?:4\d|60|89)|824)\d{4}|441(?:[37]\d|5[0-39])\d{5}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['BN', 'BRN', '096', 'Brunei', 'Bandar Seri Begawan', '.bn', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'ms-BN,en-BN', 'BND', 'Brunei Dollar', '^([A-Z]{2}\d{4})$', '673', '00', '', '2(?:[013-9]\d|2[0-7])\d{4}|[3-5]\d{6}|22[89]\d{4}|[78]\d{6}'],
+        ['BO', 'BOL', '068', 'Bolivia (Plurinational State of)', 'Sucre', '.bo', 'AM', '019', 'Americas', '005', 'South America', 'es-BO,qu,ay', 'BOB', 'Boliviano', '', '591', '00(1\d)?', '0', '(?:2(?:2\d{2}|5(?:11|[258]\d|9[67])|6(?:12|2\d|9[34])|8(?:2[34]|39|62))|3(?:3\d{2}|4(?:6\d|8[24])|8(?:25|42|5[257]|86|9[25])|9(?:2\d|3[234]|4[248]|5[24]|6[2-6]|7\d))|4(?:4\d{2}|6(?:11|[24689]\d|72)))\d{4}|[67]\d{7}'],
+        ['BQ', 'BES', '535', 'Bonaire, Saint Eustatius and Saba', '', '.bq', 'AM', '019', 'Americas', '021', 'Northern America', 'nl,pap,en', 'USD', 'US Dollar', '', '599', '00', '', '(?:318[023]|41(?:6[023]|70)|7(?:1[578]|50)\d)\d{3}|(?:31(?:8[14-8]|9[14578])|416[145-9]|7(?:0[01]|7[07]|8\d|9[056])\d)\d{3}'],
+        ['BR', 'BRA', '076', 'Brazil', 'Brasilia', '.br', 'AM', '019', 'Americas', '005', 'South America', 'pt-BR,es,en,fr', 'BRL', 'Brazilian Real', '^\d{5}-\d{3}$', '55', '00(?:1[245]|2[1-35]|31|4[13]|[56]5|99)', '0', '(?:[14689][1-9]|2[12478]|3[1-578]|5[13-5]|7[13-579])[2-5]\d{7}|1[1-9](?:7|9\d)\d{7}|(?:2[12478]|3[1-578]|[4689][1-9]|5[13-5]|7[13-579])(?:[6-8]|9\d?)\d{7}|800\d{6,7}|(?:300|[59]00\d?)\d{6}|(?:300\d(?:\d{2})?|40(?:0\d|20))\d{4}'],
+        ['BS', 'BHS', '044', 'Bahamas', 'Nassau', '.bs', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-BS', 'BSD', 'Bahamian Dollar', '', '1', '011', '1', '242(?:3(?:02|[236][1-9]|4[0-24-9]|5[0-68]|7[3467]|8[0-4]|9[2-467])|461|502|6(?:0[1-3]|12|7[67]|8[78]|9[89])|7(?:02|88))\d{4}|242(?:3(?:5[79]|[79]5)|4(?:[2-4][1-9]|5[1-8]|6[2-8]|7\d|81)|5(?:2[45]|3[35]|44|5[1-9]|65|77)|6[34]6|7(?:27|38)|8(?:0[1-9]|1[02-9]|2\d|99))\d{4}|242300\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['BT', 'BTN', '064', 'Bhutan', 'Thimphu', '.bt', 'AS', '142', 'Asia', '034', 'Southern Asia', 'dz', 'BTN', 'Ngultrum', '', '975', '00', '', '(?:2[3-6]|[34][5-7]|5[236]|6[2-46]|7[246]|8[2-4])\d{5}|(?:1[67]|77)\d{6}'],
+        ['BV', 'BVT', '074', 'Bouvet Island', '', '.bv', 'AN', '', '', '', '', '', 'NOK', 'Norwegian Krone', '', '', '', '', ''],
+        ['BW', 'BWA', '072', 'Botswana', 'Gaborone', '.bw', 'AF', '002', 'Africa', '018', 'Southern Africa', 'en-BW,tn-BW', 'BWP', 'Pula', '', '267', '00', '', '(?:2(?:4[0-48]|6[0-24]|9[0578])|3(?:1[0-35-9]|55|[69]\d|7[01])|4(?:6[03]|7[1267]|9[0-5])|5(?:3[0389]|4[0489]|7[1-47]|88|9[0-49])|6(?:2[1-35]|5[149]|8[067]))\d{4}|7(?:[1-6]\d|7[014-8])\d{5}|90\d{5}|79[12][01]\d{4}'],
+        ['BY', 'BLR', '112', 'Belarus', 'Minsk', '.by', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'be,ru', 'BYR', 'Belarussian Ruble', '^(\d{6})$', '375', '810', '8', '(?:1(?:5(?:1[1-5]|[24]\d|6[2-4]|9[1-7])|6(?:[235]\d|4[1-7])|7\d{2})|2(?:1(?:[246]\d|3[0-35-9]|5[1-9])|2(?:[235]\d|4[0-8])|3(?:[26]\d|3[02-79]|4[024-7]|5[03-7])))\d{5}|(?:2(?:5[5679]|9[1-9])|33\d|44\d)\d{6}|8(?:0[13]|20\d)\d{7}|800\d{3,7}|(?:810|902)\d{7}|249\d{6}'],
+        ['BZ', 'BLZ', '084', 'Belize', 'Belmopan', '.bz', 'AM', '019', 'Americas', '013', 'Central America', 'en-BZ,es', 'BZD', 'Belize Dollar', '', '501', '00', '', '(?:2(?:[02]\d|36)|[3-58][02]\d|7(?:[02]\d|32))\d{4}|6[0-35-7]\d{5}|0800\d{7}'],
+        ['CA', 'CAN', '124', 'Canada', 'Ottawa', '.ca', 'AM', '019', 'Americas', '021', 'Northern America', 'en-CA,fr-CA,iu', 'CAD', 'Canadian Dollar', '^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]) ?(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$', '1', '011', '1', '(?:2(?:04|[23]6|[48]9|50)|3(?:06|43|65)|4(?:03|1[68]|3[178]|50)|5(?:06|1[49]|48|79|8[17])|6(?:0[04]|13|22|39|47)|7(?:0[59]|78|8[02])|8(?:[06]7|19|25|73)|90[25])[2-9]\d{6}|310\d{4}|(?:2(?:04|[23]6|[48]9|50)|3(?:06|43|65)|4(?:03|1[68]|3[178]|50)|5(?:06|1[49]|48|79|8[17])|6(?:0[04]|13|22|39|47)|7(?:0[59]|78|8[02])|8(?:[06]7|19|25|73)|90[25])[2-9]\d{6}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|310\d{4}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['CC', 'CCK', '166', 'Cocos  (Keeling) Islands', 'West Island', '.cc', 'AS', '142', 'Asia', '', '', 'ms-CC,en', 'AUD', 'Australian Dollar', '', '61', '(?:14(?:1[14]|34|4[17]|[56]6|7[47]|88))?001[14-689]', '0', '89162\d{4}|14(?:5\d|71)\d{5}|4(?:[0-2]\d|3[0-57-9]|4[47-9]|5[0-25-9]|6[6-9]|7[02-9]|8[147-9]|9[017-9])\d{6}|180(?:0\d{3}|2)\d{3}|190[0126]\d{6}|13(?:00\d{2})?\d{4}|500\d{6}|550\d{6}'],
+        ['CD', 'COD', '180', 'Congo (Democratic Republic of the)', 'Kinshasa', '.cd', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-CD,ln,kg', 'CDF', 'Congolese Franc', '', '243', '00', '0', '1(?:2\d{7}|\d{6})|[2-6]\d{6}|8(?:[0-2459]\d{2}|8)\d{5}|9[017-9]\d{7}'],
+        ['CF', 'CAF', '140', 'Central African Republic', 'Bangui', '.cf', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-CF,sg,ln,kg', 'XAF', 'CFA Franc BEAC', '', '236', '00', '', '2[12]\d{6}|7[0257]\d{6}|8776\d{4}'],
+        ['CG', 'COG', '178', 'Congo (Republic of)', 'Brazzaville', '.cg', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-CG,kg,ln-CG', 'XAF', 'CFA Franc BEAC', '', '242', '00', '', '222[1-589]\d{5}|0[14-6]\d{7}|800\d{6}'],
+        ['CH', 'CHE', '756', 'Switzerland', 'Bern', '.ch', 'EU', '150', 'Europe', '155', 'Western Europe', 'de-CH,fr-CH,it-CH,rm', 'CHF', 'Swiss Franc', '^(\d{4})$', '41', '00', '0', '(?:2[12467]|3[1-4]|4[134]|5[256]|6[12]|[7-9]1)\d{7}|7[5-9]\d{7}|800\d{6}|90[016]\d{6}|84[0248]\d{6}|878\d{6}|74[0248]\d{6}|5[18]\d{7}|860\d{9}'],
+        ['CI', 'CIV', '384', 'Ivory Coast', 'Yamoussoukro', '.ci', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-CI', 'XOF', 'CFA Franc BCEAO', '', '225', '00', '', '(?:2(?:0[023]|1[02357]|[23][045]|4[03-5])|3(?:0[06]|1[069]|[2-4][07]|5[09]|6[08]))\d{5}|(?:0[1-9]|4\d|5[14-9]|6[015-79]|[78][4-9])\d{6}'],
+        ['CK', 'COK', '184', 'Cook Islands', 'Avarua', '.ck', 'OC', '009', 'Oceania', '061', 'Polynesia', 'en-CK,mi', 'NZD', 'New Zealand Dollar', '', '682', '00', '', '(?:2\d|3[13-7]|4[1-5])\d{3}|[5-8]\d{4}'],
+        ['CL', 'CHL', '152', 'Chile', 'Santiago', '.cl', 'AM', '019', 'Americas', '005', 'South America', 'es-CL', 'CLP', 'Chilean Peso', '^(\d{7})$', '56', '(?:0|1(?:1[0-69]|2[0-57]|5[13-58]|69|7[0167]|8[018]))0', '0', '2(?:1962\d{4}|2\d{7}|32[0-2467]\d{5})|(?:3[2-5]|[47][1-35]|5[1-3578]|6[13-57]|9[3-9])\d{7}|800\d{6}|1230\d{7}|600\d{7,8}|44\d{7}'],
+        ['CM', 'CMR', '120', 'Cameroon', 'Yaounde', '.cm', 'AF', '002', 'Africa', '017', 'Middle Africa', 'en-CM,fr-CM', 'XAF', 'CFA Franc BEAC', '', '237', '00', '', '2(?:22|33|4[23])\d{6}|6[5-9]\d{7}|800\d{5}|88\d{6}'],
+        ['CN', 'CHN', '156', 'China', 'Beijing', '.cn', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'zh-CN,yue,wuu,dta,ug,za', 'CNY', 'Yuan Renminbi', '^(\d{6})$', '86', '(1(?:[129]\d{3}|79\d{2}))?00', '0', '21(?:100\d{2}|95\d{3,4}|\d{8,10})|(?:10|2[02-57-9]|3(?:11|7[179])|4(?:[15]1|3[1-35])|5(?:1\d|2[37]|3[12]|51|7[13-79]|9[15])|7(?:31|5[457]|6[09]|91)|8(?:[57]1|98))(?:100\d{2}|95\d{3,4}|\d{8})|(?:3(?:1[02-9]|35|49|5\d|7[02-68]|9[1-68])|4(?:1[02-9]|2[179]|3[3-9]|5[2-9]|6[4789]|7\d|8[23])|5(?:3[03-9]|4[36]|5[02-9]|6[1-46]|7[028]|80|9[2-46-9])|6(?:3[1-5]|6[0238]|9[12])|7(?:01|[17]\d|2[248]|3[04-9]|4[3-6]|5[0-4689]|6[2368]|9[02-9])|8(?:078|1[236-8]|2[5-7]|3\d|5[1-9]|7[02-9]|8[3678]|9[1-7])|9(?:0[1-3689]|1[1-79]|[379]\d|4[13]|5[1-5]))(?:100\d{2}|95\d{3,4}|\d{7})|80(?:29|6[03578]|7[018]|81)\d{4}|1(?:[38]\d|4[57]|5[0-35-9]|7[0-35-8])\d{8}|(?:10)?800\d{7}|16[08]\d{5}|400\d{7}|950\d{7,8}|(?:10|2[0-57-9]|3(?:[157]\d|35|49|9[1-68])|4(?:[17]\d|2[179]|[35][1-9]|6[4789]|8[23])|5(?:[1357]\d|2[37]|4[36]|6[1-46]|80|9[1-9])|6(?:3[1-5]|6[0238]|9[12])|7(?:01|[1579]\d|2[248]|3[014-9]|4[3-6]|6[023689])|8(?:1[236-8]|2[5-7]|[37]\d|5[14-9]|8[3678]|9[1-8])|9(?:0[1-3689]|1[1-79]|[379]\d|4[13]|5[1-5]))96\d{3,4}'],
+        ['CO', 'COL', '170', 'Colombia', 'Bogota', '.co', 'AM', '019', 'Americas', '005', 'South America', 'es-CO', 'COP', 'Colombian Peso', '', '57', '00(?:4(?:[14]4|56)|[579])', '0', '[124-8][2-9]\d{6}|3(?:0[0-5]|1\d|2[0-3]|5[01])\d{7}|1800\d{7}|19(?:0[01]|4[78])\d{7}'],
+        ['CR', 'CRI', '188', 'Costa Rica', 'San Jose', '.cr', 'AM', '019', 'Americas', '013', 'Central America', 'es-CR,en', 'CRC', 'Costa Rican Colon', '^(\d{4})$', '506', '00', '', '2[0-24-7]\d{6}|5(?:0[01]|7[0-3])\d{5}|6(?:[0-4]\d{3}|500[01])\d{3}|(?:7[0-3]|8[3-9])\d{6}|800\d{7}|90[059]\d{7}|210[0-6]\d{4}|4\d{7}|5100\d{4}'],
+        ['CU', 'CUB', '192', 'Cuba', 'Havana', '.cu', 'AM', '019', 'Americas', '029', 'Caribbean', 'es-CU', 'CUP', 'Cuban Peso', '^(?:CP)*(\d{5})$', '53', '119', '0', '2[1-4]\d{5,6}|3(?:1\d{6}|[23]\d{4,6})|4(?:[125]\d{5,6}|[36]\d{6}|[78]\d{4,6})|7\d{6,7}|5\d{7}'],
+        ['CV', 'CPV', '132', 'Cape Verde', 'Praia', '.cv', 'AF', '002', 'Africa', '011', 'Western Africa', 'pt-CV', 'CVE', 'Cabo Verde Escudo', '^(\d{4})$', '238', '0', '', '2(?:2[1-7]|3[0-8]|4[12]|5[1256]|6\d|7[1-3]|8[1-5])\d{4}|(?:9\d|59)\d{5}'],
+        ['CW', 'CUW', '531', 'Curacao', 'Willemstad', '.cw', 'AM', '019', 'Americas', '029', 'Caribbean', 'nl,pap', 'ANG', 'Netherlands Antillean Guilder', '', '599', '00', '', '9(?:[48]\d{2}|50\d|7(?:2[0-24]|[34]\d|6[35-7]|77|8[7-9]))\d{4}|9(?:5(?:[12467]\d|3[01])|6(?:[15-9]\d|3[01]))\d{4}|60[0-2]\d{4}|955\d{5}'],
+        ['CX', 'CXR', '162', 'Christmas Island', 'Flying Fish Cove', '.cx', 'AS', '142', 'Asia', '', '', 'en,zh,ms-CC', 'AUD', 'Australian Dollar', '^(\d{4})$', '61', '(?:14(?:1[14]|34|4[17]|[56]6|7[47]|88))?001[14-689]', '0', '89164\d{4}|14(?:5\d|71)\d{5}|4(?:[0-2]\d|3[0-57-9]|4[47-9]|5[0-25-9]|6[6-9]|7[02-9]|8[147-9]|9[017-9])\d{6}|180(?:0\d{3}|2)\d{3}|190[0126]\d{6}|13(?:00\d{2})?\d{4}|500\d{6}|550\d{6}'],
+        ['CY', 'CYP', '196', 'Cyprus', 'Nicosia', '.cy', 'EU', '142', 'Asia', '145', 'Western Asia', 'el-CY,tr-CY,en', 'EUR', 'Euro', '^(\d{4})$', '357', '00', '', '2[2-6]\d{6}|9[4-79]\d{6}|800\d{5}|90[09]\d{5}|80[1-9]\d{5}|700\d{5}|(?:50|77)\d{6}'],
+        ['CZ', 'CZE', '203', 'Czech Republic', 'Prague', '.cz', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'cs,sk', 'CZK', 'Czech Koruna', '^\d{3}\s?\d{2}$', '420', '00', '', '2\d{8}|(?:3[1257-9]|4[16-9]|5[13-9])\d{7}|(?:60[1-8]|7(?:0[2-5]|[2379]\d))\d{6}|800\d{6}|9(?:0[05689]|76)\d{6}|8[134]\d{7}|70[01]\d{6}|9[17]0\d{6}|9(?:5\d|7[234])\d{6}|9(?:3\d{9}|6\d{7,10})'],
+        ['DE', 'DEU', '276', 'Germany', 'Berlin', '.de', 'EU', '150', 'Europe', '155', 'Western Europe', 'de', 'EUR', 'Euro', '^(\d{5})$', '49', '00', '0', '2\d{5,13}|3(?:0\d{3,13}|2\d{9}|[3-9]\d{4,13})|4(?:0\d{3,12}|\d{5,13})|5(?:0[2-8]|[1256]\d|[38][0-8]|4\d{0,2}|[79][0-7])\d{3,11}|6(?:\d{5,13}|9\d{3,12})|7(?:0[2-8]|[1-9]\d)\d{3,10}|8(?:0[2-9]|[1-8]\d|9\d?)\d{3,10}|9(?:0[6-9]\d{3,10}|1\d{4,12}|[2-9]\d{4,11})|1(?:5[0-25-9]\d{8}|6[023]\d{7,8}|7\d{8,9})|800\d{7,12}|137[7-9]\d{6}|900(?:[135]\d{6}|9\d{7})|1(?:3(?:7[1-6]\d{6}|8\d{4})|80\d{5,11})|700\d{8}|16(?:4\d{1,10}|[89]\d{1,11})|18(?:1\d{5,11}|[2-9]\d{8})|1(?:5(?:(?:2\d55|7\d99|9\d33)\d{7}|(?:[034568]00|113)\d{8})|6(?:013|255|399)\d{7,8}|7(?:[015]13|[234]55|[69]33|[78]99)\d{7,8})'],
+        ['DJ', 'DJI', '262', 'Djibouti', 'Djibouti', '.dj', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-DJ,ar,so-DJ,aa', 'DJF', 'Djibouti Franc', '', '253', '00', '', '2(?:1[2-5]|7[45])\d{5}|77\d{6}'],
+        ['DK', 'DNK', '208', 'Denmark', 'Copenhagen', '.dk', 'EU', '150', 'Europe', '154', 'Northern Europe', 'da-DK,en,fo,de-DK', 'DKK', 'Danish Krone', '^(\d{4})$', '45', '00', '', '(?:[2-7]\d|8[126-9]|9[1-36-9])\d{6}|80\d{6}|90\d{6}'],
+        ['DM', 'DMA', '212', 'Dominica', 'Roseau', '.dm', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-DM', 'XCD', 'East Caribbean Dollar', '', '1', '011', '1', '767(?:2(?:55|66)|4(?:2[01]|4[0-25-9])|50[0-4]|70[1-3])\d{4}|767(?:2(?:[234689]5|7[5-7])|31[5-7]|61[2-7])\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['DO', 'DOM', '214', 'Dominican Republic', 'Santo Domingo', '.do', 'AM', '019', 'Americas', '029', 'Caribbean', 'es-DO', 'DOP', 'Dominican Peso', '^(\d{5})$', '1', '011', '1', '8(?:[04]9[2-9]\d{6}|29(?:2(?:[0-59]\d|6[04-9]|7[0-27]|8[0237-9])|3(?:[0-35-9]\d|4[7-9])|[45]\d{2}|6(?:[0-27-9]\d|[3-5][1-9]|6[0135-8])|7(?:0[013-9]|[1-37]\d|4[1-35689]|5[1-4689]|6[1-57-9]|8[1-79]|9[1-8])|8(?:0[146-9]|1[0-48]|[248]\d|3[1-79]|5[01589]|6[013-68]|7[124-8]|9[0-8])|9(?:[0-24]\d|3[02-46-9]|5[0-79]|60|7[0169]|8[57-9]|9[02-9]))\d{4})|8[024]9[2-9]\d{6}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['DZ', 'DZA', '012', 'Algeria', 'Algiers', '.dz', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-DZ', 'DZD', 'Algerian Dinar', '^(\d{5})$', '213', '00', '0', '(?:1\d|2[013-79]|3[0-8]|4[0135689])\d{6}|9619\d{5}|(?:5[4-6]|7[7-9])\d{7}|6(?:[569]\d|7[0-6])\d{6}|800\d{6}|80[3-689]1\d{5}|80[12]1\d{5}|98[23]\d{6}'],
+        ['EC', 'ECU', '218', 'Ecuador', 'Quito', '.ec', 'AM', '019', 'Americas', '005', 'South America', 'es-EC', 'USD', 'US Dollar', '^([a-zA-Z]\d{4}[a-zA-Z])$', '593', '00', '0', '[2-7][2-7]\d{6}|9(?:(?:39|[45][89]|7[7-9]|[89]\d)\d|6(?:[017-9]\d|2[0-4]))\d{5}|1800\d{6,7}|[2-7]890\d{4}'],
+        ['EE', 'EST', '233', 'Estonia', 'Tallinn', '.ee', 'EU', '150', 'Europe', '154', 'Northern Europe', 'et,ru', 'EUR', 'Euro', '^(\d{5})$', '372', '00', '', '(?:3[23589]|4[3-8]|6\d|7[1-9]|88)\d{5}|(?:5\d|8[1-5])\d{6}|5(?:[02]\d{2}|1(?:[0-8]\d|95)|5[0-478]\d|64[0-4]|65[1-589])\d{3}|800(?:0\d{3}|1\d|[2-9])\d{3}|(?:40\d{2}|900)\d{4}|70[0-2]\d{5}|1(?:2[01245]|3[0-6]|4[1-489]|5[0-59]|6[1-46-9]|7[0-27-9]|8[189]|9[012])\d{1,2}'],
+        ['EG', 'EGY', '818', 'Egypt', 'Cairo', '.eg', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-EG,en,fr', 'EGP', 'Egyptian Pound', '^(\d{5})$', '20', '00', '0', '(?:1(?:3[23]\d|5(?:[23]|9\d))|2[2-4]\d{2}|3\d{2}|4(?:0[2-5]|[578][23]|64)\d|5(?:0[2-7]|[57][23])\d|6[24-689]3\d|8(?:2[2-57]|4[26]|6[237]|8[2-4])\d|9(?:2[27]|3[24]|52|6[2356]|7[2-4])\d)\d{5}|1[69]\d{3}|1(?:0[0-269]|1[0-245]|2[0-278])\d{7}|800\d{7}|900\d{7}'],
+        ['EH', 'ESH', '732', 'Western Sahara', 'El-Aaiun', '.eh', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar,mey', 'MAD', 'Moroccan Dirham', '', '212', '00', '0', '528[89]\d{5}|(?:6(?:[0-79]\d|8[0-247-9])|7(?:[07][07]|6[12]))\d{6}|80\d{7}|89\d{7}|5924[01]\d{4}'],
+        ['ER', 'ERI', '232', 'Eritrea', 'Asmara', '.er', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'aa-ER,ar,tig,kun,ti-ER', 'ERN', 'Nakfa', '', '291', '00', '0', '1(?:1[12568]|20|40|55|6[146])\d{4}|8\d{6}|17[1-3]\d{4}|7\d{6}'],
+        ['ES', 'ESP', '724', 'Spain', 'Madrid', '.es', 'EU', '150', 'Europe', '039', 'Southern Europe', 'es-ES,ca,gl,eu,oc', 'EUR', 'Euro', '^(\d{5})$', '34', '00', '', '8(?:[1356]\d|[28][0-8]|[47][1-9])\d{6}|9(?:[135]\d{7}|[28][0-8]\d{6}|4[1-9]\d{6}|6(?:[0-8]\d{6}|9(?:0(?:[0-57-9]\d{4}|6(?:0[0-8]|1[1-9]|[2-9]\d)\d{2})|[1-9]\d{5}))|7(?:[124-9]\d{2}|3(?:[0-8]\d|9[1-9]))\d{4})|(?:6\d{6}|7[1-48]\d{5}|9(?:6906(?:09|10)|7390\d{2}))\d{2}|[89]00\d{6}|80[367]\d{6}|90[12]\d{6}|70\d{7}|51\d{7}'],
+        ['ET', 'ETH', '231', 'Ethiopia', 'Addis Ababa', '.et', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'am,en-ET,om-ET,ti-ET,so-ET,sid', 'ETB', 'Ethiopian Birr', '^(\d{4})$', '251', '00', '0', '(?:11(?:1(?:1[124]|2[2-57]|3[1-5]|5[5-8]|8[6-8])|2(?:13|3[6-8]|5[89]|7[05-9]|8[2-6])|3(?:2[01]|3[0-289]|4[1289]|7[1-4]|87)|4(?:1[69]|3[2-49]|4[0-3]|6[5-8])|5(?:1[578]|44|5[0-4])|6(?:18|2[69]|39|4[5-7]|5[1-5]|6[0-59]|8[015-8]))|2(?:2(?:11[1-9]|22[0-7]|33\d|44[1467]|66[1-68])|5(?:11[124-6]|33[2-8]|44[1467]|55[14]|66[1-3679]|77[124-79]|880))|3(?:3(?:11[0-46-8]|22[0-6]|33[0134689]|44[04]|55[0-6]|66[01467])|4(?:44[0-8]|55[0-69]|66[0-3]|77[1-5]))|4(?:6(?:22[0-24-7]|33[1-5]|44[13-69]|55[14-689]|660|88[1-4])|7(?:11[1-9]|22[1-9]|33[13-7]|44[13-6]|55[1-689]))|5(?:7(?:227|55[05]|(?:66|77)[14-8])|8(?:11[149]|22[013-79]|33[0-68]|44[013-8]|550|66[1-5]|77\d)))\d{4}|9(?:[1-468]\d|5[89])\d{6}'],
+        ['FI', 'FIN', '246', 'Finland', 'Helsinki', '.fi', 'EU', '150', 'Europe', '154', 'Northern Europe', 'fi-FI,sv-FI,smn', 'EUR', 'Euro', '^(?:FI)*(\d{5})$', '358', '00|99(?:[02469]|5(?:11|33|5[59]|88|9[09]))', '0', '1(?:[3569][1-8]\d{3,9}|[47]\d{5,10})|2[1-8]\d{3,9}|3(?:[1-8]\d{3,9}|9\d{4,8})|[5689][1-8]\d{3,9}|4\d{5,10}|50\d{4,8}|800\d{4,7}|[67]00\d{5,6}|[13]0\d{4,8}|2(?:0(?:[016-8]\d{3,7}|[2-59]\d{2,7})|9\d{4,8})|60(?:[12]\d{5,6}|6\d{7})|7(?:1\d{7}|3\d{8}|5[03-9]\d{2,7})'],
+        ['FJ', 'FJI', '242', 'Fiji', 'Suva', '.fj', 'OC', '009', 'Oceania', '054', 'Melanesia', 'en-FJ,fj', 'FJD', 'Fiji Dollar', '', '679', '0(?:0|52)', '', '(?:3[0-5]|6[25-7]|8[58])\d{5}|(?:5[018]|[79]\d|8[034679])\d{5}|0800\d{7}'],
+        ['FK', 'FLK', '238', 'Falkland Islands (Malvinas)', 'Stanley', '.fk', 'AM', '019', 'Americas', '005', 'South America', 'en-FK', 'FKP', 'Falkland Islands Pound', '', '500', '00', '', '[2-47]\d{4}|[56]\d{4}'],
+        ['FM', 'FSM', '583', 'Micronesia', 'Palikir', '.fm', 'OC', '009', 'Oceania', '057', 'Micronesia', 'en-FM,chk,pon,yap,kos,uli,woe,nkr,kpg', 'USD', 'US Dollar', '^(\d{5})$', '691', '00', '', '3[2357]0[1-9]\d{3}|9[2-6]\d{5}|3[2357]0[1-9]\d{3}|9[2-7]\d{5}'],
+        ['FO', 'FRO', '234', 'Faroe Islands', 'Torshavn', '.fo', 'EU', '150', 'Europe', '154', 'Northern Europe', 'fo,da-FO', 'DKK', 'Danish Krone', '^(?:FO)*(\d{3})$', '298', '00', '', '(?:20|[3-4]\d|8[19])\d{4}|(?:[27][1-9]|5\d)\d{4}|80[257-9]\d{3}|90(?:[1345][15-7]|2[125-7]|99)\d{2}|(?:6[0-36]|88)\d{4}'],
+        ['FR', 'FRA', '250', 'France', 'Paris', '.fr', 'EU', '150', 'Europe', '155', 'Western Europe', 'fr-FR,frp,br,co,ca,eu,oc', 'EUR', 'Euro', '^(\d{5})$', '33', '00', '0', '[1-5]\d{8}|(?:6\d|7[3-9])\d{7}|80[0-5]\d{6}|89[1-37-9]\d{6}|8(?:1[0-29]|2[0156]|84|90)\d{6}|9\d{8}|80[6-9]\d{6}'],
+        ['GA', 'GAB', '266', 'Gabon', 'Libreville', '.ga', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-GA', 'XAF', 'CFA Franc BEAC', '', '241', '00', '', '01\d{6}|0?[2-7]\d{6}'],
+        ['GB', 'GBR', '826', 'United Kingdom', 'London', '.uk', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en-GB,cy-GB,gd', 'GBP', 'Pound Sterling', '^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$', '44', '00', '0', '2(?:0[01378]|3[0189]|4[017]|8[0-46-9]|9[0-2])\d{7}|1(?:(?:1(?:3[0-48]|[46][0-4]|5[0-26-9]|[78][0-49])|21[0-7]|31[0-8]|[4-69]1\d))\d{6}|1(?:2(?:0[024-9]|2[3-9]|3[3-79]|4[1-689]|[58][02-9]|6[0-47-9]|7[013-9]|9\d)|3(?:0\d|[25][02-9]|3[02-579]|[468][0-46-9]|7[1-35-79]|9[2-578])|4(?:0[03-9]|[28][02-57-9]|[37]\d|4[02-69]|5[0-8]|[69][0-79])|5(?:0[1-35-9]|2[024-9]|3[015689]|4[02-9]|5[03-9]|6\d|7[0-35-9]|8[0-468]|9[0-57-9])|6(?:0[034689]|2[0-35689]|[38][013-9]|4[1-467]|5[0-69]|6[13-9]|7[0-8]|9[0124578])|7(?:0[0246-9]|2\d|3[0236-8]|4[03-9]|5[0-46-9]|6[013-9]|7[0-35-9]|8[024-9]|9[02-9])|8(?:0[35-9]|2[1-57-9]|3[02-578]|4[0-578]|5[124-9]|6[2-69]|7\d|8[02-9]|9[02569])|9(?:0[02-589]|2[02-689]|3[1-57-9]|4[2-9]|5[0-579]|6[2-47-9]|7[0-24578]|8\d|9[2-57]))\d{6}|1(?:2(?:0(?:46[1-4]|87[2-9])|545[1-79]|76(?:2\d|3[1-8]|6[1-6])|9(?:7(?:2[0-4]|3[2-5])|8(?:2[2-8]|7[0-47-9]|8[345])))|3(?:638[2-5]|647[23]|8(?:47[04-9]|64[0157-9]))|4(?:044[1-7]|20(?:2[23]|8\d)|6(?:0(?:30|5[2-57]|6[1-8]|7[2-8])|140)|8(?:052|87[123]))|5(?:24(?:3[2-79]|6\d)|276\d|6(?:26[06-9]|686))|6(?:06(?:4\d|7[4-79])|295[567]|35[34]\d|47(?:24|61)|59(?:5[08]|6[67]|74)|955[0-4])|7(?:26(?:6[13-9]|7[0-7])|442\d|50(?:2[0-3]|[3-68]2|76))|8(?:27[56]\d|37(?:5[2-5]|8[239])|84(?:3[2-58]))|9(?:0(?:0(?:6[1-8]|85)|52\d)|3583|4(?:66[1-8]|9(?:2[01]|81))|63(?:23|3[1-4])|9561))\d{3}|176888[2-46-8]\d{2}|16977[23]\d{3}|7(?:[1-3]\d{3}|4(?:[0-46-9]\d{2}|5(?:[0-689]\d|7[0-57-9]))|5(?:0[0-8]|[13-9]\d|2[0-35-9])\d|7(?:0(?:0[01]|[1-9]\d)|[1-7]\d{2}|8[02-9]\d|9[0-689]\d)|8(?:[014-9]\d|[23][0-8])\d|9(?:[024-9]\d{2}|1(?:[02-9]\d|1[028])|3[0-689]\d))\d{5}|80(?:0(?:1111|\d{6,7})|8\d{7})|500\d{6}|(?:87[123]|9(?:[01]\d|8[2349]))\d{7}|8(?:4(?:5464\d|[2-5]\d{7})|70\d{7})|70\d{8}|56\d{8}|76(?:0[012]\d|2(?:[356]\d|4[013-9])|4[0134]\d|5[49]\d|6[0-369]\d|77\d|81\d|9[39]\d)\d{5}|(?:3[0347]|55)\d{8}'],
+        ['GD', 'GRD', '308', 'Grenada', 'St. George\'s', '.gd', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-GD', 'XCD', 'East Caribbean Dollar', '', '1', '011', '1', '473(?:2(?:3[0-2]|69)|3(?:2[89]|86)|4(?:[06]8|3[5-9]|4[0-49]|5[5-79]|68|73|90)|63[68]|7(?:58|84)|800|938)\d{4}|473(?:4(?:0[2-79]|1[04-9]|20|58)|5(?:2[01]|3[3-8])|901)\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['GE', 'GEO', '268', 'Georgia', 'Tbilisi', '.ge', 'AS', '142', 'Asia', '145', 'Western Asia', 'ka,ru,hy,az', 'GEL', 'Lari', '^(\d{4})$', '995', '00', '0', '(?:3(?:[256]\d|4[124-9]|7[0-4])|4(?:1\d|2[2-7]|3[1-79]|4[2-8]|7[239]|9[1-7]))\d{6}|5(?:14|5[01578]|68|7[0147-9]|9[0-35-9])\d{6}|800\d{6}|706\d{6}'],
+        ['GF', 'GUF', '254', 'French Guiana', 'Cayenne', '.gf', 'AM', '019', 'Americas', '005', 'South America', 'fr-GF', 'EUR', 'Euro', '^((97|98)3\d{2})$', '594', '00', '0', '594(?:10|2[012457-9]|3[0-57-9]|4[3-9]|5[7-9]|6[0-3]|9[014])\d{4}|694(?:[04][0-7]|1[0-5]|3[018]|[29]\d)\d{4}'],
+        ['GG', 'GGY', '831', 'Guernsey', 'St Peter Port', '.gg', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en,fr', 'GBP', 'Pound Sterling', '^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$', '44', '00', '0', '1481\d{6}|7(?:781\d|839\d|911[17])\d{5}|80(?:0(?:1111|\d{6,7})|8\d{7})|500\d{6}|(?:87[123]|9(?:[01]\d|8[0-3]))\d{7}|8(?:4(?:5464\d|[2-5]\d{7})|70\d{7})|70\d{8}|56\d{8}|76(?:0[012]|2[356]|4[0134]|5[49]|6[0-369]|77|81|9[39])\d{6}|(?:3[0347]|55)\d{8}'],
+        ['GH', 'GHA', '288', 'Ghana', 'Accra', '.gh', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-GH,ak,ee,tw', 'GHS', 'Ghana Cedi', '', '233', '00', '0', '3(?:0[237]\d|[167](?:2[0-6]|7\d)|2(?:2[0-5]|7\d)|3(?:2[0-3]|7\d)|4(?:2[013-9]|3[01]|7\d)|5(?:2[0-7]|7\d)|8(?:2[0-2]|7\d)|9(?:20|7\d))\d{5}|(?:2[034678]\d|5(?:[0457]\d|6[01]))\d{6}|800\d{5}'],
+        ['GI', 'GIB', '292', 'Gibraltar', 'Gibraltar', '.gi', 'EU', '150', 'Europe', '039', 'Southern Europe', 'en-GI,es,it,pt', 'GIP', 'Gibraltar Pound', '', '350', '00', '', '2(?:00\d|1(?:6[24-7]|9\d)|2(?:00|2[2457]))\d{4}|(?:5[46-8]|62)\d{6}|80\d{6}|8[1-689]\d{6}|87\d{6}'],
+        ['GL', 'GRL', '304', 'Greenland', 'Nuuk', '.gl', 'AM', '019', 'Americas', '021', 'Northern America', 'kl,da-GL,en', 'DKK', 'Danish Krone', '^(\d{4})$', '299', '00', '', '(?:19|3[1-6]|6[14689]|8[14-79]|9\d)\d{4}|[245][2-9]\d{4}|80\d{4}|3[89]\d{4}'],
+        ['GM', 'GMB', '270', 'Gambia', 'Banjul', '.gm', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-GM,mnk,wof,wo,ff', 'GMD', 'Dalasi', '', '220', '00', '', '(?:4(?:[23]\d{2}|4(?:1[024679]|[6-9]\d))|5(?:54[0-7]|6(?:[67]\d)|7(?:1[04]|2[035]|3[58]|48))|8\d{3})\d{3}|[23679]\d{6}'],
+        ['GN', 'GIN', '324', 'Guinea', 'Conakry', '.gn', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-GN', 'GNF', 'Guinea Franc', '', '224', '00', '', '30(?:24|3[12]|4[1-35-7]|5[13]|6[189]|[78]1|9[1478])\d{4}|6[02356]\d{7}|722\d{6}'],
+        ['GP', 'GLP', '312', 'Guadeloupe', 'Basse-Terre', '.gp', 'AM', '019', 'Americas', '029', 'Caribbean', 'fr-GP', 'EUR', 'Euro', '^((97|98)\d{3})$', '590', '00', '0', '590(?:0[13468]|1[012]|2[0-68]|3[28]|4[0-8]|5[579]|6[0189]|70|8[0-689]|9\d)\d{4}|690(?:0[0-7]|[1-9]\d)\d{4}'],
+        ['GQ', 'GNQ', '226', 'Equatorial Guinea', 'Malabo', '.gq', 'AF', '002', 'Africa', '017', 'Middle Africa', 'es-GQ,fr', 'XAF', 'CFA Franc BEAC', '', '240', '00', '', '3(?:3(?:3\d[7-9]|[0-24-9]\d[46])|5\d{2}[7-9])\d{4}|(?:222|55[15])\d{6}|80\d[1-9]\d{5}|90\d[1-9]\d{5}'],
+        ['GR', 'GRC', '300', 'Greece', 'Athens', '.gr', 'EU', '150', 'Europe', '039', 'Southern Europe', 'el-GR,en,fr', 'EUR', 'Euro', '^(\d{5})$', '30', '00', '', '2(?:1\d{2}|2(?:2[1-46-9]|3[1-8]|4[1-7]|5[1-4]|6[1-8]|7[1-5]|[89][1-9])|3(?:1\d|2[1-57]|[35][1-3]|4[13]|7[1-7]|8[124-6]|9[1-79])|4(?:1\d|2[1-8]|3[1-4]|4[13-5]|6[1-578]|9[1-5])|5(?:1\d|[29][1-4]|3[1-5]|4[124]|5[1-6])|6(?:1\d|3[1245]|4[1-7]|5[13-9]|[269][1-6]|7[14]|8[1-5])|7(?:1\d|2[1-5]|3[1-6]|4[1-7]|5[1-57]|6[135]|9[125-7])|8(?:1\d|2[1-5]|[34][1-4]|9[1-57]))\d{6}|69\d{8}|800\d{7}|90[19]\d{7}|8(?:0[16]|12|25)\d{7}|70\d{8}'],
+        ['GS', 'SGS', '239', 'South Georgia and the South Sandwich Islands', 'Grytviken', '.gs', 'AN', '', '', '', '', 'en', 'GBP', 'Pound Sterling', '', '', '', '', ''],
+        ['GT', 'GTM', '320', 'Guatemala', 'Guatemala City', '.gt', 'AM', '019', 'Americas', '013', 'Central America', 'es-GT', 'GTQ', 'Quetzal', '^(\d{5})$', '502', '00', '', '[267][2-9]\d{6}|[345]\d{7}|18[01]\d{8}|19\d{9}'],
+        ['GU', 'GUM', '316', 'Guam', 'Hagatna', '.gu', 'OC', '009', 'Oceania', '057', 'Micronesia', 'en-GU,ch-GU', 'USD', 'US Dollar', '^(969\d{2})$', '1', '011', '1', '671(?:3(?:00|3[39]|4[349]|55|6[26])|4(?:56|7[1-9]|8[236-9])|5(?:55|6[2-5]|88)|6(?:3[2-578]|4[24-9]|5[34]|78|8[5-9])|7(?:[079]7|2[0167]|3[45]|47|8[789])|8(?:[2-5789]8|6[48])|9(?:2[29]|6[79]|7[179]|8[789]|9[78]))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['GW', 'GNB', '624', 'Guinea-Bissau', 'Bissau', '.gw', 'AF', '002', 'Africa', '011', 'Western Africa', 'pt-GW,pov', 'XOF', 'CFA Franc BCEAO', '^(\d{4})$', '245', '00', '', '443\d{6}|9(?:5(?:5\d|6[0-2])|6(?:5[0-2]|6\d|9[012])|77\d)\d{5}|40\d{5}'],
+        ['GY', 'GUY', '328', 'Guyana', 'Georgetown', '.gy', 'AM', '019', 'Americas', '005', 'South America', 'en-GY', 'GYD', 'Guyana Dollar', '', '592', '001', '', '(?:2(?:1[6-9]|2[0-35-9]|3[1-4]|5[3-9]|6\d|7[0-24-79])|3(?:2[25-9]|3\d)|4(?:4[0-24]|5[56])|77[1-57])\d{4}|6\d{6}|(?:289|862)\d{4}|9008\d{3}'],
+        ['HK', 'HKG', '344', 'Hong Kong', 'Hong Kong', '.hk', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'zh-HK,yue,zh,en', 'HKD', 'Hong Kong Dollar', '', '852', '00(?:[126-9]|30|5[09])?', '', '(?:2(?:[13-8]\d|2[013-9]|9[0-24-9])|3(?:[1569][0-24-9]|4[0-246-9]|7[0-24-69]|89)|58[01])\d{5}|(?:5(?:[1-59][0-46-9]|6[0-4689]|7[0-2469])|6(?:0[1-9]|[1459]\d|[2368][0-57-9]|7[0-79])|9(?:0[1-9]|1[02-9]|[2358][0-8]|[467]\d))\d{5}|800\d{6}|900(?:[0-24-9]\d{7}|3\d{1,4})|8(?:1[1-4679]|2[0-367]|3[02-47])\d{5}|7(?:1[0-369]|[23][0-37-9]|47|5[1578]|6[0235]|7[278]|8[236-9]|9[025-9])\d{5}'],
+        ['HM', 'HMD', '334', 'Heard Island and McDonald Islands', '', '.hm', 'AN', '', '', '', '', '', 'AUD', 'Australian Dollar', '', '', '', '', ''],
+        ['HN', 'HND', '340', 'Honduras', 'Tegucigalpa', '.hn', 'AM', '019', 'Americas', '013', 'Central America', 'es-HN', 'HNL', 'Lempira', '^([A-Z]{2}\d{4})$', '504', '00', '', '2(?:2(?:0[019]|1[1-36]|[23]\d|4[04-6]|5[57]|7[01389]|8[0146-9]|9[012])|4(?:07|2[3-59]|3[13-689]|4[0-68]|5[1-35])|5(?:16|4[03-5]|5\d|6[4-6]|74)|6(?:[056]\d|17|3[04]|4[0-378]|[78][0-8]|9[01])|7(?:6[46-9]|7[02-9]|8[034])|8(?:79|8[0-35789]|9[1-57-9]))\d{4}|[37-9]\d{7}'],
+        ['HR', 'HRV', '191', 'Croatia', 'Zagreb', '.hr', 'EU', '150', 'Europe', '039', 'Southern Europe', 'hr-HR,sr', 'HRK', 'Kuna', '^(?:HR)*(\d{5})$', '385', '00', '0', '1\d{7}|(?:2[0-3]|3[1-5]|4[02-47-9]|5[1-3])\d{6,7}|9(?:01\d|[1259]\d{2}|7(?:[0679]\d|51)|8\d{1,2})\d{5}|80[01]\d{4,6}|6(?:[01]\d{0,2}|[459]\d{2})\d{4}|7[45]\d{6}|(?:62\d?|72)\d{6}'],
+        ['HT', 'HTI', '332', 'Haiti', 'Port-au-Prince', '.ht', 'AM', '019', 'Americas', '029', 'Caribbean', 'ht,fr-HT', 'HTG', 'Gourde', '^(?:HT)*(\d{4})$', '509', '00', '', '2(?:2\d|5[1-5]|81|9[149])\d{5}|[34]\d{7}|8\d{7}|(?:9(?:[67][0-4]|8[0-3589]|9\d))\d{5}'],
+        ['HU', 'HUN', '348', 'Hungary', 'Budapest', '.hu', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'hu-HU', 'HUF', 'Forint', '^(\d{4})$', '36', '00', '06', '(?:1\d|2[2-9]|3[2-7]|4[24-9]|5[2-79]|6[23689]|7[2-9]|8[2-57-9]|9[2-69])\d{6}|(?:[257]0|3[01])\d{7}|[48]0\d{6}|9[01]\d{6}|21\d{7}|38\d{7}'],
+        ['ID', 'IDN', '360', 'Indonesia', 'Jakarta', '.id', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'id,en,nl,jv', 'IDR', 'Rupiah', '^(\d{5})$', '62', '0(?:0[1789]|10(?:00|1[67]))', '0', '2(?:1(?:14\d{3}|[0-8]\d{6,7}|500\d{3}|9\d{6})|2\d{6,8}|4\d{7,8})|(?:2(?:[35][1-4]|6[0-8]|7[1-6]|8\d|9[1-8])|3(?:1|[25][1-8]|3[1-68]|4[1-3]|6[1-3568]|7[0-469]|8\d)|4(?:0[1-589]|1[01347-9]|2[0-36-8]|3[0-24-68]|43|5[1-378]|6[1-5]|7[134]|8[1245])|5(?:1[1-35-9]|2[25-8]|3[124-9]|4[1-3589]|5[1-46]|6[1-8])|6(?:19?|[25]\d|3[1-69]|4[1-6])|7(?:02|[125][1-9]|[36]\d|4[1-8]|7[0-36-9])|9(?:0[12]|1[013-8]|2[0-479]|5[125-8]|6[23679]|7[159]|8[01346]))\d{5,8}|(?:2(?:1(?:3[145]|4[01]|5[1-469]|60|8[0359]|9\d)|2(?:88|9[1256])|3[1-4]9|4(?:36|91)|5(?:1[349]|[2-4]9)|6[0-7]9|7(?:[1-36]9|4[39])|8[1-5]9|9[1-48]9)|3(?:19[1-3]|2[12]9|3[13]9|4(?:1[69]|39)|5[14]9|6(?:1[69]|2[89])|709)|4[13]19|5(?:1(?:19|8[39])|4[129]9|6[12]9)|6(?:19[12]|2(?:[23]9|77))|7(?:1[13]9|2[15]9|419|5(?:1[89]|29)|6[15]9|7[178]9))\d{5,6}|8[1-35-9]\d{7,10}|177\d{6,8}|800\d{5,7}|809\d{7}|804\d{7}|1500\d{3}|8071\d{6}'],
+        ['IE', 'IRL', '372', 'Ireland', 'Dublin', '.ie', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en-IE,ga-IE', 'EUR', 'Euro', '^[A-Z]\d{2}$|^[A-Z]{3}[A-Z]{4}$', '353', '00', '0', '1\d{7,8}|2(?:1\d{6,7}|3\d{7}|[24-9]\d{5})|4(?:0[24]\d{5}|[1-469]\d{7}|5\d{6}|7\d{5}|8[0-46-9]\d{7})|5(?:0[45]\d{5}|1\d{6}|[23679]\d{7}|8\d{5})|6(?:1\d{6}|[237-9]\d{5}|[4-6]\d{7})|7[14]\d{7}|9(?:1\d{6}|[04]\d{7}|[35-9]\d{5})|8(?:22\d{6}|[35-9]\d{7})|1800\d{6}|15(?:1[2-8]|[2-8]0|9[089])\d{6}|18[59]0\d{6}|700\d{6}|76\d{7}|818\d{6}|8[35-9]\d{8}'],
+        ['IL', 'ISR', '376', 'Israel', 'Jerusalem', '.il', 'AS', '142', 'Asia', '145', 'Western Asia', 'he,ar-IL,en-IL,', 'ILS', 'New Israeli Sheqel', '^(\d{5})$', '972', '0(?:0|1[2-9])', '0', '(?:153\d{1,2}|[2-489])\d{7}|5(?:[02-47-9]\d{2}|5(?:01|2[23]|3[2-4]|4[45]|5[5689]|6[67]|7[0178]|8[6-9]|9[2-9])|6[2-9]\d)\d{5}|1(?:80[019]\d{3}|255)\d{3}|1(?:212|(?:9(?:0[01]|19)|200)\d{2})\d{4}|1700\d{6}|7(?:18\d|2[23]\d|3[237]\d|47\d|6[58]\d|7\d{2}|8(?:2\d|33|55|77|81)|9[2579]\d)\d{5}|[2-689]\d{3}|1599\d{6}'],
+        ['IM', 'IMN', '833', 'Isle of Man', 'Douglas', '.im', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en,gv', 'GBP', 'Pound Sterling', '^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$', '44', '00', '0', '1624\d{6}|7(?:4576|[59]24\d)\d{5}|808162\d{4}|(?:872299|90[0167]624)\d{4}|8(?:4(?:40[49]06|5624\d)|70624\d)\d{3}|70\d{8}|56\d{8}|76242\d{5}|3(?:08162\d|3\d{5}|4(?:40[49]06|5624\d)|7(?:0624\d|2299\d))\d{3}|55\d{8}'],
+        ['IN', 'IND', '356', 'India', 'New Delhi', '.in', 'AS', '142', 'Asia', '034', 'Southern Asia', 'en-IN,hi,bn,te,mr,ta,ur,gu,kn,ml,or,pa,as,bh,sat,ks,ne,sd,kok,doi,mni,sit,sa,fr,lus,inc', 'INR', 'Indian Rupee', '^(\d{6})$', '91', '00', '0', '(?:11|2[02]|33|4[04]|79)[2-7]\d{7}|80[2-467]\d{7}|(?:1(?:2[0-249]|3[0-25]|4[145]|[59][14]|6[014]|7[1257]|8[01346])|2(?:1[257]|3[013]|4[01]|5[0137]|6[0158]|78|8[1568]|9[14])|3(?:26|4[1-3]|5[34]|6[01489]|7[02-46]|8[159])|4(?:1[36]|2[1-47]|3[15]|5[12]|6[0-26-9]|7[0-24-9]|8[013-57]|9[014-7])|5(?:1[025]|[36][25]|22|4[28]|5[12]|[78]1|9[15])|6(?:12|[2345]1|57|6[13]|7[14]|80)|7(?:12|2[14]|3[134]|4[47]|5[15]|[67]1|88)|8(?:16|2[014]|3[126]|6[136]|7[078]|8[34]|91))[2-7]\d{6}|(?:(?:1(?:2[35-8]|3[346-9]|4[236-9]|[59][0235-9]|6[235-9]|7[34689]|8[257-9])|2(?:1[134689]|3[24-8]|4[2-8]|5[25689]|6[2-4679]|7[13-79]|8[2-479]|9[235-9])|3(?:01|1[79]|2[1-5]|4[25-8]|5[125689]|6[235-7]|7[157-9]|8[2-467])|4(?:1[14578]|2[5689]|3[2-467]|5[4-7]|6[35]|73|8[2689]|9[2389])|5(?:[16][146-9]|2[14-8]|3[1346]|4[14-69]|5[46]|7[2-4]|8[2-8]|9[246])|6(?:1[1358]|2[2457]|3[2-4]|4[235-7]|[57][2-689]|6[24-578]|8[1-6])|8(?:1[1357-9]|2[235-8]|3[03-57-9]|4[0-24-9]|5\d|6[2457-9]|7[1-6]|8[1256]|9[2-4]))\d|7(?:(?:1[013-9]|2[0235-9]|3[2679]|4[1-35689]|5[2-46-9]|[67][02-9]|9\d)\d|8(?:2[0-6]|[013-8]\d)))[2-7]\d{5}|(?:600[1-3]\d|7(?:0\d{3}|19[0-5]\d|2(?:[0235679]\d{2}|[14][017-9]\d|8(?:[0-59]\d|[678][089]))|3(?:[05-8]\d{2}|1(?:[089]\d|7[5-8])|2(?:[0-49][089]|[5-8]\d)|3[017-9]\d|4(?:[07-9]\d|11)|9(?:[016-9]\d|[2-5][089]))|4(?:0\d{2}|1(?:[015-9]\d|[23][089]|4[089])|2(?:0[089]|[1-7][089]|[89]\d)|3(?:[0-8][089]|9\d)|4(?:[089]\d|11|7[02-8])|[56]\d[089]|7(?:[089]\d|11|7[02-8])|8(?:[0-24-7][089]|[389]\d)|9(?:[0-6][089]|7[089]|[89]\d))|5(?:[0346-8]\d{2}|1(?:[07-9]\d|11)|2(?:[04-9]\d|[123][089])|5[017-9]\d|9(?:[0-6][089]|[7-9]\d))|6(?:0(?:[0-47]\d|[5689][089])|(?:1[0-257-9]|[6-9]\d)\d|2(?:[0-4]\d|[5-9][089])|3(?:[02-8][089]|[19]\d)|4\d[089]|5(?:[0-367][089]|[4589]\d))|7(?:0(?:0[02-9]|[13-6][089]|[289]\d|7[89])|[1-9]\d{2})|8(?:[0-79]\d{2}|8(?:[089]\d|11|7[02-9]))|9(?:[089]\d{2}|313|7(?:[02-8]\d|9[07-9])))|8(?:0(?:[01589]\d{2}|6[67]\d|7(?:[02-8]\d|9[05-9]))|1(?:[02-57-9]\d{2}|1(?:[0-35-9]\d|4[0-46-9])|6(?:[089]\d|7[02-8]))|2(?:0(?:[08]\d|7[02])|[14](?:[089]\d|7[02-8])|[235-9]\d{2})|3(?:[0357-9]\d{2}|1(?:[089]\d|7[02-6])|2(?:[09]\d|77|8[0-689])|4[1-9]\d|6(?:[089]\d|7[02-7]))|[45]\d{3}|6(?:[02457-9]\d{2}|1(?:[089]\d|7[02-8])|3(?:[089]\d|7[02358])|6(?:[08]\d|7[02-8]|9[01]))|7(?:0[07-9]\d|[1-69]\d{2}|[78](?:[089]\d|7[02-8]))|8(?:[0-25-9]\d{2}|3(?:[089]\d|7[02-8])|4(?:[0489]\d|7[2-68]))|9(?:[02-9]\d{2}|1(?:[0289]\d|7[2-6])))|9\d{4})\d{5}|00800\d{7}|1(?:600\d{6}|80(?:0\d{4,9}|3\d{9}))|186[12]\d{9}|1860\d{7}|140\d{7}'],
+        ['IO', 'IOT', '086', 'British Indian Ocean Territory', 'Diego Garcia', '.io', 'AS', '142', 'Asia', '', '', 'en-IO', 'USD', 'US Dollar', '', '246', '00', '', '37\d{5}|38\d{5}'],
+        ['IQ', 'IRQ', '368', 'Iraq', 'Baghdad', '.iq', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-IQ,ku,hy', 'IQD', 'Iraqi Dinar', '^(\d{5})$', '964', '00', '0', '1\d{7}|(?:2[13-5]|3[02367]|4[023]|5[03]|6[026])\d{6,7}|7[3-9]\d{8}'],
+        ['IR', 'IRN', '364', 'Iran (Islamic Republic of)', 'Tehran', '.ir', 'AS', '142', 'Asia', '034', 'Southern Asia', 'fa-IR,ku', 'IRR', 'Iranian Rial', '^(\d{10})$', '98', '00', '0', '(?:(?:1[137]|2[13-68]|3[1458]|4[145]|5[1468]|6[16]|7[1467]|8[13467])\d{3}|94(?:000|2\d{2}))\d{5}|9(?:0[1-3]|[1-3]\d|90)\d{7}|(?:[2-6]0\d|993)\d{7}|943\d{7}|9990\d{0,6}'],
+        ['IS', 'ISL', '352', 'Iceland', 'Reykjavik', '.is', 'EU', '150', 'Europe', '154', 'Northern Europe', 'is,en,de,da,sv,no', 'ISK', 'Iceland Krona', '^(\d{3})$', '354', '1(?:0(?:01|10|20)|100)|00', '', '(?:4(?:1[0-24-69]|2[0-7]|[37][0-8]|4[0-245]|5[0-68]|6\d|8[0-36-8])|5(?:05|[156]\d|2[02578]|3[0-79]|4[03-7]|7[0-2578]|8[0-35-9]|9[013-689])|87[23])\d{4}|38[589]\d{6}|(?:6(?:1[1-8]|2[0-6]|3[027-9]|4[014679]|5[0159]|[67][0-69]|9\d)|7(?:5[057]|[6-8]\d)|8(?:2[0-59]|3[0-4]|[469]\d|5[1-9]|88))\d{4}|800\d{4}|90\d{5}|49\d{5}|809\d{4}|(?:6(?:2[78]|49|8\d)|8(?:7[0189]|80)|95[48])\d{4}'],
+        ['IT', 'ITA', '380', 'Italy', 'Rome', '.it', 'EU', '150', 'Europe', '039', 'Southern Europe', 'it-IT,de-IT,fr-IT,sc,ca,co,sl', 'EUR', 'Euro', '^(\d{5})$', '39', '00', '', '0(?:[26]\d{4,9}|(?:1(?:[0159]\d|[27][1-5]|31|4[1-4]|6[1356]|8[2-57])|3(?:[0159]\d|2[1-4]|3[12]|[48][1-6]|6[2-59]|7[1-7])|4(?:[0159]\d|[23][1-9]|4[245]|6[1-5]|7[1-4]|81)|5(?:[0159]\d|2[1-5]|3[2-6]|4[1-79]|6[4-6]|7[1-578]|8[3-8])|7(?:[0159]\d|2[12]|3[1-7]|4[2346]|6[13569]|7[13-6]|8[1-59])|8(?:[0159]\d|2[34578]|3[1-356]|[6-8][1-5])|9(?:[0159]\d|[238][1-5]|4[12]|6[1-8]|7[1-6]))\d{2,7})|3(?:[12457-9]\d{8}|6\d{7,8}|3\d{7,9})|80(?:0\d{6}|3\d{3})|0878\d{5}|1(?:44|6[346])\d{6}|89(?:2\d{3}|4(?:[0-4]\d{2}|[5-9]\d{4})|5(?:[0-4]\d{2}|[5-9]\d{6})|9\d{6})|84(?:[08]\d{6}|[17]\d{3})|1(?:78\d|99)\d{6}|55\d{8}'],
+        ['JE', 'JEY', '832', 'Jersey', 'Saint Helier', '.je', 'EU', '150', 'Europe', '154', 'Northern Europe', 'en,pt', 'GBP', 'Pound Sterling', '^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$', '44', '00', '0', '1534\d{6}|7(?:509\d|7(?:00[378]|97[7-9])|829\d|937\d)\d{5}|80(?:07(?:35|81)|8901)\d{4}|(?:871206|90(?:066[59]|1810|71(?:07|55)))\d{4}|8(?:4(?:4(?:4(?:05|42|69)|703)|5(?:041|800))|70002)\d{4}|701511\d{4}|56\d{8}|76(?:0[012]|2[356]|4[0134]|5[49]|6[0-369]|77|81|9[39])\d{6}|3(?:0(?:07(?:35|81)|8901)|3\d{4}|4(?:4(?:4(?:05|42|69)|703)|5(?:041|800))|7(?:0002|1206))\d{4}|55\d{8}'],
+        ['JM', 'JAM', '388', 'Jamaica', 'Kingston', '.jm', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-JM', 'JMD', 'Jamaican Dollar', '', '1', '011', '1', '876(?:5(?:0[12]|1[0-468]|2[35]|63)|6(?:0[1-3579]|1[027-9]|[23]\d|40|5[06]|6[2-589]|7[05]|8[04]|9[4-9])|7(?:0[2-689]|[1-6]\d|8[056]|9[45])|9(?:0[1-8]|1[02378]|[2-8]\d|9[2-468]))\d{4}|876(?:2(?:[16-9]\d|58)|[348]\d{2}|5(?:0[3-9]|2[0-246-9]|6[0-24-9]|[3-578]\d)|7(?:0[07]|7\d|8[1-47-9]|9[0-36-9])|9(?:[01]9|9[0579]))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['JO', 'JOR', '400', 'Jordan', 'Amman', '.jo', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-JO,en', 'JOD', 'Jordanian Dinar', '^(\d{5})$', '962', '00', '0', '(?:2(?:6(?:2[0-35-9]|3[0-57-8]|4[24-7]|5[0-24-8]|[6-8][023]|9[0-3])|7(?:0[1-79]|10|2[014-7]|3[0-689]|4[019]|5[0-3578]))|32(?:0[1-69]|1[1-35-7]|2[024-7]|3\d|4[0-3]|[57][023]|6[03])|53(?:0[0-3]|[13][023]|2[0-59]|49|5[0-35-9]|6[15]|7[45]|8[1-6]|9[0-36-9])|6(?:2[50]0|3(?:00|33)|4(?:0[0125]|1[2-7]|2[0569]|[38][07-9]|4[025689]|6[0-589]|7\d|9[0-2])|5(?:[01][056]|2[034]|3[0-57-9]|4[17-8]|5[0-69]|6[0-35-9]|7[1-379]|8[0-68]|9[02-39]))|87(?:[02]0|7[08]|90))\d{4}|7(?:55|7[025-9]|8[0-25-9]|9[0-25-9])\d{6}|80\d{6}|900\d{5}|85\d{6}|70\d{7}|74(?:66|77)\d{5}|8(?:10|8\d)\d{5}'],
+        ['JP', 'JPN', '392', 'Japan', 'Tokyo', '.jp', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'ja', 'JPY', 'Yen', '^\d{3}-\d{4}$', '81', '010', '0', '(?:1(?:1[235-8]|2[3-6]|3[3-9]|4[2-6]|[58][2-8]|6[2-7]|7[2-9]|9[1-9])|2[2-9]\d|[36][1-9]\d|4(?:6[02-8]|[2-578]\d|9[2-59])|5(?:6[1-9]|7[2-8]|[2-589]\d)|7(?:3[4-9]|4[02-9]|[25-9]\d)|8(?:3[2-9]|4[5-9]|5[1-9]|8[03-9]|[2679]\d)|9(?:[679][1-9]|[2-58]\d))\d{6}|[7-9]0[1-9]\d{7}|120\d{6}|800\d{7}|00(?:37\d{6,13}|66\d{6,13}|777(?:[01]\d{2}|5\d{3}|8\d{4})|882[1245]\d{4})|990\d{6}|60\d{7}|50[1-9]\d{7}|20\d{8}|570\d{6}'],
+        ['KE', 'KEN', '404', 'Kenya', 'Nairobi', '.ke', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-KE,sw-KE', 'KES', 'Kenyan Shilling', '^(\d{5})$', '254', '000', '0', '20\d{6,7}|4(?:0\d{6,7}|[136]\d{7}|[245]\d{5,7})|5(?:[08]\d{7}|[1-79]\d{5,7})|6(?:[01457-9]\d{5,7}|2\d{7}|6\d{6,7})|7(?:[0-3679]\d|4[0-2479]|5[0-6]|8[0-25-9])\d{6}|800[24-8]\d{5,6}|900[02-9]\d{5}'],
+        ['KG', 'KGZ', '417', 'Kyrgyzstan', 'Bishkek', '.kg', 'AS', '142', 'Asia', '143', 'Central Asia', 'ky,uz,ru', 'KGS', 'Som', '^(\d{6})$', '996', '00', '0', '(?:3(?:1(?:[256]\d|3[1-9]|47)|2(?:22|3[0-479]|6[0-7])|4(?:22|5[6-9]|6\d)|5(?:22|3[4-7]|59|6\d)|6(?:22|5[35-7]|6\d)|7(?:22|3[468]|4[1-9]|59|[67]\d)|9(?:22|4[1-8]|6\d))|6(?:09|12|2[2-4])\d)\d{5}|(?:20[0-35]|5[124-7]\d|7[07]\d)\d{6}|800\d{6,7}'],
+        ['KH', 'KHM', '116', 'Cambodia', 'Phnom Penh', '.kh', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'km,fr,en', 'KHR', 'Riel', '^(\d{5})$', '855', '00[14-9]', '0', '(?:2[3-6]|3[2-6]|4[2-4]|[5-7][2-5])(?:[237-9]|4[56]|5\d|6\d?)\d{5}|23(?:4[234]|8\d{2})\d{4}|(?:1(?:[013-79]\d|[28]\d{1,2})|2[3-6]48|3(?:[18]\d{2}|[2-6]48)|4[2-4]48|5[2-5]48|6(?:[016-9]\d|[2-5]48)|7(?:[07-9]\d|[16]\d{2}|[2-5]48)|8(?:[013-79]\d|8\d{2})|9(?:6\d{2}|7\d{1,2}|[0-589]\d))\d{5}|1800(?:1\d|2[019])\d{4}|1900(?:1\d|2[09])\d{4}'],
+        ['KI', 'KIR', '296', 'Kiribati', 'Tarawa', '.ki', 'OC', '009', 'Oceania', '057', 'Micronesia', 'en-KI,gil', 'AUD', 'Australian Dollar', '', '686', '00', '', '(?:[24]\d|3[1-9]|50|8[0-5])\d{3}|7(?:27|31|5[0-4])\d{5}|7[23]0\d{5}|30(?:0[01]\d{2}|12(?:11|20))\d{2}'],
+        ['KM', 'COM', '174', 'Comoros', 'Moroni', '.km', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'ar,fr-KM', 'KMF', 'Comoro Franc', '', '269', '00', '', '7[4-7]\d{5}|[34]\d{6}|(?:39[01]|8\d{2})\d{4}'],
+        ['KN', 'KNA', '659', 'Saint Kitts and Nevis', 'Basseterre', '.kn', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-KN', 'XCD', 'East Caribbean Dollar', '', '1', '011', '1', '869(?:2(?:29|36)|302|4(?:6[015-9]|70))\d{4}|869(?:5(?:5[6-8]|6[5-7])|66\d|76[02-7])\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['KP', 'PRK', '408', 'North Korea (Democratic People\'s Republic of)', 'Pyongyang', '.kp', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'ko-KP', 'KPW', 'North Korean Won', '^(\d{6})$', '850', '00|99', '0', '2\d{7}|85\d{6}|19[123]\d{7}'],
+        ['KR', 'KOR', '410', 'South Korea (Republic of)', 'Seoul', '.kr', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'ko-KR,en', 'KRW', 'Won', '^(?:SEOUL)*(\d{6})$', '82', '00(?:[124-68]|3\d{2}|7(?:[0-8]\d|9[0-79]))', '0', '(?:2|3[1-3]|[46][1-4]|5[1-5])(?:1\d{2,3}|[1-9]\d{6,7})|1[0-26-9]\d{7,8}|(?:00798\d{0,2}|80)\d{7}|60[2-9]\d{6}|50\d{8}|70\d{8}|15\d{7,8}|1(?:5(?:22|44|66|77|88|99)|6(?:00|44|6[16]|70|88)|8(?:00|33|55|77|99))\d{4}'],
+        ['KW', 'KWT', '414', 'Kuwait', 'Kuwait City', '.kw', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-KW,en', 'KWD', 'Kuwaiti Dinar', '^(\d{5})$', '965', '00', '', '(?:18\d|2(?:[23]\d{2}|4(?:[1-35-9]\d|44)|5(?:0[034]|[2-46]\d|5[1-3]|7[1-7])))\d{4}|(?:5(?:[05]\d{2}|1[0-7]\d|2(?:22|5[25])|66\d)|6(?:0[034679]\d|222|5[015-9]\d|6\d{2}|7[067]\d|9[0369]\d)|9(?:0[09]\d|22\d|4[01479]\d|55\d|6[0679]\d|[79]\d{2}|8[057-9]\d))\d{4}'],
+        ['KY', 'CYM', '136', 'Cayman Islands', 'George Town', '.ky', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-KY', 'KYD', 'Cayman Islands Dollar', '', '1', '011', '1', '345(?:2(?:22|44)|444|6(?:23|38|40)|7(?:4[35-79]|6[6-9]|77)|8(?:00|1[45]|25|[48]8)|9(?:14|4[035-9]))\d{4}|345(?:32[1-9]|5(?:1[67]|2[5-7]|4[6-8]|76)|9(?:1[67]|2[2-9]|3[689]))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|345976\d{4}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}|345849\d{4}'],
+        ['KZ', 'KAZ', '398', 'Kazakhstan', 'Astana', '.kz', 'AS', '142', 'Asia', '143', 'Central Asia', 'kk,ru', 'KZT', 'Tenge', '^(\d{6})$', '7', '810', '8', '33622\d{5}|7(?:1(?:0(?:[23]\d|4[0-3]|59|63)|1(?:[23]\d|4[0-79]|59)|2(?:[23]\d|59)|3(?:2\d|3[0-79]|4[0-35-9]|59)|4(?:[24]\d|3[013-9]|5[1-9])|5(?:2\d|3[1-9]|4[0-7]|59)|6(?:[234]\d|5[19]|61)|72\d|8(?:[27]\d|3[1-46-9]|4[0-5]))|2(?:1(?:[23]\d|4[46-9]|5[3469])|2(?:2\d|3[0679]|46|5[12679])|3(?:[234]\d|5[139])|4(?:2\d|3[1235-9]|59)|5(?:[23]\d|4[01246-8]|59|61)|6(?:2\d|3[1-9]|4[0-4]|59)|7(?:[2379]\d|40|5[279])|8(?:[23]\d|4[0-3]|59)|9(?:2\d|3[124578]|59)))\d{5}|7(?:0[012578]|47|6[02-4]|7[15-8]|85)\d{7}|800\d{7}|809\d{7}|751\d{7}'],
+        ['LA', 'LAO', '418', 'Laos', 'Vientiane', '.la', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'lo,fr,en', 'LAK', 'Kip', '^(\d{5})$', '856', '00', '0', '(?:2[13]|3(?:0\d|[14])|[5-7][14]|41|8[1468])\d{6}|20(?:2[2389]|5[4-689]|7[6-8]|9[15-9])\d{6}'],
+        ['LB', 'LBN', '422', 'Lebanon', 'Beirut', '.lb', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-LB,fr-LB,en,hy', 'LBP', 'Lebanese Pound', '^(\d{4}(\d{4})?)$', '961', '00', '0', '(?:[14-6]\d{2}|7(?:[2-57]\d|62|8[0-7]|9[04-9])|8[02-9]\d|9\d{2})\d{4}|(?:3\d|7(?:[01]\d|6[013-9]|8[89]|9[1-3])|81\d)\d{5}|9[01]\d{6}|80\d{6}'],
+        ['LC', 'LCA', '662', 'Saint Lucia', 'Castries', '.lc', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-LC', 'XCD', 'East Caribbean Dollar', '', '1', '011', '1', '758(?:4(?:30|5[0-9]|6[2-9]|8[0-2])|57[0-2]|638)\d{4}|758(?:28[4-7]|384|4(?:6[01]|8[4-9])|5(?:1[89]|20|84)|7(?:1[2-9]|2[0-8]))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['LI', 'LIE', '438', 'Liechtenstein', 'Vaduz', '.li', 'EU', '150', 'Europe', '155', 'Western Europe', 'de-LI', 'CHF', 'Swiss Franc', '^(\d{4})$', '423', '00', '0', '(?:2(?:01|1[27]|3\d|6[02-578]|96)|3(?:7[0135-7]|8[048]|9[0269]))\d{4}|6(?:5(?:09|1\d|20)|6(?:0[0-6]|10|2[06-9]|39))\d{5}|7(?:[37-9]\d|42|56)\d{4}|80(?:02[28]|9\d{2})\d{2}|90(?:02[258]|1(?:23|3[14])|66[136])\d{2}|870(?:28|87)\d{2}|697(?:42|56|[78]\d)\d{4}'],
+        ['LK', 'LKA', '144', 'Sri Lanka', 'Colombo', '.lk', 'AS', '142', 'Asia', '034', 'Southern Asia', 'si,ta,en', 'LKR', 'Sri Lanka Rupee', '^(\d{5})$', '94', '00', '0', '(?:[189]1|2[13-7]|3[1-8]|4[157]|5[12457]|6[35-7])[2-57]\d{6}|7[0125-8]\d{7}'],
+        ['LR', 'LBR', '430', 'Liberia', 'Monrovia', '.lr', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-LR', 'LRD', 'Liberian Dollar', '^(\d{4})$', '231', '00', '0', '2\d{7}|(?:20\d{3}|330\d{2}|4[67]\d|5(?:55)?\d{2}|77\d{3}|88\d{3})\d{4}|332(?:02|[25]\d)\d{4}'],
+        ['LS', 'LSO', '426', 'Lesotho', 'Maseru', '.ls', 'AF', '002', 'Africa', '018', 'Southern Africa', 'en-LS,st,zu,xh', 'LSL', 'Loti', '^(\d{3})$', '266', '00', '', '2\d{7}|[56]\d{7}|800[256]\d{4}'],
+        ['LT', 'LTU', '440', 'Lithuania', 'Vilnius', '.lt', 'EU', '150', 'Europe', '154', 'Northern Europe', 'lt,ru,pl', 'EUR', 'Euro', '^(?:LT)*(\d{5})$', '370', '00', '8', '(?:3[1478]|4[124-6]|52)\d{6}|6\d{7}|800\d{5}|9(?:0[0239]|10)\d{5}|808\d{5}|700\d{5}|70[67]\d{5}'],
+        ['LU', 'LUX', '442', 'Luxembourg', 'Luxembourg', '.lu', 'EU', '150', 'Europe', '155', 'Western Europe', 'lb,de-LU,fr-LU', 'EUR', 'Euro', '^(?:L-)?\d{4}$', '352', '00', '', '(?:2[2-9]\d{2,9}|(?:[3457]\d{2}|8(?:0[2-9]|[13-9]\d)|9(?:0[89]|[2-579]\d))\d{1,8})|6[2679][18]\d{6}|800\d{5}|90[015]\d{5}|801\d{5}|70\d{6}|20(?:1\d{5}|[2-689]\d{1,7})'],
+        ['LV', 'LVA', '428', 'Latvia', 'Riga', '.lv', 'EU', '150', 'Europe', '154', 'Northern Europe', 'lv,ru,lt', 'EUR', 'Euro', '^(?:LV)*(\d{4})$', '371', '00', '', '6\d{7}|2\d{7}|80\d{6}|90\d{6}|81\d{6}'],
+        ['LY', 'LBY', '434', 'Libya', 'Tripoli', '.ly', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-LY,it,en', 'LYD', 'Libyan Dinar', '', '218', '00', '0', '(?:2[1345]|5[1347]|6[123479]|71)\d{7}|9[1-6]\d{7}'],
+        ['MA', 'MAR', '504', 'Morocco', 'Rabat', '.ma', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-MA,fr', 'MAD', 'Moroccan Dirham', '^(\d{5})$', '212', '00', '0', '5(?:2(?:[015-79]\d|2[02-9]|3[2-57]|4[2-8]|8[235-7])\d|3(?:[0-48]\d|[57][2-9]|6[2-8]|9[3-9])\d|4[067]\d{2}|5[03]\d{2})\d{4}|(?:6(?:[0-79]\d|8[0-247-9])|7(?:[07][07]|6[12]))\d{6}|80\d{7}|89\d{7}|5924[01]\d{4}'],
+        ['MC', 'MCO', '492', 'Monaco', 'Monaco', '.mc', 'EU', '150', 'Europe', '155', 'Western Europe', 'fr-MC,en,it', 'EUR', 'Euro', '^(\d{5})$', '377', '00', '0', '870\d{5}|9[2-47-9]\d{6}|3\d{7}|4(?:4\d|5[1-9])\d{5}|6\d{8}|90\d{6}'],
+        ['MD', 'MDA', '498', 'Moldova', 'Chisinau', '.md', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'ro,ru,gag,tr', 'MDL', 'Moldovan Leu', '^MD-\d{4}$', '373', '00', '0', '(?:2[1-9]\d|3[1-79]\d|5(?:33|5[257]))\d{5}|(?:562|6\d{2}|7(?:[189]\d|6[07]|7[457-9]))\d{5}|800\d{5}|90[056]\d{5}|808\d{5}|3[08]\d{6}|803\d{5}'],
+        ['ME', 'MNE', '499', 'Montenegro', 'Podgorica', '.me', 'EU', '150', 'Europe', '039', 'Southern Europe', 'sr,hu,bs,sq,hr,rom', 'EUR', 'Euro', '^(\d{5})$', '382', '00', '0', '(?:20[2-8]|3(?:0[2-7]|[12][235-7]|3[24-7])|4(?:0[2-467]|1[267])|5(?:0[2467]|1[267]|2[2367]))\d{5}|6(?:00\d|3[024]\d|6[0-25]\d|[7-9]\d{2})\d{4}|80[0-258]\d{5}|(?:9(?:4[1568]|5[178]))\d{5}|78[1-49]\d{5}|77[1-9]\d{5}'],
+        ['MF', 'MAF', '663', 'Saint Martin', 'Marigot', '.gp', 'AM', '019', 'Americas', '029', 'Caribbean', 'fr', 'EUR', 'Euro', '', '590', '00', '0', '590(?:[02][79]|13|5[0-268]|[78]7)\d{4}|690(?:0[0-7]|[1-9]\d)\d{4}'],
+        ['MG', 'MDG', '450', 'Madagascar', 'Antananarivo', '.mg', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-MG,mg', 'MGA', 'Malagasy Ariary', '^(\d{3})$', '261', '00', '0', '20(?:2\d{2}|4[47]\d|5[3467]\d|6[279]\d|7(?:2[29]|[35]\d)|8[268]\d|9[245]\d)\d{4}|3[2-49]\d{7}|22\d{7}'],
+        ['MH', 'MHL', '584', 'Marshall Islands', 'Majuro', '.mh', 'OC', '009', 'Oceania', '057', 'Micronesia', 'mh,en-MH', 'USD', 'US Dollar', '', '692', '011', '1', '(?:247|528|625)\d{4}|(?:235|329|45[56]|545)\d{4}|635\d{4}'],
+        ['MK', 'MKD', '807', 'Macedonia', 'Skopje', '.mk', 'EU', '150', 'Europe', '039', 'Southern Europe', 'mk,sq,tr,rmm,sr', 'MKD', 'Denar', '^(\d{4})$', '389', '00', '0', '(?:2(?:[23]\d|5[124578]|6[01])|3(?:1[3-6]|[23][2-6]|4[2356])|4(?:[23][2-6]|4[3-6]|5[256]|6[25-8]|7[24-6]|8[4-6]))\d{5}|7(?:[0-25-8]\d{2}|32\d|421)\d{4}|800\d{5}|5[02-9]\d{6}|8(?:0[1-9]|[1-9]\d)\d{5}'],
+        ['ML', 'MLI', '466', 'Mali', 'Bamako', '.ml', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-ML,bm', 'XOF', 'CFA Franc BCEAO', '', '223', '00', '', '(?:2(?:0(?:2\d|7[0-8])|1(?:2[5-7]|[3-689]\d))|44[1239]\d)\d{4}|(?:2(?:079|17\d)|[679]\d{3}|8[239]\d{2})\d{4}|80\d{6}'],
+        ['MM', 'MMR', '104', 'Myanmar', 'Nay Pyi Taw', '.mm', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'my', 'MMK', 'Kyat', '^(\d{5})$', '95', '00', '0', '1(?:2\d{1,2}|[3-5]\d|6\d?|[89][0-6]\d)\d{4}|2(?:2(?:000\d{3}|\d{4})|3\d{4}|4(?:0\d{5}|\d{4})|5(?:1\d{3,6}|[02-9]\d{3,5})|[6-9]\d{4})|4(?:2[245-8]|3(?:[2-46]|56?)|[46][2-6]|5[3-5])\d{4}|5(?:2(?:2(?:\d{1,2})?|[3-8])|3[2-68]|4(?:21?|[4-8])|5[23]|6[2-4]|7[2-8]|8[24-7]|9[2-7])\d{4}|6(?:0[23]|1(?:2(?:0|4\d)?|[356])|2[2-6]|3[24-6]|4(?:2(?:4\d)?|[3-6])|5[2-4]|6[2-8]|7(?:[2367]|4\d|5\d?|8[145]\d)|8[245]|9(?:20?|4))\d{4}|7(?:[04][24-8]|1(?:20?|[3-7])|22|3[2-4]|5[2-7])\d{4}|8(?:1(?:2\d{1,2}|[3-689]\d)|2(?:2\d|3(?:\d|20)|[4-8]\d)|3[24]\d|4[24-7]\d|5[245]\d|6[23]\d)\d{3}|17[01]\d{4}|9(?:2(?:[0-4]|5\d{2}|6[0-5]\d)|3(?:[0-36]|4[069])\d|4(?:0[0-4]\d|[1379]\d|2\d{2}|4[0-589]\d|5\d{2}|88)|5[0-6]|61?\d|7(?:3\d|[6-9]\d{2})|8\d|9(?:1\d|[5-7]\d{2}|[089]))\d{5}|1333\d{4}'],
+        ['MN', 'MNG', '496', 'Mongolia', 'Ulan Bator', '.mn', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'mn,ru', 'MNT', 'Tugrik', '^(\d{6})$', '976', '001', '0', '[12](?:1\d|2(?:[1-3]\d?|7\d)|3[2-8]\d{1,2}|4[2-68]\d{1,2}|5[1-4689]\d{1,2})\d{5}|5[0568]\d{6}|(?:8(?:[05689]\d|3[01])|9[013-9]\d)\d{5}|7[05-8]\d{6}'],
+        ['MO', 'MAC', '446', 'Macao', 'Macao', '.mo', 'AS', '142', 'Asia', '030', 'Eastern Asia', 'zh,zh-MO,pt', 'MOP', 'Pataca', '', '853', '00', '', '(?:28[2-57-9]|8[2-57-9]\d)\d{5}|6(?:[2356]\d|8[158])\d{5}'],
+        ['MP', 'MNP', '580', 'Northern Mariana Islands', 'Saipan', '.mp', 'OC', '009', 'Oceania', '057', 'Micronesia', 'fil,tl,zh,ch-MP,en-MP', 'USD', 'US Dollar', '', '1', '011', '1', '670(?:2(?:3[3-7]|56|8[5-8])|32[1238]|4(?:33|8[348])|5(?:32|55|88)|6(?:64|70|82)|78[3589]|8[3-9]8|989)\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['MQ', 'MTQ', '474', 'Martinique', 'Fort-de-France', '.mq', 'AM', '019', 'Americas', '029', 'Caribbean', 'fr-MQ', 'EUR', 'Euro', '^(\d{5})$', '596', '00', '0', '596(?:0[2-5]|[12]0|3[05-9]|4[024-8]|[5-7]\d|89|9[4-8])\d{4}|696(?:[0-479]\d|5[0-4]|8[0-689])\d{4}'],
+        ['MR', 'MRT', '478', 'Mauritania', 'Nouakchott', '.mr', 'AF', '002', 'Africa', '011', 'Western Africa', 'ar-MR,fuc,snk,fr,mey,wo', 'MRO', 'Ouguiya', '', '222', '00', '', '25[08]\d{5}|35\d{6}|45[1-7]\d{5}|[234][0-46-9]\d{6}|800\d{5}'],
+        ['MS', 'MSR', '500', 'Montserrat', 'Plymouth', '.ms', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-MS', 'XCD', 'East Caribbean Dollar', '', '1', '011', '1', '664491\d{4}|66449[2-6]\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['MT', 'MLT', '470', 'Malta', 'Valletta', '.mt', 'EU', '150', 'Europe', '039', 'Southern Europe', 'mt,en-MT', 'EUR', 'Euro', '^[A-Z]{3}\s?\d{4}$', '356', '00', '', '2(?:0(?:1[0-6]|3[1-4]|[69]\d)|[1-357]\d{2})\d{4}|(?:7(?:210|[79]\d{2})|9(?:2(?:1[01]|31)|696|8(?:1[1-3]|89|97)|9\d{2}))\d{4}|800[3467]\d{4}|5(?:0(?:0(?:37|43)|6\d{2}|70\d|9[0168]\d)|[12]\d0[1-5])\d{3}|3550\d{4}|7117\d{4}|501\d{5}'],
+        ['MU', 'MUS', '480', 'Mauritius', 'Port Louis', '.mu', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-MU,bho,fr', 'MUR', 'Mauritius Rupee', '', '230', '0(?:0|[2-7]0|33)', '', '(?:2(?:[03478]\d|1[0-7]|6[1-69])|4(?:[013568]\d|2[4-7])|5(?:44\d|471)|6\d{2}|8(?:14|3[129]))\d{4}|5(?:2[59]\d|4(?:2[1-389]|4\d|7[1-9]|9\d)|7\d{2}|8(?:[0-25689]\d|4[3479]|7[15-8])|9[0-8]\d)\d{4}|80[012]\d{4}|30\d{5}|3(?:20|9\d)\d{4}'],
+        ['MV', 'MDV', '462', 'Maldives', 'Male', '.mv', 'AS', '142', 'Asia', '034', 'Southern Asia', 'dv,en', 'MVR', 'Rufiyaa', '^(\d{5})$', '960', '0(?:0|19)', '', '(?:3(?:0[0-3]|3[0-59])|6(?:[57][02468]|6[024568]|8[024689]|90))\d{4}|(?:46[46]|7[3-9]\d|9[15-9]\d)\d{4}|800\d{7}|900\d{7}|781\d{4}|4[05]0\d{4}'],
+        ['MW', 'MWI', '454', 'Malawi', 'Lilongwe', '.mw', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'ny,yao,tum,swk', 'MWK', 'Kwacha', '', '265', '00', '0', '(?:1[2-9]|21\d{2})\d{5}|(?:111|77\d|88\d|99\d)\d{6}'],
+        ['MX', 'MEX', '484', 'Mexico', 'Mexico City', '.mx', 'AM', '019', 'Americas', '013', 'Central America', 'es-MX', 'MXN', 'Mexican Peso', '^(\d{5})$', '52', '0[09]', '01', '(?:33|55|81)\d{8}|(?:2(?:0[01]|2[2-9]|3[1-35-8]|4[13-9]|7[1-689]|8[1-578]|9[467])|3(?:1[1-79]|[2458][1-9]|7[1-8]|9[1-5])|4(?:1[1-57-9]|[24-6][1-9]|[37][1-8]|8[1-35-9]|9[2-689])|5(?:88|9[1-79])|6(?:1[2-68]|[234][1-9]|5[1-3689]|6[12457-9]|7[1-7]|8[67]|9[4-8])|7(?:[13467][1-9]|2[1-8]|5[13-9]|8[1-69]|9[17])|8(?:2[13-689]|3[1-6]|4[124-6]|6[1246-9]|7[1-378]|9[12479])|9(?:1[346-9]|2[1-4]|3[2-46-8]|5[1348]|[69][1-9]|7[12]|8[1-8]))\d{7}|1(?:(?:33|55|81)\d{8}|(?:2(?:2[1-9]|3[1-35-8]|4[13-9]|7[1-689]|8[1-578]|9[467])|3(?:1[1-79]|[2458][1-9]|7[1-8]|9[1-5])|4(?:1[1-57-9]|[24-6][1-9]|[37][1-8]|8[1-35-9]|9[2-689])|5(?:88|9[1-79])|6(?:1[2-68]|[2-4][1-9]|5[1-3689]|6[12457-9]|7[1-7]|8[67]|9[4-8])|7(?:[13467][1-9]|2[1-8]|5[13-9]|8[1-69]|9[17])|8(?:2[13-689]|3[1-6]|4[124-6]|6[1246-9]|7[1-378]|9[12479])|9(?:1[346-9]|2[1-4]|3[2-46-8]|5[1348]|[69][1-9]|7[12]|8[1-8]))\d{7})|8(?:00|88)\d{7}|900\d{7}|300\d{7}|500\d{7}'],
+        ['MY', 'MYS', '458', 'Malaysia', 'Kuala Lumpur', '.my', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'ms-MY,en,zh,ta,te,ml,pa,th', 'MYR', 'Malaysian Ringgit', '^(\d{5})$', '60', '00', '0', '(?:3[2-9]\d|[4-9][2-9])\d{6}|1(?:1[1-5]\d{2}|[02-4679][2-9]\d|59\d{2}|8(?:1[23]|[2-9]\d))\d{5}|1[378]00\d{6}|1600\d{6}|154\d{7}'],
+        ['MZ', 'MOZ', '508', 'Mozambique', 'Maputo', '.mz', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'pt-MZ,vmw', 'MZN', 'Mozambique Metical', '^(\d{4})$', '258', '00', '', '2(?:[1346]\d|5[0-2]|[78][12]|93)\d{5}|8[2-7]\d{7}|800\d{6}'],
+        ['AM', 'NAM', '516', 'Namibia', 'Windhoek', '.na', 'AF', '002', 'Africa', '018', 'Southern Africa', 'en-AM,af,de,hz,naq', 'NAD', 'Namibia Dollar', '', '374', '00', '0', '(?:1[0-2]\d|2(?:2[2-46]|3[1-8]|4[2-69]|5[2-7]|6[1-9]|8[1-7])|3[12]2|47\d)\d{5}|(?:4[1349]|55|77|9[1-9])\d{6}|800\d{5}|90[016]\d{5}|80[1-4]\d{5}|60(?:2[078]|[3-7]\d|8[0-5])\d{4}'],
+        ['NC', 'NCL', '540', 'New Caledonia', 'Noumea', '.nc', 'OC', '009', 'Oceania', '054', 'Melanesia', 'fr-NC', 'XPF', 'CFP Franc', '^(\d{5})$', '687', '00', '', '(?:2[03-9]|3[0-5]|4[1-7]|88)\d{4}|(?:5[0-4]|[79]\d|8[0-79])\d{4}|36\d{4}'],
+        ['NE', 'NER', '562', 'Niger', 'Niamey', '.ne', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-NE,ha,kr,dje', 'XOF', 'CFA Franc BCEAO', '^(\d{4})$', '227', '00', '', '2(?:0(?:20|3[1-7]|4[134]|5[14]|6[14578]|7[1-578])|1(?:4[145]|5[14]|6[14-68]|7[169]|88))\d{4}|(?:8[089]|9\d)\d{6}|08\d{6}|09\d{6}'],
+        ['NF', 'NFK', '574', 'Norfolk Island', 'Kingston', '.nf', 'OC', '009', 'Oceania', '053', 'Australia and New Zealand', 'en-NF', 'AUD', 'Australian Dollar', '^(\d{4})$', '672', '00', '', '(?:1(?:06|17|28|39)|3[012]\d)\d{3}|3[58]\d{4}'],
+        ['NG', 'NGA', '566', 'Nigeria', 'Abuja', '.ng', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-NG,ha,yo,ig,ff', 'NGN', 'Naira', '^(\d{6})$', '234', '009', '0', '[12]\d{6,7}|9(?:0[3-9]|[1-9]\d)\d{5}|(?:3\d|4[023568]|5[02368]|6[02-469]|7[4-69]|8[2-9])\d{6}|(?:4[47]|5[14579]|6[1578]|7[0-357])\d{5,6}|(?:78|41)\d{5}|(?:1(?:7[34]\d|8(?:04|[124579]\d|8[0-3])|95\d)|287[0-7]|3(?:18[1-8]|88[0-7]|9(?:8[5-9]|6[1-5]))|4(?:28[0-2]|6(?:7[1-9]|8[02-47])|88[0-2])|5(?:2(?:7[7-9]|8\d)|38[1-79]|48[0-7]|68[4-7])|6(?:2(?:7[7-9]|8\d)|4(?:3[7-9]|[68][129]|7[04-69]|9[1-8])|58[0-2]|98[7-9])|7(?:38[0-7]|69[1-8]|78[2-4])|8(?:28[3-9]|38[0-2]|4(?:2[12]|3[147-9]|5[346]|7[4-9]|8[014-689]|90)|58[1-8]|78[2-9]|88[5-7])|98[07]\d)\d{4}|(?:70(?:[1-689]\d|7[0-3])|8(?:0(?:1[01]|[2-9]\d)|1(?:[0-8]\d|9[01]))|90[235-9]\d)\d{6}|800\d{7,11}|700\d{7,11}'],
+        ['NI', 'NIC', '558', 'Nicaragua', 'Managua', '.ni', 'AM', '019', 'Americas', '013', 'Central America', 'es-NI,en', 'NIO', 'Cordoba Oro', '^(\d{7})$', '505', '00', '', '2\d{7}|5(?:5[0-7]\d{5}|[78]\d{6})|7[5-8]\d{6}|8\d{7}|1800\d{4}'],
+        ['NL', 'NLD', '528', 'Netherlands', 'Amsterdam', '.nl', 'EU', '150', 'Europe', '155', 'Western Europe', 'nl-NL,fy-NL', 'EUR', 'Euro', '^(\d{4}[A-Z]{2})$', '31', '00', '0', '(?:1[0135-8]|2[02-69]|3[0-68]|4[0135-9]|[57]\d|8[478])\d{7}|6[1-58]\d{7}|800\d{4,7}|90[069]\d{4,7}|(?:6760|85\d{2})\d{5}|66\d{7}|140(?:1(?:[035]|[16-8]\d)|2(?:[0346]|[259]\d)|3(?:[03568]|[124]\d)|4(?:[0356]|[17-9]\d)|5(?:[0358]|[124679]\d)|7\d|8[458])'],
+        ['NO', 'NOR', '578', 'Norway', 'Oslo', '.no', 'EU', '150', 'Europe', '154', 'Northern Europe', 'no,nb,nn,se,fi', 'NOK', 'Norwegian Krone', '^(\d{4})$', '47', '00', '', '(?:2[1-4]|3[1-3578]|5[1-35-7]|6[1-4679]|7[0-8])\d{6}|(?:4[015-8]|5[89]|87|9\d)\d{6}|80[01]\d{5}|82[09]\d{5}|810(?:0[0-6]|[2-8]\d)\d{3}|880\d{5}|85[0-5]\d{5}|0\d{4}|81(?:0(?:0[7-9]|1\d)|5\d{2})\d{3}|81[23]\d{5}'],
+        ['NP', 'NPL', '524', 'Nepal', 'Kathmandu', '.np', 'AS', '142', 'Asia', '034', 'Southern Asia', 'ne,en', 'NPR', 'Nepalese Rupee', '^(\d{5})$', '977', '00', '0', '(?:1[0-6]\d|2[13-79][2-6]|3[135-8][2-6]|4[146-9][2-6]|5[135-7][2-6]|6[13-9][2-6]|7[15-9][2-6]|8[1-46-9][2-6]|9[1-79][2-6])\d{5}|9(?:6[013]|7[245]|8[0-24-6])\d{7}'],
+        ['NR', 'NRU', '520', 'Nauru', 'Yaren', '.nr', 'OC', '009', 'Oceania', '057', 'Micronesia', 'na,en-NR', 'AUD', 'Australian Dollar', '', '674', '00', '', '(?:444|888)\d{4}|55[5-9]\d{4}'],
+        ['NU', 'NIU', '570', 'Niue', 'Alofi', '.nu', 'OC', '009', 'Oceania', '061', 'Polynesia', 'niu,en-NU', 'NZD', 'New Zealand Dollar', '', '683', '00', '', '[34]\d{3}|[125]\d{3}'],
+        ['NZ', 'NZL', '554', 'New Zealand', 'Wellington', '.nz', 'OC', '009', 'Oceania', '053', 'Australia and New Zealand', 'en-NZ,mi', 'NZD', 'New Zealand Dollar', '^(\d{4})$', '64', '0(?:0|161)', '0', '(?:3[2-79]|[49][2-9]|6[235-9]|7[2-57-9])\d{6}|24099\d{3}|2(?:[028]\d{7,8}|1(?:[03]\d{5,7}|[12457]\d{5,6}|[689]\d{5})|[79]\d{7})|508\d{6,7}|80\d{6,8}|90\d{7,9}|70\d{7}|[28]6\d{6,7}'],
+        ['OM', 'OMN', '512', 'Oman', 'Muscat', '.om', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-OM,en,bal,ur', 'OMR', 'Rial Omani', '^(\d{3})$', '968', '00', '', '2[2-6]\d{6}|7[19]\d{6}|9(?:0[1-9]|[1-9]\d)\d{5}|8007\d{4,5}|500\d{4}|900\d{5}'],
+        ['PA', 'PAN', '591', 'Panama', 'Panama City', '.pa', 'AM', '019', 'Americas', '013', 'Central America', 'es-PA,en', 'PAB', 'Balboa', '', '507', '00', '', '(?:1(?:0[0-8]|1[49]|2[37]|3[0137]|4[147]|5[05]|6[58]|7[0167]|8[58]|9[139])|2(?:[0235679]\d|1[0-7]|4[04-9]|8[028])|3(?:[09]\d|1[014-7]|2[0-3]|3[03]|4[03-57]|55|6[068]|7[06-8]|8[06-9])|4(?:3[013-69]|4\d|7[0-589])|5(?:[01]\d|2[0-7]|[56]0|79)|7(?:0[09]|2[0-267]|3[06]|[469]0|5[06-9]|7[0-24-79]|8[7-9])|8(?:09|[34]\d|5[0134]|8[02])|9(?:0[6-9]|1[016-8]|2[036-8]|3[3679]|40|5[0489]|6[06-9]|7[046-9]|8[36-8]|9[1-9]))\d{4}|(?:1[16]1|21[89]|8(?:1[01]|7[23]))\d{4}|6(?:[024-9]\d|1[0-5]|3[0-24-9])\d{5}|80[09]\d{4}|(?:779|8(?:55|60|7[78])|9(?:00|81))\d{4}'],
+        ['PE', 'PER', '604', 'Peru', 'Lima', '.pe', 'AM', '019', 'Americas', '005', 'South America', 'es-PE,qu,ay', 'PEN', 'Nuevo Sol', '', '51', '19(?:1[124]|77|90)00', '0', '(?:1\d|4[1-4]|5[1-46]|6[1-7]|7[2-46]|8[2-4])\d{6}|9\d{8}|800\d{5}|805\d{5}|801\d{5}|80[24]\d{5}'],
+        ['PF', 'PYF', '258', 'French Polynesia', 'Papeete', '.pf', 'OC', '009', 'Oceania', '061', 'Polynesia', 'fr-PF,ty', 'XPF', 'CFP Franc', '^((97|98)7\d{2})$', '689', '00', '', '4(?:[09][45689]\d|4)\d{4}|8[79]\d{6}'],
+        ['PG', 'PNG', '598', 'Papua New Guinea', 'Port Moresby', '.pg', 'OC', '009', 'Oceania', '054', 'Melanesia', 'en-PG,ho,meu,tpi', 'PGK', 'Kina', '^(\d{3})$', '675', '00', '', '(?:3[0-2]\d|4[257]\d|5[34]\d|64[1-9]|77(?:[0-24]\d|30)|85[02-46-9]|9[78]\d)\d{4}|(?:20150|68\d{2}|7(?:[0-689]\d|75)\d{2})\d{3}|180\d{4}|27[568]\d{4}'],
+        ['PH', 'PHL', '608', 'Philippines', 'Manila', '.ph', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'tl,en-PH,fil', 'PHP', 'Philippine Peso', '^(\d{4})$', '63', '00', '0', '2\d{5}(?:\d{2})?|(?:3[2-68]|4[2-9]|5[2-6]|6[2-58]|7[24578]|8[2-8])\d{7}|88(?:22\d{6}|42\d{4})|(?:81[37]|9(?:0[5-9]|1[024-9]|2[0-35-9]|3[02-9]|4[235-9]|5[056]|6[5-7]|7[34-79]|89|9[4-9]))\d{7}|1800\d{7,9}'],
+        ['PK', 'PAK', '586', 'Pakistan', 'Islamabad', '.pk', 'AS', '142', 'Asia', '034', 'Southern Asia', 'ur-PK,en-PK,pa,sd,ps,brh', 'PKR', 'Pakistan Rupee', '^(\d{5})$', '92', '00', '0', '(?:21|42)[2-9]\d{7}|(?:2[25]|4[0146-9]|5[1-35-7]|6[1-8]|7[14]|8[16]|91)[2-9]\d{6}|(?:2(?:3[2358]|4[2-4]|9[2-8])|45[3479]|54[2-467]|60[468]|72[236]|8(?:2[2-689]|3[23578]|4[3478]|5[2356])|9(?:2[2-8]|3[27-9]|4[2-6]|6[3569]|9[25-8]))[2-9]\d{5,6}|58[126]\d{7}|3(?:[014]\d|2[0-5]|3[0-7]|55|64)\d{7}|800\d{5}|900\d{5}|122\d{6}|(?:2(?:[125]|3[2358]|4[2-4]|9[2-8])|4(?:[0-246-9]|5[3479])|5(?:[1-35-7]|4[2-467])|6(?:[1-8]|0[468])|7(?:[14]|2[236])|8(?:[16]|2[2-689]|3[23578]|4[3478]|5[2356])|9(?:1|22|3[27-9]|4[2-6]|6[3569]|9[2-7]))111\d{6}'],
+        ['PL', 'POL', '616', 'Poland', 'Warsaw', '.pl', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'pl', 'PLN', 'Zloty', '^\d{2}-\d{3}$', '48', '00', '', '(?:1[2-8]|2[2-69]|3[2-4]|4[1-468]|5[24-689]|6[1-3578]|7[14-7]|8[1-79]|9[145])\d{7}|[12]2\d{5}|(?:5[0137]|6[069]|7[2389]|88)\d{7}|800\d{6}|70\d{7}|801\d{6}|39\d{7}|64\d{4,7}'],
+        ['PM', 'SPM', '666', 'Saint Pierre and Miquelon', 'Saint-Pierre', '.pm', 'AM', '019', 'Americas', '021', 'Northern America', 'fr-PM', 'EUR', 'Euro', '^(97500)$', '508', '00', '0', '41\d{4}|55\d{4}'],
+        ['PN', 'PCN', '612', 'Pitcairn', 'Adamstown', '.pn', 'OC', '009', 'Oceania', '061', 'Polynesia', 'en-PN', 'NZD', 'New Zealand Dollar', '', '870', '', '', ''],
+        ['PR', 'PRI', '630', 'Puerto Rico', 'San Juan', '.pr', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-PR,es-PR', 'USD', 'US Dollar', '^00[679]\d{2}(?:-\d{4})?$', '1', '011', '1', '(?:787|939)[2-9]\d{6}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['PS', 'PSE', '275', 'Palestinian Territory', 'East Jerusalem', '.ps', 'AS', '142', 'Asia', '', '', 'ar-PS', 'ILS', 'New Israeli Sheqel', '', '970', '00', '0', '(?:22[234789]|42[45]|82[01458]|92[369])\d{5}|5[69]\d{7}|1800\d{6}|1(?:4|9\d)\d{2}|1700\d{6}'],
+        ['PT', 'PRT', '620', 'Portugal', 'Lisbon', '.pt', 'EU', '150', 'Europe', '039', 'Southern Europe', 'pt-PT,mwl', 'EUR', 'Euro', '^\d{4}-\d{3}\s?[a-zA-Z]{0,25}$', '351', '00', '', '2(?:[12]\d|[35][1-689]|4[1-59]|6[1-35689]|7[1-9]|8[1-69]|9[1256])\d{6}|9(?:[1236]\d{2}|480)\d{5}|80[02]\d{6}|6(?:0[178]|4[68])\d{6}|76(?:0[1-57]|1[2-47]|2[237])\d{5}|80(?:8\d|9[1579])\d{5}|884[0-4689]\d{5}|30\d{7}|7(?:0(?:7\d|8[17]))\d{5}|600\d{6}'],
+        ['PW', 'PLW', '585', 'Palau', 'Melekeok', '.pw', 'OC', '009', 'Oceania', '057', 'Micronesia', 'pau,sov,en-PW,tox,ja,fil,zh', 'USD', 'US Dollar', '^(96940)$', '680', '01[12]', '', '2552255|(?:277|345|488|5(?:35|44|87)|6(?:22|54|79)|7(?:33|47)|8(?:24|55|76))\d{4}|(?:6[234689]0|77[45789])\d{4}'],
+        ['PY', 'PRY', '600', 'Paraguay', 'Asuncion', '.py', 'AM', '019', 'Americas', '005', 'South America', 'es-PY,gn', 'PYG', 'Guarani', '^(\d{4})$', '595', '00', '0', '(?:[26]1|3[289]|4[124678]|7[123]|8[1236])\d{5,7}|(?:2(?:2[4568]|7[15]|9[1-5])|3(?:18|3[167]|4[2357]|51)|4(?:18|2[45]|3[12]|5[13]|64|71|9[1-47])|5(?:[1-4]\d|5[0234])|6(?:3[1-3]|44|7[1-4678])|7(?:17|4[0-4]|6[1-578]|75|8[0-8])|858)\d{5,6}|9(?:6[12]|[78][1-6]|9[1-5])\d{6}|8700[0-4]\d{4}|[2-9]0\d{4,7}'],
+        ['QA', 'QAT', '634', 'Qatar', 'Doha', '.qa', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-QA,es', 'QAR', 'Qatari Rial', '', '974', '00', '', '4[04]\d{6}|[3567]\d{7}|800\d{4}|2(?:[12]\d|61)\d{4}'],
+        ['RE', 'REU', '638', 'Reunion', 'Saint-Denis', '.re', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-RE', 'EUR', 'Euro', '^((97|98)(4|7|8)\d{2})$', '262', '00', '0', '262\d{6}|69[23]\d{6}|80\d{7}|89[1-37-9]\d{6}|8(?:1[019]|2[0156]|84|90)\d{6}'],
+        ['RO', 'ROU', '642', 'Romania', 'Bucharest', '.ro', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'ro,hu,rom', 'RON', 'Romanian Leu', '^(\d{6})$', '40', '00', '0', '2(?:1(?:\d{7}|9\d{3})|[3-6](?:\d{7}|\d9\d{2}))|3(?:1\d{4}(?:\d{3})?|[3-6]\d{7})|7(?:[0-8]\d{2}|99\d)\d{5}|800\d{6}|90[036]\d{6}|801\d{6}|37\d{7}'],
+        ['RS', 'SRB', '688', 'Serbia', 'Belgrade', '.rs', 'EU', '150', 'Europe', '039', 'Southern Europe', 'sr,hu,bs,rom', 'RSD', 'Serbian Dinar', '^(\d{6})$', '381', '00', '0', '(?:1(?:[02-9][2-9]|1[1-9])\d|2(?:[0-24-7][2-9]\d|[389](?:0[2-9]|[2-9]\d))|3(?:[0-8][2-9]\d|9(?:[2-9]\d|0[2-9])))\d{3,8}|6(?:[0-689]|7\d)\d{6,7}|800\d{3,9}|(?:90[0169]|78\d)\d{3,7}|7[06]\d{4,10}'],
+        ['RU', 'RUS', '643', 'Russia', 'Moscow', '.ru', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'ru,tt,xal,cau,ady,kv,ce,tyv,cv,udm,tut,mns,bua,myv,mdf,chm,ba,inh,tut,kbd,krc,ava,sah,nog', 'RUB', 'Russian Ruble', '^(\d{6})$', '7', '810', '8', '(?:3(?:0[12]|4[1-35-79]|5[1-3]|65|8[1-58]|9[0145])|4(?:01|1[1356]|2[13467]|7[1-5]|8[1-7]|9[1-689])|8(?:1[1-8]|2[01]|3[13-6]|4[0-8]|5[15]|6[1-35-79]|7[1-37-9]))\d{7}|9\d{9}|80[04]\d{7}|80[39]\d{7}'],
+        ['RW', 'RWA', '646', 'Rwanda', 'Kigali', '.rw', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'rw,en-RW,fr-RW,sw', 'RWF', 'Rwanda Franc', '', '250', '00', '0', '2[258]\d{7}|06\d{6}|7[238]\d{7}|800\d{6}|900\d{6}'],
+        ['AM', 'SAU', '682', 'Saudi Arabia', 'Riyadh', '.sa', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-AM', 'SAR', 'Saudi Riyal', '^(\d{5})$', '374', '00', '0', '(?:1[0-2]\d|2(?:2[2-46]|3[1-8]|4[2-69]|5[2-7]|6[1-9]|8[1-7])|3[12]2|47\d)\d{5}|(?:4[1349]|55|77|9[1-9])\d{6}|800\d{5}|90[016]\d{5}|80[1-4]\d{5}|60(?:2[078]|[3-7]\d|8[0-5])\d{4}'],
+        ['SB', 'SLB', '090', 'Solomon Islands', 'Honiara', '.sb', 'OC', '009', 'Oceania', '054', 'Melanesia', 'en-SB,tpi', 'SBD', 'Solomon Islands Dollar', '', '677', '0[01]', '', '(?:1[4-79]|[23]\d|4[0-2]|5[03]|6[0-37])\d{3}|48\d{3}|7(?:30|[46-8]\d|5[025-9]|9[0-5])\d{4}|8[4-9]\d{5}|9(?:1[2-9]|2[013-9]|3[0-2]|[46]\d|5[0-46-9]|7[0-689]|8[0-79]|9[0-8])\d{4}|1[38]\d{3}|5[12]\d{3}'],
+        ['SC', 'SYC', '690', 'Seychelles', 'Victoria', '.sc', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-SC,fr-SC', 'SCR', 'Seychelles Rupee', '', '248', '0(?:[02]|10?)', '', '4[2-46]\d{5}|2[5-8]\d{5}|8000\d{3}|(?:64\d|971)\d{4}'],
+        ['SD', 'SDN', '729', 'Sudan', 'Khartoum', '.sd', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-SD,en,fia', 'SDG', 'Sudanese Pound', '^(\d{5})$', '249', '00', '0', '1(?:[125]\d|8[3567])\d{6}|9[0-3569]\d{7}'],
+        ['SE', 'SWE', '752', 'Sweden', 'Stockholm', '.se', 'EU', '150', 'Europe', '154', 'Northern Europe', 'sv-SE,se,sma,fi-SE', 'SEK', 'Swedish Krona', '^(?:SE)?\d{3}\s\d{2}$', '46', '00', '0', '1(?:0[1-8]\d{6}|[136]\d{5,7}|(?:2[0-35]|4[0-4]|5[0-25-9]|7[13-6]|[89]\d)\d{5,6})|2(?:[136]\d{5,7}|(?:2[0-7]|4[0136-8]|5[0138]|7[018]|8[01]|9[0-57])\d{5,6})|3(?:[356]\d{5,7}|(?:0[0-4]|1\d|2[0-25]|4[056]|7[0-2]|8[0-3]|9[023])\d{5,6})|4(?:[0246]\d{5,7}|(?:1[013-8]|3[0135]|5[14-79]|7[0-246-9]|8[0156]|9[0-689])\d{5,6})|5(?:0[0-6]|[15][0-5]|2[0-68]|3[0-4]|4\d|6[03-5]|7[013]|8[0-79]|9[01])\d{5,6}|6(?:[03]\d{5,7}|(?:1[1-3]|2[0-4]|4[02-57]|5[0-37]|6[0-3]|7[0-2]|8[0247]|9[0-356])\d{5,6})|8\d{6,8}|9(?:0[1-9]\d{4,6}|(?:1[0-68]|2\d|3[02-5]|4[0-3]|5[0-4]|[68][01]|7[0135-8])\d{5,6})|7[02369]\d{7}|20\d{4,7}|649\d{6}|9(?:00|39|44)[1-8]\d{3,6}|77(?:0\d{3}(?:\d{3})?|[1-7]\d{6})|75[1-8]\d{6}|74[02-9]\d{6}|(?:25[245]|67[3-6])\d{9}'],
+        ['SG', 'SGP', '702', 'Singapore', 'Singapore', '.sg', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'cmn,en-SG,ms-SG,ta-SG,zh-SG', 'SGD', 'Singapore Dollar', '^(\d{6})$', '65', '0[0-3]\d', '', '6[1-9]\d{6}|(?:8[1-8]|9[0-8])\d{6}|1?800\d{7}|1900\d{7}|3[12]\d{6}|7000\d{7}'],
+        ['SH', 'SHN', '654', 'Saint Helena', 'Jamestown', '.sh', 'AF', '002', 'Africa', '', '', 'en-SH', 'SHP', 'Saint Helena Pound', '^(STHL1ZZ)$', '290', '00', '', '2(?:[0-57-9]\d|6[4-9])\d{2}|[56]\d{4}|262\d{2}'],
+        ['SI', 'SVN', '705', 'Slovenia', 'Ljubljana', '.si', 'EU', '150', 'Europe', '039', 'Southern Europe', 'sl,sh', 'EUR', 'Euro', '^(?:SI)*(\d{4})$', '386', '00', '0', '(?:1\d|[25][2-8]|3[24-8]|4[24-8]|7[3-8])\d{6}|(?:[37][01]|4[0139]|51|6[48])\d{6}|80\d{4,6}|90\d{4,6}|89[1-3]\d{2,5}|(?:59|8[1-3])\d{6}'],
+        ['SJ', 'SJM', '744', 'Svalbard and Jan Mayen', 'Longyearbyen', '.sj', 'EU', '150', 'Europe', '154', 'Northern Europe', 'no,ru', 'NOK', 'Norwegian Krone', '', '47', '00', '', '79\d{6}|(?:4[015-8]|5[89]|9\d)\d{6}|80[01]\d{5}|82[09]\d{5}|810(?:0[0-6]|[2-8]\d)\d{3}|880\d{5}|85[0-5]\d{5}|0\d{4}|81(?:0(?:0[7-9]|1\d)|5\d{2})\d{3}|81[23]\d{5}'],
+        ['SK', 'SVK', '703', 'Slovakia', 'Bratislava', '.sk', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'sk,hu', 'EUR', 'Euro', '^\d{3}\s?\d{2}$', '421', '00', '0', '2(?:1(?:6\d{3,4}|7\d{3})|[2-9]\d{7})|[3-5][1-8](?:1(?:6\d{2,3}|7\d{3})|\d{7})|9(?:0(?:[1-8]\d|9[1-9])|(?:1[0-24-9]|[45]\d)\d)\d{5}|800\d{6}|9(?:[78]\d{7}|00\d{6})|8[5-9]\d{7}|6(?:02|5[0-4]|9[0-6])\d{6}|9090\d{3}|96\d{7}'],
+        ['SL', 'SLE', '694', 'Sierra Leone', 'Freetown', '.sl', 'AF', '002', 'Africa', '011', 'Western Africa', 'en-SL,men,tem', 'SLL', 'Leone', '', '232', '00', '0', '[235]2[2-4][2-9]\d{4}|(?:2[15]|3[03-5]|4[04]|5[05]|66|7[6-9]|88|99)\d{6}'],
+        ['SM', 'SMR', '674', 'San Marino', 'San Marino', '.sm', 'EU', '150', 'Europe', '039', 'Southern Europe', 'it-SM', 'EUR', 'Euro', '^(4789\d)$', '378', '00', '', '0549(?:8[0157-9]|9\d)\d{4}|6[16]\d{6}|7[178]\d{6}|5[158]\d{6}'],
+        ['SN', 'SEN', '686', 'Senegal', 'Dakar', '.sn', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-SN,wo,fuc,mnk', 'XOF', 'CFA Franc BCEAO', '^(\d{5})$', '221', '00', '', '3(?:0(?:1[0-2]|80)|282|3(?:8[1-9]|9[3-9])|611)\d{5}|7(?:[06-8]\d|21|90)\d{6}|800\d{6}|88[4689]\d{6}|81[02468]\d{6}|39[01]\d{6}|3392\d{5}|93330\d{4}'],
+        ['SO', 'SOM', '706', 'Somalia', 'Mogadishu', '.so', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'so-SO,ar-SO,it,en-SO', 'SOS', 'Somali Shilling', '^([A-Z]{2}\d{5})$', '252', '00', '0', '(?:1\d{1,2}|2[0-79]\d|3[0-46-8]?\d|4[0-7]?\d|59\d|8[125])\d{4}|(?:15\d|2(?:4\d|8)|3[59]\d{2}|4[89]\d{2}|6[1-9]?\d{2}|7(?:[1-8]\d|9\d{1,2})|8[08]\d{2}|9(?:0[67]|[2-9])\d)\d{5}'],
+        ['SR', 'SUR', '740', 'Suriname', 'Paramaribo', '.sr', 'AM', '019', 'Americas', '005', 'South America', 'nl-SR,en,srn,hns,jv', 'SRD', 'Surinam Dollar', '', '597', '00', '', '(?:2[1-3]|3[0-7]|4\d|5[2-58]|68\d)\d{4}|(?:7[124-7]|8[1-9])\d{5}|56\d{4}'],
+        ['SS', 'SSD', '728', 'South Sudan', 'Juba', '', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en', 'SSP', 'South Sudanese Pound', '', '211', '00', '0', '18\d{7}|(?:12|9[1257])\d{7}'],
+        ['ST', 'STP', '678', 'Sao Tome and Principe', 'Sao Tome', '.st', 'AF', '002', 'Africa', '017', 'Middle Africa', 'pt-ST', 'STD', 'Dobra', '', '239', '00', '', '22\d{5}|9(?:0(?:0[5-9]|[1-9]\d)|[89]\d{2})\d{3}'],
+        ['SV', 'SLV', '222', 'El Salvador', 'San Salvador', '.sv', 'AM', '019', 'Americas', '013', 'Central America', 'es-SV', 'USD', 'US Dollar', '^(?:CP)*(\d{4})$', '503', '00', '', '2[1-6]\d{6}|[67]\d{7}|800\d{4}(?:\d{4})?|900\d{4}(?:\d{4})?'],
+        ['SX', 'SXM', '534', 'Sint Maarten', 'Philipsburg', '.sx', 'AM', '019', 'Americas', '029', 'Caribbean', 'nl,en', 'ANG', 'Netherlands Antillean Guilder', '', '1', '011', '1', '7215(?:4[2-8]|8[239]|9[056])\d{4}|7215(?:1[02]|2\d|5[034679]|8[014-8])\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['SY', 'SYR', '760', 'Syria', 'Damascus', '.sy', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-SY,ku,hy,arc,fr,en', 'SYP', 'Syrian Pound', '', '963', '00', '0', '(?:1(?:1\d?|4\d|[2356])|2(?:1\d?|[235])|3(?:[13]\d|4)|4[13]|5[1-3])\d{6}|9(?:22|[3-589]\d|6[024-9])\d{6}'],
+        ['SZ', 'SWZ', '748', 'Swaziland', 'Mbabane', '.sz', 'AF', '002', 'Africa', '018', 'Southern Africa', 'en-SZ,ss-SZ', 'SZL', 'Lilangeni', '^([A-Z]\d{3})$', '268', '00', '', '2[2-5]\d{6}|7[6-8]\d{6}|0800\d{4}'],
+        ['TC', 'TCA', '796', 'Turks and Caicos Islands', 'Cockburn Town', '.tc', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-TC', 'USD', 'US Dollar', '^(TKCA 1ZZ)$', '1', '011', '1', '649(?:712|9(?:4\d|50))\d{4}|649(?:2(?:3[129]|4[1-7])|3(?:3[1-389]|4[1-8])|4[34][1-3])\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}|64971[01]\d{4}'],
+        ['TD', 'TCD', '148', 'Chad', 'N\'Djamena', '.td', 'AF', '002', 'Africa', '017', 'Middle Africa', 'fr-TD,ar-TD,sre', 'XAF', 'CFA Franc BEAC', '', '235', '00|16', '', '22(?:[3789]0|5[0-5]|6[89])\d{4}|(?:6[023568]\d|77\d|9\d{2})\d{5}'],
+        ['TF', 'ATF', '260', 'French Southern Territories', 'Port-aux-Francais', '.tf', 'AN', '', '', '', '', 'fr', 'EUR', 'Euro', '', '', '', '', ''],
+        ['TG', 'TGO', '768', 'Togo', 'Lome', '.tg', 'AF', '002', 'Africa', '011', 'Western Africa', 'fr-TG,ee,hna,kbp,dag,ha', 'XOF', 'CFA Franc BCEAO', '', '228', '00', '', '2(?:2[2-7]|3[23]|44|55|66|77)\d{5}|9[0-36-9]\d{6}'],
+        ['TH', 'THA', '764', 'Thailand', 'Bangkok', '.th', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'th,en', 'THB', 'Baht', '^(\d{5})$', '66', '00', '0', '(?:2\d|3[2-9]|4[2-5]|5[2-6]|7[3-7])\d{6}|(?:14|6[1-6]|[89]\d)\d{7}|1800\d{6}|1900\d{6}|6[08]\d{7}|1\d{3}'],
+        ['TJ', 'TJK', '762', 'Tajikistan', 'Dushanbe', '.tj', 'AS', '142', 'Asia', '143', 'Central Asia', 'tg,ru', 'TJS', 'Somoni', '^(\d{6})$', '992', '810', '8', '(?:3(?:1[3-5]|2[245]|3[12]|4[24-7]|5[25]|72)|4(?:46|74|87))\d{6}|(?:41[18]|(?:5[05]|77|88|9[0-35-9])\d)\d{6}'],
+        ['TK', 'TKL', '772', 'Tokelau', '', '.tk', 'OC', '009', 'Oceania', '061', 'Polynesia', 'tkl,en-TK', 'NZD', 'New Zealand Dollar', '', '690', '00', '', '(?:2[2-4]|[34]\d)\d{2,5}|7[2-4]\d{2,5}'],
+        ['TL', 'TLS', '626', 'East Timor', 'Dili', '.tl', 'OC', '142', 'Asia', '035', 'South-Eastern Asia', 'tet,pt-TL,id,en', 'USD', 'US Dollar', '', '670', '00', '', '(?:2[1-5]|3[1-9]|4[1-4])\d{5}|7[3-8]\d{6}|80\d{5}|90\d{5}|70\d{5}'],
+        ['TM', 'TKM', '795', 'Turkmenistan', 'Ashgabat', '.tm', 'AS', '142', 'Asia', '143', 'Central Asia', 'tk,ru,uz', 'TMT', 'Turkmenistan New Manat', '^(\d{6})$', '993', '810', '8', '(?:1(?:2\d|3[1-9])|2(?:22|4[0-35-8])|3(?:22|4[03-9])|4(?:22|3[128]|4\d|6[15])|5(?:22|5[7-9]|6[014-689]))\d{5}|6[1-9]\d{6}'],
+        ['TN', 'TUN', '788', 'Tunisia', 'Tunis', '.tn', 'AF', '002', 'Africa', '015', 'Northern Africa', 'ar-TN,fr', 'TND', 'Tunisian Dinar', '^(\d{4})$', '216', '00', '', '3(?:[012]\d|6[0-4]|91)\d{5}|7\d{7}|81200\d{3}|(?:[259]\d|4[0-6])\d{6}|8010\d{4}|88\d{6}|8[12]10\d{4}'],
+        ['TO', 'TON', '776', 'Tonga', 'Nuku\'alofa', '.to', 'OC', '009', 'Oceania', '061', 'Polynesia', 'to,en-TO', 'TOP', 'Paʻanga', '', '676', '00', '', '(?:2\d|3[1-8]|4[1-4]|[56]0|7[0149]|8[05])\d{3}|(?:7[578]|8[47-9])\d{5}|0800\d{3}'],
+        ['TR', 'TUR', '792', 'Turkey', 'Ankara', '.tr', 'AS', '142', 'Asia', '145', 'Western Asia', 'tr-TR,ku,diq,az,av', 'TRY', 'Turkish Lira', '^(\d{5})$', '90', '00', '0', '(?:2(?:[13][26]|[28][2468]|[45][268]|[67][246])|3(?:[13][28]|[24-6][2468]|[78][02468]|92)|4(?:[16][246]|[23578][2468]|4[26]))\d{7}|5(?:(?:0[1-7]|22|[34]\d|5[1-59]|9[246])\d{2}|6161)\d{5}|800\d{7}|900\d{7}|512\d{7}|444\d{4}|850\d{7}'],
+        ['TT', 'TTO', '780', 'Trinidad and Tobago', 'Port of Spain', '.tt', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-TT,hns,fr,es,zh', 'TTD', 'Trinidad and Tobago Dollar', '', '1', '011', '1', '868(?:2(?:01|[23]\d)|6(?:0[79]|1[02-8]|2[1-9]|[3-69]\d|7[0-79])|82[124])\d{4}|868(?:2(?:6[6-9]|[789]\d)|3(?:0[1-9]|1[02-9]|[2-9]\d)|4[6-9]\d|6(?:20|78|8\d)|7(?:0[1-9]|1[02-9]|[2-9]\d))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}|868619\d{4}'],
+        ['TV', 'TUV', '798', 'Tuvalu', 'Funafuti', '.tv', 'OC', '009', 'Oceania', '061', 'Polynesia', 'tvl,en,sm,gil', 'AUD', 'Australian Dollar', '', '688', '00', '', '2[02-9]\d{3}|(?:70\d|90)\d{4}'],
+        ['TW', 'TWN', '158', 'Taiwan', 'Taipei', '.tw', 'AS', '142', 'Asia', '', '', 'zh-TW,zh,nan,hak', 'TWD', 'New Taiwan Dollar', '^(\d{5})$', '886', '0(?:0[25679]|19)', '0', '2(?:[235-8]\d{7}|4\d{6,7})|[3-8]\d{7,8}|9\d{8}|800\d{6}|20(?:2|[013-9]\d{2})\d{4}|70\d{8}'],
+        ['TZ', 'TZA', '834', 'Tanzania', 'Dodoma', '.tz', 'AF', '002', 'Africa', '', '', 'sw-TZ,en,ar', 'TZS', 'Tanzanian Shilling', '', '255', '00[056]', '0', '2[2-8]\d{7}|(?:6[2-9]|7[13-9])\d{7}|80[08]\d{6}|90\d{7}|8(?:40|6[01])\d{6}|41\d{7}'],
+        ['UA', 'UKR', '804', 'Ukraine', 'Kiev', '.ua', 'EU', '150', 'Europe', '151', 'Eastern Europe', 'uk,ru-UA,rom,pl,hu', 'UAH', 'Hryvnia', '^(\d{5})$', '380', '00', '0', '(?:3[1-8]|4[13-8]|5[1-7]|6[12459])\d{7}|(?:39|50|6[36-8]|7[13]|9[1-9])\d{7}|800\d{6}|900\d{6}|89\d{7}'],
+        ['UG', 'UGA', '800', 'Uganda', 'Kampala', '.ug', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-UG,lg,sw,ar', 'UGX', 'Uganda Shilling', '', '256', '00[057]', '0', '20(?:[0147]\d{2}|2(?:40|[5-9]\d)|3(?:0[0-4]|[23]\d)|5[0-4]\d|6[035-9]\d|8[0-2]\d)\d{4}|[34]\d{8}|7(?:(?:0[0-7]|[15789]\d|30|4[0-4])\d|2(?:[03]\d|60))\d{5}|800[123]\d{5}|90[123]\d{6}'],
+        ['UM', 'UMI', '581', 'United States Minor Outlying Islands', '', '.um', 'OC', '009', 'Oceania', '', '', 'en-UM', 'USD', 'US Dollar', '', '1', '', '', ''],
+        ['US', 'USA', '840', 'United States', 'Washington', '.us', 'AM', '019', 'Americas', '021', 'Northern America', 'en-US,es-US,haw,fr', 'USD', 'US Dollar', '^\d{5}(-\d{4})?$', '1', '011', '1', '(?:2(?:0[1-35-9]|1[02-9]|2[04589]|3[149]|4[08]|5[1-46]|6[0279]|7[026]|8[13])|3(?:0[1-57-9]|1[02-9]|2[0135]|3[014679]|4[67]|5[12]|6[014]|8[056])|4(?:0[124-9]|1[02-579]|2[3-5]|3[0245]|4[0235]|58|6[39]|7[0589]|8[04])|5(?:0[1-57-9]|1[0235-8]|20|3[0149]|4[01]|5[19]|6[1-37]|7[013-5]|8[056])|6(?:0[1-35-9]|1[024-9]|2[03689]|3[016]|4[16]|5[017]|6[0-279]|78|8[012])|7(?:0[1-46-8]|1[02-9]|2[0457]|3[1247]|4[037]|5[47]|6[02359]|7[02-59]|8[156])|8(?:0[1-68]|1[02-8]|28|3[0-25]|4[3578]|5[046-9]|6[02-5]|7[028])|9(?:0[1346-9]|1[02-9]|2[0589]|3[014678]|4[0179]|5[12469]|7[0-3589]|8[0459]))[2-9]\d{6}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['UY', 'URY', '858', 'Uruguay', 'Montevideo', '.uy', 'AM', '019', 'Americas', '005', 'South America', 'es-UY', 'UYU', 'Peso Uruguayo', '^(\d{5})$', '598', '0(?:1[3-9]\d|0)', '0', '2\d{7}|4[2-7]\d{6}|9[1-9]\d{6}|80[05]\d{4}|90[0-8]\d{4}'],
+        ['UZ', 'UZB', '860', 'Uzbekistan', 'Tashkent', '.uz', 'AS', '142', 'Asia', '143', 'Central Asia', 'uz,ru,tg', 'UZS', 'Uzbekistan Sum', '^(\d{6})$', '998', '810', '8', '(?:6(?:1(?:22|3[124]|4[1-4]|5[123578]|64)|2(?:22|3[0-57-9]|41)|5(?:22|3[3-7]|5[024-8])|6\d{2}|7(?:[23]\d|7[69])|9(?:22|4[1-8]|6[135]))|7(?:0(?:5[4-9]|6[0146]|7[12456]|9[135-8])|1[12]\d|2(?:22|3[1345789]|4[123579]|5[14])|3(?:2\d|3[1578]|4[1-35-7]|5[1-57]|61)|4(?:2\d|3[1-579]|7[1-79])|5(?:22|5[1-9]|6[1457])|6(?:22|3[12457]|4[13-8])|9(?:22|5[1-9])))\d{5}|6(?:1(?:2(?:98|2[01])|35[0-4]|50\d|61[23]|7(?:[01][017]|4\d|55|9[5-9]))|2(?:11\d|2(?:[12]1|9[01379])|5(?:[126]\d|3[0-4])|7\d{2})|5(?:19[01]|2(?:27|9[26])|30\d|59\d|7\d{2})|6(?:2(?:1[5-9]|2[0367]|38|41|52|60)|3[79]\d|4(?:56|83)|7(?:[07]\d|1[017]|3[07]|4[047]|5[057]|67|8[0178]|9[79])|9[0-3]\d)|7(?:2(?:24|3[237]|4[5-9]|7[15-8])|5(?:7[12]|8[0589])|7(?:0\d|[39][07])|9(?:0\d|7[079]))|9(?:2(?:1[1267]|5\d|3[01]|7[0-4])|5[67]\d|6(?:2[0-26]|8\d)|7\d{2}))\d{4}|7(?:0\d{3}|1(?:13[01]|6(?:0[47]|1[67]|66)|71[3-69]|98\d)|2(?:2(?:2[79]|95)|3(?:2[5-9]|6[0-6])|57\d|7(?:0\d|1[17]|2[27]|3[37]|44|5[057]|66|88))|3(?:2(?:1[0-6]|21|3[469]|7[159])|33\d|5(?:0[0-4]|5[579]|9\d)|7(?:[0-3579]\d|4[0467]|6[67]|8[078])|9[4-6]\d)|4(?:2(?:29|5[0257]|6[0-7]|7[1-57])|5(?:1[0-4]|8\d|9[5-9])|7(?:0\d|1[024589]|2[0127]|3[0137]|[46][07]|5[01]|7[5-9]|9[079])|9(?:7[015-9]|[89]\d))|5(?:112|2(?:0\d|2[29]|[49]4)|3[1568]\d|52[6-9]|7(?:0[01578]|1[017]|[23]7|4[047]|[5-7]\d|8[78]|9[079]))|6(?:2(?:2[1245]|4[2-4])|39\d|41[179]|5(?:[349]\d|5[0-2])|7(?:0[017]|[13]\d|22|44|55|67|88))|9(?:22[128]|3(?:2[0-4]|7\d)|57[05629]|7(?:2[05-9]|3[37]|4\d|60|7[2579]|87|9[07])))\d{4}|9[0-57-9]\d{7}'],
+        ['VA', 'VAT', '336', 'Vatican', 'Vatican City', '.va', 'EU', '150', 'Europe', '039', 'Southern Europe', 'la,it,fr', 'EUR', 'Euro', '^(\d{5})$', '39', '00', '', '06698\d{5}|3(?:[12457-9]\d{8}|6\d{7,8}|3\d{7,9})|80(?:0\d{6}|3\d{3})|0878\d{5}|1(?:44|6[346])\d{6}|89(?:2\d{3}|4(?:[0-4]\d{2}|[5-9]\d{4})|5(?:[0-4]\d{2}|[5-9]\d{6})|9\d{6})|84(?:[08]\d{6}|[17]\d{3})|1(?:78\d|99)\d{6}|55\d{8}'],
+        ['VC', 'VCT', '670', 'Saint Vincent and the Grenadines', 'Kingstown', '.vc', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-VC,fr', 'XCD', 'East Caribbean Dollar', '', '1', '011', '1', '784(?:266|3(?:6[6-9]|7\d|8[0-24-6])|4(?:38|5[0-36-8]|8[0-8])|5(?:55|7[0-2]|93)|638|784)\d{4}|784(?:4(?:3[0-4]|5[45]|89|9[0-58])|5(?:2[6-9]|3[0-4]))\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['VE', 'VEN', '862', 'Venezuela (Bolivarian Republic of)', 'Caracas', '.ve', 'AM', '019', 'Americas', '005', 'South America', 'es-VE', 'VEF', 'Bolivar', '^(\d{4})$', '58', '00', '0', '(?:2(?:12|3[457-9]|[58][1-9]|[467]\d|9[1-6])|50[01])\d{7}|4(?:1[24-8]|2[46])\d{7}|800\d{7}|900\d{7}'],
+        ['VG', 'VGB', '092', 'Virgin Islands (British)', 'Road Town', '.vg', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-VG', 'USD', 'US Dollar', '', '1', '011', '1', '284(?:(?:229|4(?:22|9[45])|774|8(?:52|6[459]))\d{4}|496[0-5]\d{3})|284(?:(?:3(?:0[0-3]|4[0-7]|68|9[34])|4(?:4[0-6]|68|99)|54[0-57])\d{4}|496[6-9]\d{3})|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['VI', 'VIR', '850', 'Virgin Islands (U.S.)', 'Charlotte Amalie', '.vi', 'AM', '019', 'Americas', '029', 'Caribbean', 'en-VI', 'USD', 'US Dollar', '^008\d{2}(?:-\d{4})?$', '1', '011', '1', '340(?:2(?:01|2[0678]|44|77)|3(?:32|44)|4(?:22|7[34])|5(?:1[34]|55)|6(?:26|4[23]|77|9[023])|7(?:1[2-589]|27|7\d)|884|998)\d{4}|8(?:00|33|44|55|66|77|88)[2-9]\d{6}|900[2-9]\d{6}|5(?:00|22|33|44|66|77|88)[2-9]\d{6}'],
+        ['VN', 'VNM', '704', 'Vietnam', 'Hanoi', '.vn', 'AS', '142', 'Asia', '035', 'South-Eastern Asia', 'vi,en,fr,zh,km', 'VND', 'Dong', '^(\d{6})$', '84', '00', '0', '(?:2(?:0(?:\d|[3-9]\d)|1[0-689]\d|2(?:\d|[0-25-9]\d)|[5-7]\d|3\d{2}|[48][01]\d|9(?:\d|[0-4679]\d))|3(?:[0136-9]|[25][01])\d|4\d{2}|5(?:[01][01]|[2-9])\d|6(?:[0-46-8]|5[01])\d|7(?:[02-79]|[18][01])\d)\d{6}|8(?:[1-57]\d|6[0-79]|9[0-7])\d{6}|(?:9\d|1(?:2\d|6[2-9]|8[68]|99))\d{7}|8(?:68|8\d|9[89])\d{6}|1800\d{4,6}|1900\d{4,6}|[17]99\d{4}|69\d{5,6}|80\d{5}'],
+        ['VU', 'VUT', '548', 'Vanuatu', 'Port Vila', '.vu', 'OC', '009', 'Oceania', '054', 'Melanesia', 'bi,en-VU,fr-VU', 'VUV', 'Vatu', '', '678', '00', '', '(?:2[02-9]\d|3(?:[5-7]\d|8[0-8])|48[4-9]|88\d)\d{2}|(?:5(?:7[2-5]|[0-689]\d)|7[013-7]\d)\d{4}|3[03]\d{3}|900\d{4}'],
+        ['WF', 'WLF', '876', 'Wallis and Futuna', 'Mata Utu', '.wf', 'OC', '009', 'Oceania', '061', 'Polynesia', 'wls,fud,fr-WF', 'XPF', 'CFP Franc', '^(986\d{2})$', '681', '00', '', '(?:50|68|72)\d{4}|(?:50|68|72|8[23])\d{4}|[48]0\d{4}'],
+        ['WS', 'WSM', '882', 'Samoa', 'Apia', '.ws', 'OC', '009', 'Oceania', '061', 'Polynesia', 'sm,en-WS', 'WST', 'Tala', '', '685', '0', '', '(?:[2-5]\d|6[1-9]|84\d{2})\d{3}|(?:60|7[25-7]\d)\d{4}|800\d{3}'],
+        ['XK', 'XKX', '0', 'Kosovo', 'Pristina', '', 'EU', '150', 'Europe', '', '', 'sq,sr', 'EUR', 'Euro', '', '', '', '', ''],
+        ['YE', 'YEM', '887', 'Yemen', 'Sanaa', '.ye', 'AS', '142', 'Asia', '145', 'Western Asia', 'ar-YE', 'YER', 'Yemeni Rial', '', '967', '00', '0', '(?:1(?:7\d|[2-68])|2[2-68]|3[2358]|4[2-58]|5[2-6]|6[3-58]|7[24-68])\d{5}|7[0137]\d{7}'],
+        ['YT', 'MYT', '175', 'Mayotte', 'Mamoudzou', '.yt', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'fr-YT', 'EUR', 'Euro', '^(\d{5})$', '262', '00', '0', '269(?:6[0-4]|50)\d{4}|639\d{6}|80\d{7}'],
+        ['ZA', 'ZAF', '710', 'South Africa', 'Pretoria', '.za', 'AF', '002', 'Africa', '018', 'Southern Africa', 'zu,xh,af,nso,en-ZA,tn,st,ts,ss,ve,nr', 'ZAR', 'Rand', '^(\d{4})$', '27', '00', '0', '(?:1[0-8]|2[1-378]|3[1-69]|4\d|5[1346-8])\d{7}|(?:6\d|7[0-46-9])\d{7}|8(?:[1-4]\d{1,5}|5\d{5})\d{2}|80\d{7}|86[2-9]\d{6}|9[0-2]\d{7}|860\d{6}|87\d{7}|861\d{6}'],
+        ['ZM', 'ZMB', '894', 'Zambia', 'Lusaka', '.zm', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-ZM,bem,loz,lun,lue,ny,toi', 'ZMW', 'Zambian Kwacha', '^(\d{5})$', '260', '00', '0', '21[1-8]\d{6}|9(?:5[034589]|[67]\d)\d{6}|800\d{6}'],
+        ['ZW', 'ZWE', '716', 'Zimbabwe', 'Harare', '.zw', 'AF', '002', 'Africa', '014', 'Eastern Africa', 'en-ZW,sn,nr,nd', 'ZWL', 'Zimbabwe Dollar', '', '263', '00', '0', '(?:2(?:0(?:4\d|5\d{2})|2[278]\d|48\d|7(?:[1-7]\d|[089]\d{2})|8(?:[2-57-9]|[146]\d{2})|98)|3(?:08|17|3[78]|7(?:[19]|[56]\d)|8[37]|98)|5[15][78]|6(?:28\d{2}|[36]7|75\d|[69]8|8(?:7\d|8)))\d{3}|(?:2(?:1[39]|2[0157]|6[14]|7[35]|84)|329)\d{7}|(?:1(?:3\d{2}|9\d|[4-8])|2(?:0\d{2}|[569]\d)|3(?:[26]|[013459]\d)|5(?:0|5\d{2}|[689]\d)|6(?:[39]|[01246]\d|[78]\d{2}))\d{3}|(?:29\d|39|54)\d{6}|(?:(?:25|54)83|2582\d)\d{3}|(?:4\d{6,7}|9[2-9]\d{4,5})|7[1378]\d{7}|800\d{7}|86(?:1[12]|30|44|55|77|8[367]|99)\d{6}']
     ];
 
     /**
@@ -307,6 +310,7 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
         if ($DataSets)
             $this->KnowledgeBase = $DataSets;
     }
+
     /**
      * @return array
      */
@@ -324,7 +328,7 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
     {
         $IsoFormat = $this->setISOFormat($IsoFormat);
         if (!in_array($IsoFormat, $this->keys, true))
-            throw new \Exception(sprintf('Invalid value for $indexBy, got "%s", expected one of: %s',$IsoFormat,implode(', ', $this->keys)));
+            throw new \Exception(sprintf('Invalid value for $indexBy, got "%s", expected one of: %s', $IsoFormat, implode(', ', $this->keys)));
         foreach ($this->KnowledgeBase as $country)
             yield $country[$IsoFormat] => $country;
     }
@@ -352,8 +356,9 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     private function setISOFormat($IsoFormat)
     {
+        if (!is_numeric($IsoFormat)) {
             $IsoFormat = trim(strtolower($IsoFormat));
-            switch($IsoFormat):
+            switch ($IsoFormat):
                 case 'alpha-3':
                 case 'alpha3':
                 case 'iso-3':
@@ -371,12 +376,13 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
                     $IsoFormat = self::NUMERIC;
                     break;
                 default:
-                    in_array($IsoFormat,[self::ALPHA2,self::ALPHA3,self::NUMERIC]) OR $IsoFormat = self::ALPHA2;
+                    $IsoFormat = self::ALPHA2;
                     break;
             endswitch;
-
+        }
         return $IsoFormat;
     }
+
     /**
      * @param $IsoFormat
      * @param $value
@@ -386,23 +392,21 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
     private function lookup($IsoFormat, $value)
     {
         $IsoFormat = $this->setISOFormat($IsoFormat);
-        foreach ($this->KnowledgeBase as $country)
-        {
+        foreach ($this->KnowledgeBase as $country) {
             if (0 === strcasecmp($value, $country[$IsoFormat]))
                 return $country;
         }
-        if(is_numeric($IsoFormat))
-        {
-            switch($IsoFormat):
+        if (is_numeric($IsoFormat)) {
+            switch ($IsoFormat):
                 case '2':
                     $IsoFormat = 'numeric';
                     break;
                 default:
-                    $IsoFormat = ($IsoFormat == 1)? 'alpha3':'alpha2' ;
+                    $IsoFormat = ($IsoFormat == 1) ? 'alpha3' : 'alpha2';
                     break;
             endswitch;
         }
-        throw new \Exception(sprintf('No "%s" key found matching: %s', $IsoFormat, $value) );
+        throw new \Exception(sprintf('No "%s" key found matching: %s', $IsoFormat, $value));
     }
 
     /**
@@ -412,8 +416,9 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
     {
         $oClass = new \ReflectionClass(__CLASS__);
         $res = $oClass->getConstants();
-        return array_map('strtolower',array_values(array_flip($res)));
+        return array_map('strtolower', array_values(array_flip($res)));
     }
+
     /**
      * Retrieve datas for given country ISO-3166-2 , ISO-3166-3 or numeric code
      * <code>
@@ -433,26 +438,29 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      * @return array|mixed
      * @throws \Exception
      */
-    public function getCountryInfos($IsoCode,$dataOnly=false)
+    public function getCountryInfos($IsoCode, $dataOnly = false)
     {
         if (!is_string($IsoCode))
             throw new \InvalidArgumentException(sprintf('Expected $IsoCode to be of type string, got: %s', gettype($IsoCode)));
-        switch($IsoCode):
+        switch ($IsoCode):
             case (is_numeric($IsoCode)):
                 if (!preg_match('/^[0-9]{3}$/', $IsoCode))
-                    throw new \Exception( sprintf('Not a valid numeric country key: %s', $IsoCode) );
+                    throw new \Exception(sprintf('Not a valid numeric country key: %s', $IsoCode));
                 $IsoFormat = self::NUMERIC;
                 break;
             default:
                 if (!preg_match('/^[a-zA-Z]{2,3}$/', $IsoCode))
-                    throw new \Exception( sprintf('Not a valid alpha2 or alpha3 country key: %s', $IsoCode) );
-                $IsoFormat = (strlen($IsoCode) == 2)? self::ALPHA2 : self::ALPHA3;
+                    throw new \Exception(sprintf('Not a valid alpha2 or alpha3 country key: %s', $IsoCode));
+                $IsoFormat = (strlen($IsoCode) == 2) ? self::ALPHA2 : self::ALPHA3;
                 break;
         endswitch;
-        $datas = array_map(function($a){if(!empty($a)) return $a; return 'n/a';},$this->lookup($IsoFormat, $IsoCode));
-        if($dataOnly) return $datas;
+        $datas = array_map(function ($a) {
+            if ($a !== '') return $a;
+            return 'n/a';
+        }, $this->lookup($IsoFormat, $IsoCode));
+        if ($dataOnly) return $datas;
         $Headers = $this->getAvailableHeaders();
-        return array_combine($Headers,$datas);
+        return array_combine($Headers, $datas);
     }
 
     /**
@@ -470,7 +478,7 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryAlpha2Code($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::ALPHA2];
         return 'n/a';
     }
@@ -490,10 +498,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryAlpha3Code($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::ALPHA3];
         return 'n/a';
     }
+
     /**
      * Get country numeric code for given ISO-3166-2 or ISO-3166-3 code
      * <code>
@@ -510,67 +519,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryNumericCode($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::NUMERIC];
         return 'n/a';
     }
-    /**
-     * Get country Currency Code from given alpha-2, alpha-3 or numeric code
-     * <code>
-     *      Example:  For France
-     *      $myObject->getCountryCurrencyCode('fra');
-     *      $myObject->getCountryCurrencyCode('fr');
-     *      $myObject->getCountryCurrencyCode('250');
-     * </code>
-     *
-     * @param $IsoCode
-     * @return string
-     * @throws \Exception
-     */
-    public function getCountryCurrencyCode($IsoCode)
-    {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
-            return $countryDatas[self::CURRENCY_CODE];
-        return 'n/a';
-    }
-    /**
-     * Get country Currency Name from given alpha-2, alpha-3 or numeric code
-     * <code>
-     *      Example:  For France
-     *      $myObject->getCountryCurrencyName('fra');
-     *      $myObject->getCountryCurrencyName('fr');
-     *      $myObject->getCountryCurrencyName('250');
-     * </code>
-     *
-     * @param $IsoCode
-     * @return string
-     * @throws \Exception
-     */
-    public function getCountryCurrencyName($IsoCode)
-    {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
-            return $countryDatas[self::CURRENCY_NAME];
-        return 'n/a';
-    }
-    /**
-     * Get country Phone Code (ISD) from given alpha-2, alpha-3 or numeric code
-     * <code>
-     *      Example:  For France
-     *      $myObject->getCountryPhoneCode('fra');
-     *      $myObject->getCountryPhoneCode('fr');
-     *      $myObject->getCountryPhoneCode('250');
-     * </code>
-     *
-     * @param $IsoCode
-     * @return string
-     * @throws \Exception
-     */
-    public function getCountryPhoneCode($IsoCode)
-    {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
-            return $countryDatas[self::PHONE_CODE];
-        return 'n/a';
-    }
+
     /**
      * Get country Name from given alpha-2, alpha-3 or numeric code
      * <code>
@@ -586,10 +539,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryName($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::COUNTRY];
         return 'n/a';
     }
+
     /**
      * Get Country Capital name from given alpha-2, alpha-3 or numeric code
      * <code>
@@ -605,10 +559,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryCapitalName($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::CAPITAL];
         return 'n/a';
     }
+
     /**
      * Get the Top Level Domain(TLD) of a Country  from given alpha-2, alpha-3 or numeric code
      * <code>
@@ -624,10 +579,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryDomain($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::TLD];
         return 'n/a';
     }
+
     /**
      * Get Country two letters Continent code from given alpha-2, alpha-3 or numeric code
      * <code>
@@ -643,10 +599,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryRegionAlphaCode($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::REGION_ALPHA_CODE];
         return 'n/a';
     }
+
     /**
      * Get Country Continent ISO code from given alpha-2, alpha-3 or numeric code
      * <code>
@@ -662,10 +619,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryRegionNumCode($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::REGION_NUM_CODE];
         return 'n/a';
     }
+
     /**
      * Get Country Continent Name from given alpha-2, alpha-3 or numeric code
      * <code>
@@ -681,10 +639,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryRegionName($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::REGION];
         return 'n/a';
     }
+
     /**
      * Get Country Sub-region ISO code from given alpha-2, alpha-3 or numeric code
      * <code>
@@ -700,10 +659,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountrySubRegionCode($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::SUB_REGION_CODE];
         return 'n/a';
     }
+
     /**
      * Get Country Continent ISO code from given alpha-2, alpha-3 or numeric code
      * <code>
@@ -719,10 +679,11 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountrySubRegionName($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::SUB_REGION];
         return 'n/a';
     }
+
     /**
      * Get Languages (code) spoken in a Country  from given alpha-2, alpha-3 or numeric code
      * <code>
@@ -738,8 +699,48 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryLanguage($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
             return $countryDatas[self::LANGUAGE];
+        return 'n/a';
+    }
+
+    /**
+     * Get country Currency Code from given alpha-2, alpha-3 or numeric code
+     * <code>
+     *      Example:  For France
+     *      $myObject->getCountryCurrencyCode('fra');
+     *      $myObject->getCountryCurrencyCode('fr');
+     *      $myObject->getCountryCurrencyCode('250');
+     * </code>
+     *
+     * @param $IsoCode
+     * @return string
+     * @throws \Exception
+     */
+    public function getCountryCurrencyCode($IsoCode)
+    {
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
+            return $countryDatas[self::CURRENCY_CODE];
+        return 'n/a';
+    }
+
+    /**
+     * Get country Currency Name from given alpha-2, alpha-3 or numeric code
+     * <code>
+     *      Example:  For France
+     *      $myObject->getCountryCurrencyName('fra');
+     *      $myObject->getCountryCurrencyName('fr');
+     *      $myObject->getCountryCurrencyName('250');
+     * </code>
+     *
+     * @param $IsoCode
+     * @return string
+     * @throws \Exception
+     */
+    public function getCountryCurrencyName($IsoCode)
+    {
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
+            return $countryDatas[self::CURRENCY_NAME];
         return 'n/a';
     }
 
@@ -758,10 +759,96 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      */
     public function getCountryPostalCodePattern($IsoCode)
     {
-        if($countryDatas = $this->getCountryInfos($IsoCode,true))
-            return $countryDatas[self::POSTAL_CODE_REGEX];
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
+            return $countryDatas[self::POSTAL_CODE_PATTERN];
         return 'n/a';
     }
+
+    /**
+     * Get country Phone Code (ISD) from given alpha-2, alpha-3 or numeric code
+     * <code>
+     *      Example:  For France
+     *      $myObject->getCountryPhoneCode('fra');
+     *      $myObject->getCountryPhoneCode('fr');
+     *      $myObject->getCountryPhoneCode('250');
+     * </code>
+     *
+     * @param $IsoCode
+     * @return string
+     * @throws \Exception
+     */
+    public function getCountryPhoneCode($IsoCode)
+    {
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
+            return $countryDatas[self::PHONE_CODE];
+        return 'n/a';
+    }
+
+    /**
+     * Get country Phone Code (ISD) from given alpha-2, alpha-3 or numeric code
+     * <code>
+     *      Example:  For France
+     *      $myObject->getCountryInternationalDialingPrefix('fra');
+     *      $myObject->getCountryInternationalDialingPrefix('fr');
+     *      $myObject->getCountryInternationalDialingPrefix('250');
+     * </code>
+     *
+     * @param $IsoCode
+     * @return string
+     * @throws \Exception
+     */
+    public function getCountryInternationalDialingPrefix($IsoCode)
+    {
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
+            return $countryDatas[self::INTL_DIALING_PREFIX];
+        return 'n/a';
+    }
+
+    /**
+     * Get country Phone Code (ISD) from given alpha-2, alpha-3 or numeric code
+     * <code>
+     *      Example:  For France
+     *      $myObject->getCountryNationalDialingPrefix('fra');
+     *      $myObject->getCountryNationalDialingPrefix('fr');
+     *      $myObject->getCountryNationalDialingPrefix('250');
+     * </code>
+     *
+     * @param $IsoCode
+     * @return string
+     * @throws \Exception
+     */
+    public function getCountryNationalDialingPrefix($IsoCode)
+    {
+        if ($countryDatas = $this->getCountryInfos($IsoCode, true))
+            return $countryDatas[self::NATL_DIALING_PREFIX];
+        return 'n/a';
+    }
+
+    /**
+     * Get country Phone Code (ISD) from given alpha-2, alpha-3 or numeric code
+     * <code>
+     *      Example:  For France
+     *      $myObject->getCountryPhoneNumberPattern('fra');
+     *      $myObject->getCountryPhoneNumberPattern('fr');
+     *      $myObject->getCountryPhoneNumberPattern('250');
+     * </code>
+     *
+     * @param $IsoCode
+     * @return string
+     * @throws \Exception
+     */
+    public function getCountryPhoneNumberPattern($IsoCode)
+    {
+        if (!$countryDatas = $this->getCountryInfos($IsoCode, true))
+            return 'n/a';
+        $countryPhoneCode = $countryDatas[self::PHONE_CODE];
+        $AreaCode = str_ireplace('n/a', '', $countryDatas[self::NATL_DIALING_PREFIX]);
+        $SubscriberPhoneNumberPattern = str_ireplace('n/a', '', $countryDatas[self::SUSCRIBER_PHONE_PATTERN]);
+        $PhoneNumberPattern = $AreaCode !== '' ? '(+' . $countryPhoneCode . '|' . $AreaCode . ')' : '(+' . $countryPhoneCode . ')?';
+        $PhoneNumberPattern .= ($SubscriberPhoneNumberPattern !== '') ? '(' . $SubscriberPhoneNumberPattern . ')' : '(\d+)';
+        return $PhoneNumberPattern;
+    }
+
     /**
      * return an associative [$code=>$name] array of all Currencies.
      *
@@ -772,15 +859,15 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
     {
         $DataSets = $this->iterator();
         $output = [];
-        foreach ($DataSets as $datas)
-        {
-            if(!$datas[self::CURRENCY_CODE]) continue;
+        foreach ($DataSets as $datas) {
+            if (!$datas[self::CURRENCY_CODE]) continue;
             isset($output[$datas[self::CURRENCY_CODE]]) or
             $output[$datas[self::CURRENCY_CODE]] = $datas[self::CURRENCY_NAME];
         }
         asort($output);
         return $output;
     }
+
     /**
      * return an associative array of ISO-2, ISO-3 or numeric list of countries.
      *
@@ -788,7 +875,8 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
      * @return array
      * @throws \Exception
      */
-    public function getAllCountriesCodeAndName($IsoFormat=self::ALPHA2){
+    public function getAllCountriesCodeAndName($IsoFormat = self::ALPHA2)
+    {
         $DataSets = $this->iterator($IsoFormat);
         $output = [];
         foreach ($DataSets as $country)
@@ -805,9 +893,8 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
     {
         $DataSets = $this->iterator();
         $output = [];
-        foreach ($DataSets as $datas)
-        {
-            if(!$datas[self::REGION_NUM_CODE]) continue;
+        foreach ($DataSets as $datas) {
+            if (!$datas[self::REGION_NUM_CODE]) continue;
             isset($output[$datas[self::REGION_NUM_CODE]]) or
             $output[$datas[self::REGION_NUM_CODE]] = $datas[self::REGION];
         }
@@ -823,9 +910,8 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
     {
         $DataSets = $this->iterator();
         $output = [];
-        foreach ($DataSets as $datas)
-        {
-            if(!$datas[self::REGION]) continue;
+        foreach ($DataSets as $datas) {
+            if (!$datas[self::REGION]) continue;
             isset($output[$datas[self::REGION]][$datas[self::ALPHA2]]) or
             $output[$datas[self::REGION]][$datas[self::ALPHA2]] = $datas[self::COUNTRY];
         }
@@ -841,9 +927,8 @@ final class WorldCountriesDatas implements \Countable, \IteratorAggregate
     {
         $DataSets = $this->iterator();
         $output = [];
-        foreach ($DataSets as $datas)
-        {
-            if(!$datas[self::CURRENCY_CODE]) continue;
+        foreach ($DataSets as $datas) {
+            if (!$datas[self::CURRENCY_CODE]) continue;
             isset($output[$datas[self::CURRENCY_CODE]][$datas[self::ALPHA2]]) or
             $output[$datas[self::CURRENCY_CODE]][$datas[self::ALPHA2]] = $datas[self::COUNTRY];
         }
