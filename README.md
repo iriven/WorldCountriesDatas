@@ -175,3 +175,10 @@ All useful information about every country packaged as convenient little country
 
      	$myObject->getAllCountriesGroupedByRegions();
 </code>
+
+## Donation
+
+If this project help you reduce time to develop, you can give me a cup of coffee :)
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XDCFPNTKUC4TU)
+
